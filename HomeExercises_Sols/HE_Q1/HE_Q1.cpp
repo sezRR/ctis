@@ -20,9 +20,7 @@
 void drawChar(int times, char character)
 {
 	for (int i = 0; i < times; i++)
-	{
 		printf("%c", character);
-	}
 
 	if (character != ' ')
 		printf("\n");
