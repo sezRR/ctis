@@ -4,7 +4,6 @@
 #define SIDE_LENGTH_MIN 4
 
 #include <stdio.h>
-#include "AQ1.h"
 
 void drawChar(int lineSize, char character, bool newLineAfterProcess)
 {
