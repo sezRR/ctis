@@ -5,7 +5,7 @@
 
 #include <stdio.h>
 
-//void dispLine(); // Function Prototype
+void dispLine(); // Function Prototype
 
 int main(void)
 {
