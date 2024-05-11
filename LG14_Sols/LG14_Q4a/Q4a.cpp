@@ -16,14 +16,10 @@ int main(void)
 	else 
 	{
 		while (fscanf(sentenceFile, "%c", &words[letterCounter]) != EOF)
-		{
 			letterCounter++;
-		}
 
-		for (int i = letterCounter; i > 0; i--)
-		{
-			fprintf(reverseAFile, "%c", &words[i]);
-		}
+		for (int i = letterCounter - 1; i >= 0; i--)
+			fprintf(reverseAFile, "%c", words[i]);
 
 		fclose(sentenceFile);
 		fclose(reverseAFile);
