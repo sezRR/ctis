@@ -1,0 +1,7 @@
+ID     PRICE QUANTITY PAYMENT
+------ ----- -------- -------
+   123   166        5     830
+   130   166        2     332
+   120   299        3     897
+
+Total payment of the customet is: 2059 TL
