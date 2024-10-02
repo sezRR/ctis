@@ -1,0 +1,4 @@
+Generated number	Digits in reverse order
+****************	***********************
+             623	3	2	6	
+             178	8	7	1	

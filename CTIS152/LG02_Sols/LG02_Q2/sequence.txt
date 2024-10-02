@@ -1,0 +1,8 @@
+Element Name	Value	Address
+------------	-----	-------
+*(nums + 0)	78	004FFBDC
+*(nums + 1)	93	004FFBE0
+*(nums + 2)	81	004FFBE4
+*(nums + 3)	28	004FFBE8
+*(nums + 4)	33	004FFBEC
+*(nums + 5)	6	004FFBF0
