@@ -1,0 +1,4 @@
+3
+dodge 707 black coupe
+gmc 275 white suv
+chevrolet 450 yellow pickup
