@@ -1,0 +1,9 @@
+{
+  "baseFontSizeAction": true,
+  "baseFontSize": 20,
+  "cssTheme": "Minimal",
+  "accentColor": "#526dbc",
+  "nativeMenus": false,
+  "theme": "obsidian",
+  "showViewHeader": true
+}
