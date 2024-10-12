@@ -4,17 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "758744f441cf9335",
+        "id": "a4c1b1f890578369",
         "type": "tabs",
         "children": [
           {
-            "id": "866271f8c1c1384b",
+            "id": "34bb34e74b7a271a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "NOTES.md",
-                "mode": "preview",
+                "file": "3.3.4 TCP-IP Protocol Suite.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -69,7 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 286.5
+    "width": 300.5
   },
   "right": {
     "id": "a2f9a12155b2078d",
@@ -85,8 +85,8 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "NOTES.md",
-                "collapseAll": false,
+                "file": "3.3.4 TCP-IP Protocol Suite.md",
+                "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "NOTES.md",
+                "file": "3.3.4 TCP-IP Protocol Suite.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,11 +125,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "NOTES.md"
+                "file": "3.3.4 TCP-IP Protocol Suite.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -148,43 +149,44 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "866271f8c1c1384b",
+  "active": "34bb34e74b7a271a",
   "lastOpenFiles": [
-    "3.2.3 Protocol Interactions.md",
-    "NOTES.md",
-    "3.2.2 Network Protocol Functions - Figure 1.png",
-    "3.1.10 Message Delivery Options.md",
-    "3.2.1 Network Protocol Overview.md",
-    "3.1.9 Message Timing.md",
-    "1.4.2 LANs and WANs.md",
-    "1.4.1 Networks of Many Sizes.md",
-    "1.3.2 Topology Diagrams - Figure 1.png",
-    "1.2.4 Intermediary Devices.md",
-    "1.2.4 Intermediary Devices - Excalidraw.md",
-    "1.2.5 Network Media.md",
-    "1.3.2 Topology Diagrams.md",
-    "1.3.1 Network Representations.md",
-    "1.2.2 Peer-to-Peer.md",
-    "1.2.1 Host Roles.md",
+    "NOTES.excalidraw - 2.md",
+    "3.3.4 TCP-IP Protocol Suite - Figure 1.png",
     "3.2.2 Network Protocol Functions.md",
+    "3.2.1 Network Protocol Overview.md",
+    "3.1.10 Message Delivery Options.md",
+    "3.1.8 Message Size.md",
+    "3.1.7 Message Formatting and Encapsulation.md",
+    "3.3.2 Evolution of Protocol Suits - Figure 1.png",
     "3.2.3 Protocol Interactions - Figure 1.png",
-    "NOTES.excalidraw.md",
-    "1.6.5 Network Security.md",
-    "1.6.5 Network Security - Figure 1.png",
+    "3.2.2 Network Protocol Functions - Figure 1.png",
+    "3.1.7 Message Formatting and Encapsulation - Figure 1.png",
+    "NOTES.md",
+    "Notes - Figure 1.jpg",
+    "NOTES.excalidraw - 1.md",
+    "Untitled.md",
+    "3.3.4 TCP-IP Protocol Suite.md",
+    "3.3.3 TCP-IP Protocol Example.md",
+    "3.3.5 TCP-IP Communication Process.md",
+    "3.3.3 TCP-IP Protocol Example - Figure 1.png",
+    "CTIS261_ExerciseQuestions1.pdf",
+    "3.2.3 Protocol Interactions.md",
+    "3.3.2 Evolution of Protocol Suits.md",
+    "3.3.1 Network Protocol Suits.md",
+    "1.7.8 Powerline Networking.md",
+    "3.1.9 Message Timing.md",
+    "3.1.6 Message Encoding.md",
+    "3.1.5 Network Protocol Requirements.md",
+    "3.1.4 Rule Establishment.md",
+    "3.1.2 Communication Fundementals.md",
+    "1.7.9 Wireless Broadband.md",
+    "1.7.6 Cloud Computing.md",
+    "1.7.7 Technology Trends in the Home.md",
+    "1.7.8 Powerline Networking - Figure 1.png",
     "1.6.1 Network Architecture.md",
-    "1.6.4 Quality of Service.md",
-    "1.6.4 Quality of Service - Figure 1.png",
-    "1.6.3 Scalability.md",
-    "1.6.3 Scalability - Figure 1.png",
-    "1.6.2 Fault Tolerance.md",
-    "1.6.2 Fault Tolerance - Figure 1.png",
-    "1.5.4 The Converging Network.md",
-    "1.5.3 Businesses Internet Connections.md",
-    "1.5.4 The Converging Network - Figure 2.png",
-    "1.5.4 The Converging Network - Figure 1.png",
-    "1.5.3 Businesses Internet Connections - Figure 1.png",
-    "1.5.2 Home and Small Office Internet Connections.md",
-    "1.5.1 Internet Access Technologies.md",
+    "1.3.2 Topology Diagrams - Figure 1.png",
+    "1.6.5 Network Security - Figure 1.png",
     "TUR 101/Blogs/Ötekilerin Distopik Karanlığı.pdf",
     "TUR 101/Blogs/Değişimin Dönüşümü.pdf",
     "TUR 101/Blogs/Zamanı Olmayan Hayaller.pdf",
@@ -193,7 +195,6 @@
     "writes/essays/turkish/topic/Zamanı Olmayan Hayaller  - TURK101 - BLOG 3.pdf",
     "TUR 101/Research",
     "TUR 101/Mails",
-    "TUR 101/Blogs",
-    "TUR 101"
+    "TUR 101/Blogs"
   ]
 }

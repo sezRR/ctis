@@ -1,3 +1,11 @@
 {
-  "graph:open": []
+  "graph:open": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "G"
+    }
+  ]
 }
