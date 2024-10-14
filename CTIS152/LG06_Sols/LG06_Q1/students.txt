@@ -1,0 +1,4 @@
+Berk_Onder   3.5	12
+Bengi_Onder  3.8	11
+Dobi_Onder   2.9	10
+Bora_Onder   4.0	12

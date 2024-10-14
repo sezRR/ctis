@@ -1,0 +1,7 @@
+6
+Apple iPhone14 90 85 95
+Samsung GalaxyS21 80 90 80
+Google Pixel5 75 95 90
+OnePlus 9 70 85 88
+Xiaomi Mi11 65 80 92
+Sony Xperia 5 75 75 70
