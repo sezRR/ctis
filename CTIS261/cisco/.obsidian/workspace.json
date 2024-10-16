@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "e4f42088b2a6c237",
+        "id": "652e4437bcc8a2c6",
         "type": "tabs",
         "children": [
           {
-            "id": "f4baa9abadd478c8",
+            "id": "74bf60f9104e2b25",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "3.6.2 Sequencing.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ]
@@ -69,7 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 328.5
+    "width": 300.5
   },
   "right": {
     "id": "a2f9a12155b2078d",
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "3.6.2 Sequencing.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "3.6.2 Sequencing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "3.6.2 Sequencing.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -149,11 +141,24 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "f4baa9abadd478c8",
+  "active": "74bf60f9104e2b25",
   "lastOpenFiles": [
+    "3.7.8 Data Link Addresses.md",
+    "3.7.7 Role of the Data Link Layer Addresses  - Different IP Networks.md",
+    "3.7.7 Role of the Data Link Layer Addresses - Different IP Networks.png",
+    "3.7.6 Role of the Network Layer Addresses.md",
+    "3.7.6 Role of the Network Layer Addresses - Figure 1.png",
+    "3.7.4 Role of the Data Link Layer Addresses - Same IP Network.md",
+    "3.7.4 Role of the Data Link Layer Addresses - Same IP Network - Figure 1.png",
+    "3.7.3 Devices on the Same Network - Figure 1.png",
+    "3.7.3 Devices on the Same Network.md",
+    "3.7.2 Layer 3 Logical Address - Figure 1.png",
+    "3.7.2 Layer 3 Logical Address.md",
+    "3.7.1 Addresses.md",
+    "3.6.2 Sequencing.md",
+    "3.7.1 Addresses - Figure 1.png",
     "3.6.3 Protocol Data Units.md",
     "3.6.3 Protocol Data Units - Figure 1.png",
-    "3.6.2 Sequencing.md",
     "3.6.1 Segmenting Messages.md",
     "3.6.2 Sequencing - Figure 1.png",
     "Untitled",
@@ -169,25 +174,13 @@
     "3.4.1 Open Standards.md",
     "3.3.4 TCP-IP Protocol Suite.md",
     "NOTES.excalidraw - 2.md",
-    "3.3.4 TCP-IP Protocol Suite - Figure 1.png",
     "3.2.2 Network Protocol Functions.md",
     "3.2.1 Network Protocol Overview.md",
     "3.1.10 Message Delivery Options.md",
     "3.1.8 Message Size.md",
     "3.1.7 Message Formatting and Encapsulation.md",
-    "3.3.2 Evolution of Protocol Suits - Figure 1.png",
-    "3.2.3 Protocol Interactions - Figure 1.png",
-    "3.2.2 Network Protocol Functions - Figure 1.png",
-    "3.1.7 Message Formatting and Encapsulation - Figure 1.png",
     "NOTES.md",
-    "Notes - Figure 1.jpg",
     "NOTES.excalidraw - 1.md",
-    "3.3.3 TCP-IP Protocol Example.md",
-    "3.3.5 TCP-IP Communication Process.md",
-    "3.2.3 Protocol Interactions.md",
-    "3.3.2 Evolution of Protocol Suits.md",
-    "3.3.1 Network Protocol Suits.md",
-    "1.7.8 Powerline Networking.md",
     "TUR 101/Blogs/Ötekilerin Distopik Karanlığı.pdf",
     "TUR 101/Blogs/Değişimin Dönüşümü.pdf",
     "TUR 101/Blogs/Zamanı Olmayan Hayaller.pdf",
