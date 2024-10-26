@@ -1,0 +1,7 @@
+6
+JonSnow 1122 C D 12
+JaneDoe 2562 C D 7 
+MonicaBing 2255 O N 8
+RossGeller 6655 O D 10
+JakeGrey 5588 C N 22
+MaxBlack 9966 C N 16
