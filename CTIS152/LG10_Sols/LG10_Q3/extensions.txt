@@ -1,0 +1,10 @@
+biz small business web sites
+com commercial business
+edu educational institutions
+gov government entities
+info informative business
+k12 Turkish primary and secondary schools
+mil military
+mobi mobile products and services
+net network organizations
+org organizations (non-profit)
