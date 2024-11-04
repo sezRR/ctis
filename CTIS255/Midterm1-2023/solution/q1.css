@@ -1,0 +1,96 @@
+* { margin: 0 ; padding: 0;}
+body { font-family: arial; font-size: 14px;}
+main { display: flex ;  height: 100vh ; /* use up all browser height */}
+
+/* LEFT PANEL */
+aside {   width: 260px; padding: 10px; background-color: #EEE; font-size: 0.9em;}
+
+.btn {
+  cursor: pointer ;
+  border:1px solid #999 ;
+  padding: 10px ;
+  border-radius: 5px;
+  display: flex ;
+  gap: 10px;
+  color: #666 ;
+  background-color: white;
+}
+aside h3 { margin-top: 1.5em ; color: #999; font-weight: normal;}
+ul li { display: flex ; line-height: 3em  ; cursor: pointer; border-radius: 5px; }
+ul li:hover { background-color:  #CCC;}
+ul li img { margin-right: 1em ; margin-left: 1em; }
+
+/* RIGHT PANEL */
+section {  
+    flex-grow: 1 ;  /* use up all unused space */
+    display: flex ; flex-direction: column; /* place flexitems one under another */ 
+    align-items: center;  /* center in horizontal direction */
+}
+
+.version {
+    width: 300px; background: #EEE ; border-radius: 15px;
+    display: flex ; gap: 20px;
+    padding: 5px; margin-top: 30px;
+    align-items: center;
+    position: relative;  /* offset parent of #infoBox */
+}
+
+/* Select flex items of .version */
+.version > div { flex: 1 ; text-align: center; }
+.v35 { background-color: white; padding: 10px 20px; border-radius: 10px; color: black ; cursor:pointer }
+.v40 { color: #666; }
+.version span { margin: 0 5px;}
+.v35:hover #infoBox { visibility: visible; opacity: 1;}
+
+#infoBox { 
+    background-color: white;
+    position:absolute ; top: 60px; left: 0 ;  
+    text-align: left;
+    border:1px solid #CCC; border-radius: 12px;
+    padding: 15px;
+    opacity: 0; 
+    visibility: hidden; /* to disable hover effect */
+    transition: all .5s ease ; 
+}
+
+#infoBox p { margin-top: 10px; font-size: 12px; color: #999; font-weight: bold; }
+
+
+/* chatGPT Text in the middle of right panel */
+#chatgpt-text { color: #CCC; font-size: 36px; font-weight: bold;
+    flex-grow: 1 ;
+    display: flex ;
+    align-items: center; /* center vertically */
+}
+
+/* Bottom container in the right panel : contains  tips, textbox and warning parts */
+.bottom { width: 90% ; max-width: 800px; }
+
+/* Tip Box */
+.tips { display:flex ; gap: 10px; margin-bottom: 40px; }
+.tip { border:1px solid #CCC; border-radius: 10px; padding: 10px; flex: 1 ; cursor: pointer;}
+.tip:hover { background-color: #EEE;}
+.tip h4 { margin-bottom: 0.4em;}
+.tip span { color: #aaa; font-size: 0.9em; font-weight: bold; }
+
+/* Textbox */
+.input {height: 56px; display:flex ; position: relative; }
+
+#mic { position: absolute ; right: 20px; top: 12px; cursor: pointer ; }
+
+#msgTextbox {
+    flex-grow: 1 ;
+    padding: 10px 60px 10px 15px ;
+    border:1px solid #CCC ; border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0 0 0 / 0.1);
+    font-size: 1.2em ;
+}
+
+/* Warning Text */
+#warning { text-align: center; font-size: 12px; padding: 15px; }
+
+/* Mobile Version */
+@media (max-width: 768px) {
+    aside { display:none ;}
+    .tips { flex-direction: column;}
+}

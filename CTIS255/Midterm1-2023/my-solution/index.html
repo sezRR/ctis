@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <!-- SIDEBAR -->
+      <aside>
+        <!-- NEW CHAT BUTTON -->
+        <div class="button">
+          <img src="./assets/icons/plus.svg" alt="Plus Icon" />
+          <span>New Chat</span>
+        </div>
+
+        <!-- CHAT HISTORY - TODAY -->
+        <div class="chat-history-section">
+          <h3>Today</h3>
+          <ul>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>What is ETF?</span>
+            </li>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>Promises in JavaScript</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- CHAT HISTORY - YESTERDAY -->
+        <div class="chat-history-section">
+          <h3>Yesterday</h3>
+          <ul>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>How to study CSS?</span>
+            </li>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>What do you think about ... ?</span>
+            </li>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>Quicksort algorithm in C</span>
+            </li>
+            <li>
+              <img src="./assets/icons/msg.svg" alt="Message Icon" />
+              <span>How to improve my self-discipline</span>
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- CHAT -->
+      <section id="chat">
+        <!-- MODEL SELECTOR -->
+        <div class="model-selector">
+          <div class="model model-active">
+            <img src="./assets/icons/flash.svg" alt="Flash Icon" />
+            <span>GPT-3.5</span>
+            <!-- MODEL DETAILS -->
+            <div class="model-details">
+              <p>Out fastest model, great for most everyday tasks.</p>
+              <p>Available to Free and Plus users</p>
+            </div>
+          </div>
+          <div class="model">
+            <img src="./assets/icons/stars.svg" alt="Stars Icon" />
+            <span>GPT-4</span>
+            <img src="./assets/icons/lock.svg" alt="Lock Icon" />
+          </div>
+        </div>
+
+        <!-- ChatGPT Watermark -->
+        <div id="chatgpt-watermark">ChatGPT</div>
+
+        <!-- BOTTOM SECTION OF CHAT -->
+        <div class="bottom-chat-container">
+          <div class="suggestions">
+            <div class="suggestion">
+              <h4>Give me ideas</h4>
+              <span>for what to do with my kids' art</span>
+            </div>
+            <div class="suggestion">
+              <h4>Recommend activities</h4>
+              <span>for a team-building day</span>
+            </div>
+          </div>
+          <div class="chat-input-container">
+            <div class="chat-input">
+              <input
+                type="text"
+                name="message"
+                id="message"
+                placeholder="Send a message or hold space bar to talk"
+              />
+              <img
+                id="mic"
+                src="./assets/icons/mic.svg"
+                alt="Microphone Icon"
+              />
+            </div>
+            <div id="caution-footer">
+              <span
+                >ChatGPT can make mistakes. Consider checking important
+                information.</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
