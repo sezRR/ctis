@@ -1,0 +1,6 @@
+111 ali uyar 37000 family Y 25
+222 ayse yilmaz 40000 individual N 25
+333 zehra engin 60000 none Y 30
+444 sena altun 80000 individual Y 30
+555 ayla celik 24500 none N 20
+666 bartu demirel 78000 family N 30
