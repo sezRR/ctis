@@ -17,44 +17,25 @@ void swap(person_t* person1, person_t* person2) {
 	*person2 = tempPerson;
 }
 
-void bubbleSortTwoLevel(person_t* persons, int nbOfPerson) {
-	int sorted = 0,
-		progress = 1;
-
-	// SORT BY SURNAME ASC
-	do
-	{
+void bubbleSortTwoLevel(person_t* persons, int noe) {
+	int pass, k, sorted;
+	// Primary sort by surname
+	pass = 1;
+	do {
 		sorted = 1;
-		for (int i = 0; i < nbOfPerson - progress; i++)
-		{
-			if (strcmp(persons[i].surname, persons[i + 1].surname) > 0)
-			{
-				swap(&persons[i], &persons[i + 1]);
+		for (k = 0; k < noe - pass; k++) {
+			if (strcmp(persons[k].surname, persons[k + 1].surname) > 0) {
+				swap(&persons[k], &persons[k + 1]);
 				sorted = 0;
 			}
-		}
-		progress++;
-	} while (!sorted);
-
-	// WHERE PERSON.SURNAME = PERSON + 1.SURNAME
-	// SORT BY NAME ASC
-	sorted = 0;
-	progress = 0;
-	do
-	{
-		sorted = 1;
-		for (int i = 0; i < nbOfPerson - progress; i++)
-		{
-			if (strcmp(persons[i].surname, persons[i + 1].surname) == 0)
-			{
-				if (strcmp(persons[i].name, persons[i + 1].name) > 0)
-				{
-					swap(&persons[i], &persons[i + 1]);
+			else if (strcmp(persons[k].surname, persons[k + 1].surname) == 0) {
+				if (strcmp(persons[k].name, persons[k + 1].name) > 0) {
+					swap(&persons[k], &persons[k + 1]);
 					sorted = 0;
 				}
 			}
 		}
-		progress++;
+		pass++;
 	} while (!sorted);
 }
 
