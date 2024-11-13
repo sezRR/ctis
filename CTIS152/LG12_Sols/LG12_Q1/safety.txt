@@ -1,0 +1,8 @@
+7
+female legs slip/trip 396
+male arms fall 430
+male arms burn 58
+female abdomen fallingObject 4831
+male multiple equipment 2476
+female feet lifting 470
+male hands fallingObject 4618
