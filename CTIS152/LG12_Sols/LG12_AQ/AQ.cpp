@@ -67,9 +67,11 @@ int binarySearch(char hotels[][MAX], char* search, int l, int r, int* insertPos)
 	while (l <= r)
 	{
 		int m = (l + r) / 2;
-		if (strcmp(hotels[m], search) == 0)
+		int calc = strcmp(hotels[m], search);
+
+		if (calc == 0)
 			return m;
-		else if (strcmp(hotels[m], search) > 0)
+		else if (calc > 0)
 			r = m - 1;
 		else
 			l = m + 1;
