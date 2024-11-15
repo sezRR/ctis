@@ -64,10 +64,9 @@ void bubbleSort(char hotels[][MAX], int hotelCount) {
 }
 
 int binarySearch(char hotels[][MAX], char* search, int l, int r, int* insertPos) {
-	int m = -1;
 	while (l <= r)
 	{
-		m = (l + r) / 2;
+		int m = (l + r) / 2;
 		if (strcmp(hotels[m], search) == 0)
 			return m;
 		else if (strcmp(hotels[m], search) > 0)
@@ -76,20 +75,19 @@ int binarySearch(char hotels[][MAX], char* search, int l, int r, int* insertPos)
 			l = m + 1;
 	}
 
-	*insertPos = m + 1;
+	*insertPos = l;
 	return -1;
 }
 
-void shiftDown(char hotels[][MAX], int arrSize, int insertPos) {
-	for (int i = arrSize - 1; i > arrSize - insertPos; i--) {
+void shiftDown(char hotels[][MAX], int* arrSize, int insertPos) {
+	for (int i = *arrSize - 1; i >= insertPos; i--)
 		strcpy(hotels[i + 1], hotels[i]);
-		strcpy(hotels[i], "");
-	}
+	(*arrSize)++;
 }
 
-void addToList(char hotels[][MAX], char* newHotel, int arrLen) {
+void addToList(char hotels[][MAX], char* newHotel, int* arrLen) {
 	int insertPos = -1;
-	binarySearch(hotels, newHotel, 0, arrLen - 1, &insertPos);
+	binarySearch(hotels, newHotel, 0, *arrLen - 1, &insertPos);
 	if (insertPos != -1) {
 		shiftDown(hotels, arrLen, insertPos);
 		strcpy(hotels[insertPos], newHotel);
@@ -125,7 +123,7 @@ int main(void) {
 				char newHotel[MAX];
 				printf("Enter the hotel name: ");
 				scanf(" %[^\n]", newHotel);
-				addToList(hotels, newHotel, hotelCount);
+				addToList(hotels, newHotel, &hotelCount);
 			}
 
 			choice = menu();
