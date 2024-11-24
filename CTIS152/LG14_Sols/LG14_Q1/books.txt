@@ -1,0 +1,9 @@
+2 Problem Solving 1234-SC28-ML69 Walter Savitch 2006
+1 Science and Technology 3452-LK11-OL90 Marc Paye 2009
+3 English Literature 1627-JP18-22UL Jay Stevenson 2007
+2 Design Patterns 1978-UL62-22PL Ralph Johnson 1994
+3 Norton Anthology 1393-MS90-A256 Sarah Lawall 2005
+1 Conceptual Science 1110-ZE29-231E John Suchocki 2007
+1 Earth Science 2613-YU27-32RE Dennis Tasa 2008
+2 Agile Softwares 1445-KL22-3559 Robert Martin 2002
+2 Software Engineering 1071-CA11-4031 Roger Pressman 2004
