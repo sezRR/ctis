@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Question</title>
+    <style>
+     p { text-align: center; letter-spacing: 5px;}
+    </style>
+</head>
+<body>
+    <p>
+      <script>
+        let text = prompt("Enter a text message :") ;
+        let size = 5 ;
+        
+        // process string character by character
+        for ( let i = 0 ; i < text.length; i++) {
+          let letter = text[i] ;
+          if ( letter != " ") {
+            size += 5 ;
+          }
+          document.write(`<span style='font-size:${size}px'>${letter}</span>`) ;
+        }
+          
+      </script>
+    </p>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>
+		  span { margin-left: 20px }
+		</style>
+    </head>
+    <body>
+        <script>
+            /*
+             * Display 10 random numbers between [10, 30]
+             * Use those values for the font size of numbers
+             */
+            
+            for ( let i=0; i<10 ; i++) {
+                let rnd = Math.floor(Math.random() * 21) + 10 ;
+                document.write("<span style='font-size:" + rnd + "px'>" + rnd + "</span>") ;
+            }
+            
+        </script>
+    </body>
+</html>

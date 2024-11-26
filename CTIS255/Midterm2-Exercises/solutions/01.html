@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            p { text-align: center;}
+            .blue { color: blue; }
+            .green { color: green; }
+        </style>
+    </head>
+    <body>
+        <script>
+            /*
+             * Find the max and min value of two numbers
+             * Display result in a paragraph with blue color
+             * If min and max are equal display in green color.
+             */
+            
+            // Get two numbers
+            let n1 = prompt("Enter the first number") ;
+            let n2 = prompt("Enter the second number") ;
+            
+            // Convert strings to numbers
+            n1 = parseInt(n1) ;
+            n2 = parseInt(n2) ;
+            
+            // Find min and max values
+            let max, min ;
+            if ( n1 > n2) {
+                max = n1 ;
+                min = n2;
+            } else {
+                max = n2 ;
+                min = n1 ;
+            } 
+            
+            // Display min and max
+            if ( min !== max) {
+            document.write("<p class='blue'>Min : " + min + " Max : " + max + "</div>") ;
+            } else {
+            document.write("<p class='green'>Min and Max are equal and they are " + n1 + "</div>");
+            }
+        </script>
+        <div>F5 to retry</div>
+    </body>
+</html>

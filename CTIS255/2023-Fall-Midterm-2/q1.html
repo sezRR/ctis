@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script>
+            const MAX = 20;
+            const MIN = 0;
+            const ARR_LEN = 20;
+
+            let generatedNumbs = new Set();
+            const generateRandNumb = () =>
+                Math.floor(Math.random() * (MAX - MIN + 1) + MIN);
+
+            const uniqueRandom = () => {
+                let generated;
+                do {
+                    generated = generateRandNumb();
+                    console.log(generated);
+                } while (generatedNumbs.has(generated));
+
+                generatedNumbs.add(generated);
+                return generated;
+            };
+
+            const arr = Array.from({ length: ARR_LEN }, () => uniqueRandom());
+            document.write(`Random Array: [${arr.join(", ")}]<br>`);
+
+            const arrSorted = arr.sort();
+            document.write(
+                `Median: ${
+                    arr.length % 2 === 0
+                        ? (arr[arr.length / 2] + arr[arr.length / 2 - 1]) / 2
+                        : arr[Math.floor(arr.length / 2)]
+                }`
+            );
+        </script>
+    </body>
+</html>

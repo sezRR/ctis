@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            #avg {
+                font-weight: bold;
+            }
+            .greater-avg {
+                font-weight: bold;
+                color: blue;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const MAX = 80;
+            const MIN = 20;
+
+            const TOTAL_NUMBER = 10;
+
+            let sum = 0;
+            let numbs = [];
+            for (let i = 0; i < TOTAL_NUMBER; i++) {
+                const rand = Math.floor(Math.random() * (MAX - MIN + 1) + MIN);
+                numbs.push(rand);
+                sum += rand;
+            }
+            const avg = (sum / TOTAL_NUMBER).toFixed(1);
+            document.write(`<p id="avg">Average: ${avg}</p>`);
+            for (const numb of numbs) {
+                let classes = "";
+                if (numb > avg) classes += "greater-avg";
+                document.write(`<p class="${classes}">${numb}</p>`);
+            }
+        </script>
+    </body>
+</html>

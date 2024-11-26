@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            form {
+                display: flex;
+                gap: 1.75rem;
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            label {
+                margin-right: 1rem;
+            }
+
+            button {
+                max-width: min-content;
+                padding: 0 2rem;
+            }
+
+            textarea {
+                width: -webkit-fill-available;
+                height: 5rem;
+            }
+        </style>
+    </head>
+    <body>
+        <form name="filterForm">
+            <div>
+                <label for="odd-even">Filter:</label>
+                <select name="odd-even">
+                    <option value="even" selected>Even</option>
+                    <option value="odd">Odd</option>
+                </select>
+            </div>
+            <div>
+                <label for="count">Count:</label>
+                <input type="number" name="count" />
+            </div>
+            <div>
+                <label for="show-arr">Show Array:</label>
+                <input type="checkbox" name="show-arr" />
+            </div>
+            <button type="button" onclick="show()">Show</button>
+            <div>
+                <textarea name="result" readonly></textarea>
+            </div>
+        </form>
+        <script>
+            const MAX = 20;
+            const MIN = 1;
+            const ODD = "ODD";
+            const EVEN = "EVEN";
+
+            const oddEvenPred = (x, remainder) => x % 2 === remainder;
+
+            function show() {
+                filterForm.result.value = "";
+
+                const oddEven =
+                    filterForm["odd-even"].value.toUpperCase() === EVEN
+                        ? EVEN
+                        : ODD;
+                const count = filterForm["count"].value;
+                const showArr = filterForm["show-arr"].checked;
+
+                let arr = Array.from({ length: count }, () =>
+                    Math.floor(Math.random() * (MAX - MIN + 1) + MIN)
+                );
+
+                if (showArr)
+                    filterForm.result.value += `Random Array: [ ${arr.join(
+                        " "
+                    )} ]\n`;
+
+                const remainderFilter = oddEven === EVEN ? 0 : 1;
+                const filteredArr = arr.filter((el) =>
+                    oddEvenPred(el, remainderFilter)
+                );
+
+                if (filteredArr.length === 0) {
+                    filterForm.result.value += "FILTERED ARRAY IS EMPTY!\n";
+                    return;
+                }
+
+                filterForm.result.value += `Filtered (${oddEven}) = ${filteredArr.join(
+                    " + "
+                )}\n`;
+                filterForm.result.value += `SUM = ${filteredArr.reduce(
+                    (a, b) => a + b
+                )}`;
+            }
+        </script>
+    </body>
+</html>

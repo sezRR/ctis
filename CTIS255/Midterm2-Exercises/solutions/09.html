@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table { border:1px solid black; border-collapse: collapse; margin: 10px auto;}
+            td { border:1px solid black; padding: 3px;}
+            [colspan='5'] { text-align: center;}
+        </style>
+    </head>
+    <body>
+        <form name="formSum">
+            <table>
+                <tr>
+                    <td>Filter : </td>
+                    <td>
+                        <select name="method">
+                            <option value='0'>Even</option>
+                            <option value='1'>Odd</option>
+                        </select>
+                    </td>
+                    <td>Count : </td>
+                    <td><input type="text" name="count" size="2" value="5"></td>
+                    <td>
+                        <input type="checkbox" name="verbose" id="verbose" checked>
+                        <label for="verbose">Show Array</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <input type="button" value="Show" onclick='show()'>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        <textarea cols="50" rows="4" name="display"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script>
+            function show() {
+                var sum = 0, method ;
+                var rnd = [] , result = [];
+                var count = parseInt(formSum.count.value) ;
+                for ( var i=0; i<count; i++) {
+                    var num = Math.floor(Math.random() * 20) + 1 ;
+                    rnd.push(num) ;
+                    if ( formSum.method.value === "0" ) {
+                        method = "EVEN" ;
+                        if ( num % 2 === 0) {
+                            result.push(num) ;
+                            sum += num ;
+                        }
+                    } else {
+                        method = "ODD" ;
+                        if ( num % 2 === 1) {
+                            result.push(num) ;
+                            sum += num ;
+                        }
+                    }
+                }
+                var out = "" ;
+                if ( formSum.verbose.checked) {
+                    out += "Random Array : [ " + rnd.join(" ") + " ]\n" ; 
+                }
+                out += "Filtered (" + method + ") = "  + result.join(" + ") ;
+                out += "\nSUM = " + sum ;
+                formSum.display.value = out ;
+            }
+        </script>
+    </body>
+</html>

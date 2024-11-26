@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question 2</title>
+    <script src="./students.js"></script>
+    <style>
+        table { border-collapse: collapse; margin: 20px auto ;}
+        td, th { text-align: center; padding: 5px;}
+        th { border-bottom: 1px solid black;}
+        body { text-align: center;}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Lastname</th>
+            <th>Name</th>
+            <th>Grade</th>
+        </tr>
+        <script>
+            for( let std of students) {
+                document.write(`
+                   <tr>
+                    <td>${std.lastname}</td>
+                    <td>${std.name}</td>
+                    <td>${std.grade}</td>
+                   </tr>
+                `)
+            }
+        </script>
+    </table>
+    <form name="myForm">
+        <select name="ops">
+            <option value="0">Top Student</option>
+            <option value="1">Average</option>
+            <option value="2">Below Average</option>
+        </select>
+        <button type="button" onclick="findStudent()">Find</button>
+        <br><br>
+        <textarea name="out" cols="30" rows="10"></textarea>
+    </form>
+    <script>
+	    let sum = 0 ;
+		for ( let s of students ) {
+		  sum += s.grade ;
+		}
+		let average = sum / students.length ;
+	
+        function findStudent() {
+           let opt = myForm.ops.value ;
+           switch(opt) {
+               case "0" : findTop(); break ;
+               case "1" : findAverage(); break ;
+               case "2" : findBelowAverage() ; break ;
+           }
+        }
+
+        function findTop() {
+		    let max = -1 , maxStd ;
+			for ( let s of students ) {
+			  if ( s.grade > max ) {
+			     max = s.grade ;
+				 maxStd = s ;
+			   }
+			}
+			myForm.out.value = `Top Student:\n\n${maxStd.lastname} ${maxStd.name} ${maxStd.grade}`
+        }
+
+        function findAverage() {
+            myForm.out.value = `Average:\n\n${average}` ;
+        }
+
+        function findBelowAverage() {
+            myForm.out.value = "Below Average:\n\n" ;
+			for ( let s of students) {
+			   if ( s.grade < average ) {
+			      myForm.out.value += s.lastname + " " + s.name  + " " + s.grade + "\n" ; 
+			   }
+			}
+        }
+    </script>
+</body>
+</html>

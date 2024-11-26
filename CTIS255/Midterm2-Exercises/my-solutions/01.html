@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div span {
+                color: blue;
+            }
+
+            .eq span {
+                color: green !important;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let answer = "";
+            const num1 = parseInt(prompt("Enter the first number: "));
+            const num2 = parseInt(prompt("Enter the second number: "));
+
+            let max = num1;
+            let min = num2;
+            if (num2 > max) {
+                max = num2;
+                min = num1;
+            }
+
+            answer += `
+                <div class='${min === max ? "eq" : ""}'>
+                    <span>Min: ${min}</span>
+                    <span>Max: ${max}</span>
+                </div>
+            `;
+
+            document.write(answer);
+        </script>
+        <p>F5 to retry</p>
+    </body>
+</html>

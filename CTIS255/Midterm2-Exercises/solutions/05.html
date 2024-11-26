@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .above { color: blue; font-weight: bold;}
+        </style>
+    </head>
+    <body>
+        <script>
+            /*
+             * Display 10 random numbers between [10, 30]
+             * Use those values for the font size of numbers, if it is more than averag
+             * display in blue color.
+             */
+            
+            var numbers = [] ; // empty array
+            var sum = 0 ;
+            
+            for ( var i=0; i<10 ; i++) {
+                var rnd = Math.floor(Math.random() * 21) + 10 ;  // random number [10 and 30]
+                numbers.push(rnd) ; // add new number
+                sum += rnd ;  // accumulate sum
+            }
+            
+            var average = sum / 10 ;  
+            
+            // Display average and numbers
+            document.write("<div><b>Average : " + average + "</b></div>" ) ;
+            for ( var i=0; i<10; i++) {
+                if ( numbers[i] > average) {
+                    document.write("<p class='above'>" +  numbers[i] + "</div>");
+                } else {
+                    document.write("<div>" +  numbers[i] + "</div>") ;
+                }
+            }
+            
+        </script>
+    </body>
+</html>

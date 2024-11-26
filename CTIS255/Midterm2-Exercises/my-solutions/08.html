@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                display: flex;
+                justify-content: center;
+                gap: 3rem;
+                align-items: center;
+            }
+
+            .column {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .box {
+                height: 50px;
+                width: 50px;
+                border: 1px gray solid;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #selected {
+                font-size: 32px;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container column">
+            <div class="container">
+                <script>
+                    const randBox = Math.floor(Math.random() * 4);
+                    const colors = ["red", "green", "blue"];
+                    let randColor = Math.floor(Math.random() * 3);
+                    for (let i = 0; i < 5; i++) {
+                        randBox === i
+                            ? document.write(
+                                  `<div class="box" id="selected" style="background-color: ${colors[randColor]}">X</div>`
+                              )
+                            : document.write(`<div class="box"></div>`);
+                    }
+                </script>
+            </div>
+            <p>F5 to refresh</p>
+        </div>
+    </body>
+</html>

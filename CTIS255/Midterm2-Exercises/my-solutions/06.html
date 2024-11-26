@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                text-align: center;
+            }
+
+            button {
+                margin-left: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <h1>Squares with random size</h1>
+            <script>
+                const MAX_BOX = 7;
+                const MIN_BOX = 3;
+
+                const BOX_RAND_MULTIPLE_OF = 10;
+                const MAX_BOX_RAND = 80 / BOX_RAND_MULTIPLE_OF;
+                const MIN_BOX_RAND = 30 / BOX_RAND_MULTIPLE_OF;
+
+                let numberOfBoxes = parseInt(
+                    prompt(`Number of boxes: [${MIN_BOX}, ${MAX_BOX}]`)
+                );
+
+                if (numberOfBoxes < MIN_BOX || numberOfBoxes > MAX_BOX)
+                    document.write("<p>Invalid Input</p>");
+                else {
+                    for (let i = 0; i < numberOfBoxes; i++) {
+                        let randSize =
+                            Math.floor(
+                                Math.random() * (MAX_BOX_RAND - MIN_BOX_RAND) +
+                                    MIN_BOX_RAND
+                            ) * BOX_RAND_MULTIPLE_OF;
+                        document.write(
+                            `<button style="width:${randSize}px; height:${randSize}px">${randSize}</button>`
+                        );
+                    }
+                }
+            </script>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            div {
+                text-align: center;
+            }
+            div p {
+                color: blue;
+            }
+            .error {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let out = "<div>";
+            let n1 = parseInt(prompt("First number: "));
+            let n2 = parseInt(prompt("Second number: "));
+            let n3 = parseInt(prompt("Third number: "));
+
+            if (isNaN(n1) || isNaN(n2) || isNaN(n3)) {
+                out += `
+                    <p class="error">At least one of your numbers in not correct!</p>
+                `;
+            } else {
+                out += `
+                    <p>Average of ${n1} and ${n2} and ${n3} is ${
+                    (n1 + n2 + n3) / 3
+                }</p>
+                `;
+            }
+            out += "</div>";
+            document.write(out);
+        </script>
+        <p>F5 to refresh</p>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            span {
+                letter-spacing: 5px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const INITIAL_FONT_SIZE = 5;
+            const INCREASE_AMOUNT = 5;
+
+            let fontSize = INITIAL_FONT_SIZE;
+            let text = prompt("Enter a text message: ");
+            for (const ch of text) {
+                if (ch !== " ") fontSize += INCREASE_AMOUNT;
+                console.log(ch);
+
+                document.write(
+                    `<span style="font-size: ${fontSize}px">${ch}</span>`
+                );
+            }
+        </script>
+    </body>
+</html>

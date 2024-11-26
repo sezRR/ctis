@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Exercises on Javascript</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body { font-family: verdana; line-height: 2}
+            div { text-indent: 40px}
+            h1 { text-align: center;}
+            h3 { text-align: center; border-top: 3px solid black ;}
+            .figure { margin-top: 10px; margin: 10px auto ; width: max-content; text-align: center;} 
+            .figure p { text-align: center;}
+            .figure p span { color: blue ;}
+            .figure img { max-width: 60%;}
+            .question { font-style: italic ; background: #DDD; padding: 10px;}
+            .attention { color: #999; font-style: italic; text-align: center;}
+        </style>
+    </head>
+    <body>
+        <h1>Javascript Exercises</h1>
+        <p class="attention">You can find necessary asset files like image, js etc, under the "solution" folder.</p>
+        <h3>Question #1</h3>
+        <div>
+            <p class="question">
+                Take two numbers and find the minimum and maximum one. Display the result in a blue paragraph if min and max are different, otherwise display in green color. The results are centered in the page. No need to check if the user input is a number or not.
+            </p>
+		    <br>
+			<img src="./img/q1.jpg">	
+        </div>
+        <h3>Question #2</h3>
+        <div>
+           <p class="question">
+               Take three numbers, check if they are number or not. If all three input are numbers, then show their values and average in a paragraph. Otherwise, display an error message (At least one of your numbers is not correct) in red color. Paragraphs are centered. 
+           </p>
+           <br><img src="./img/q2.jpg">
+		</div>
+        <h3>Question #3</h3>
+        <div>
+           <p class="question">
+               Get two numbers (lower and upper limit) from the user. The numbers must be within 0 and 20 inclusive. Display numbers in an unordered list starting from lower limit to upper limit. Display the sum of all those numbers in a paragraph. If the first number (lower) is not lower than the second number (upper) or if the numbers are not within the limit [0,20], then show an error message.
+           </p>
+            <br><img src="./img/q3.jpg">
+		</div>
+         <h3>Question #4</h3>
+        <div>
+            <p class="question">
+                Generate 10 random numbers between 10 and 30 inclusive, [10,30]. Display each number side by side whose font size is equal to that number in px.
+            </p>
+            <br><img src="./img/q4.jpg">
+		</div>
+         <h3>Question #5</h3>
+        <div>
+            <p class="question">
+                Generate 10 random numbers between 20 and 80 inclusive, [20,80]. First display their average in a bold text. Then, display each number in a separate paragraph. If the number is greater than average, display in blue color and bold way. 
+            </p>
+            <br><img src="./img/q5.jpg">
+		</div>
+
+        <h3>Question #6</h3>
+        <div>
+            <p class="question">
+                Write a javascript program that takes an integer number from the user which is between [3, 7], Fig 1, and it displays given number of squares with random sizes side by side. Random size must be between [30, 80] and multiple of 10, Fig 2. If the given number is not valid, display an error message as in Fig 3
+            </p>
+           
+            <div class="figure">
+                <img src="./img/q6-1.jpg">
+                <p><span>Fig 1:</span> User input</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q6-2.jpg">
+                <p><span>Fig 2:</span> Output</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q6-3.jpg">
+                <p><span>Fig 3:</span> Error</p>
+            </div>
+        </div>
+
+        <h3>Question #7</h3>
+        <div>
+            <p class="question">
+                Write a javascript program that takes a string from the user (Fig1), and displays each letter in increasing font size as in Fig2. Initially, the font size is 5px. It increases font-size by 5px for each letter other than space character. Space character’s font size is the same with the font size of previous non-space character. The letter spacing is 5px and the text is centered in the page. 
+            </p>
+            <div class="figure">
+                <img src="./img/q7-1.png" alt="">
+                <p><span>Fig 1:</span>User input</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q7-2.png" alt="">
+                <p><span>Fig 2:</span>Output</p>
+            </div>
+        </div>
+
+        <!-- h3+div>p.question+div.figure>img+p>span -->
+        <h3>Question #8</h3>
+        <div>
+            <p class="question">Write a javascript program that creates 5 boxes side-by-side, in which one of them will be selected randomly. The selected box will have a random background color from “red”, “green” and “blue”. The box size is 50x50 pixels, a grey border, a white “X” symbol whose font size is 32px, and in the middle of the box.</p>
+            <div class="figure">
+                <img src="./img/q8.png" alt="">
+                <p><span>Fig:</span>Output</p>
+            </div>
+        </div>
+
+        <h3>Question #9</h3>
+        <div>
+            <p class="question">Write a Web form application having three inputs, namely, filter (even, odd), and the count of random numbers between [1, 20], and a flag to show random array. The program will generate the number of count random numbers, if “Show Array” is checked, it displays the array content at the top, otherwise, do not show the random array.  According to Filter value, it selects odd or even numbers, it displays them, and show the sum of those numbers. You don’t have to validate “count” assuming it is greater than 1. </p>
+            <div class="figure">
+                <img src="./img/q9.png" alt="">
+                <p><span>Fig </span> Web UI</p>
+            </div>
+        </div>
+
+
+        <h3>Question #10</h3>
+        <div>
+            <p class="question">Write a form application that stores taken courses, and displays a report. A textbox is used to get the name of the course, listbox is used to select the grade of the course. Add button is used to add the course to the taken course list, Fig 1. Letters are A (4.0), B (3.0), C (2.0), D (1.0), F (0.0).  Assume that each courses’ credit is 3 credits.  A checkbox is used to select if the cgpa is displayed on the report or not. Report button displays a report as in Fig 2. If checkbox is checked, then it adds the cgpa as the last line in the report. Otherwise, it does not show cgpa.</p>
+            <div class="figure">
+                <img src="./img/q10.png" alt="">
+                <p><span>Fig 1 :</span>Adding a course</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q10-2.png" alt="">
+                <p><span>Fig 2 :</span>Display Report (cgpa is activated)</p>
+            </div>
+        </div>
+        <h3>Question #11</h3>
+        <div>
+            <p class="question">Write a form application that displays a random array whose count is determined by the text box, see Fig 1. Initially, the textbox is 0 and readonly. It increases/decreases by clicking +/ - buttons. The minimum value of the texbox is 0. “+” button click increases the number in the textbox and it adds a new number based on the status of “Odd Numbers” checkbox, if it is checked, it will add a random odd integer number to the end of the list, otherwise the even random number will be added. “-“ button deletes the last number in the list. The numbers will be between 0 and 99 inclusive, [0, 99].</p>
+            <div class="figure">
+                <img src="./img/q11.png" alt="">
+                <p><span>Fig 1:</span> UI</p>
+            </div>
+        </div>
+
+        <h3>Question #12</h3>
+        <div>
+            <p class="question">Write a Web form application that calculates pizza order. Assume you sell three types of pizza (Margarita, Garden Veggie, Tropical Hawaiian) in three different sizes ( small, medium, large ). Type and size determine the price of pizza, Fig 1. Check out the table for prices of pizzas, Fig 2. Optionally, you can add a beverage to the order. Beverage costs 5 TL. Image name is q12_title.jpg.</p>
+            <div class="figure">
+                <img src="./img/q12-1.png" alt="">
+                <p><span>Fig 1</span> Pizza Form</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q12-2.png" alt="">
+                <p><span>Fig 2</span> Pizza Prices</p>
+            </div>
+        </div>
+
+        <h3>Question #13</h3>
+        <div>
+            <p class="question">Write a form application that renders an html table from a given array in “students.js”, Figure 1. The form will have a list box with three operations “Top Student”, “Average” and “Below Average”. If you click “Find” button, it performs the selected task, and displays the result in the textarea. </p>
+            <div class="figure">
+                <img src="./img/q13-1.png" alt="">
+                <p><span>Fig 1:</span>List of Students</p>
+            </div>
+            <div class="figure">
+                <img src="./img/q13-2.png" alt="">
+                <p><span>Fig 2:</span>List of Students below Average</p>
+            </div>
+        </div>
+
+        <h3>Question #14</h3>
+        <div>
+            <p class="question">Write a JavaScript program that imports <b>q14_db.js</b> file to access three object arrays and builds a report called “Attendance Report”. The report is based on the contents of those arrays. You will analyze and understand the structure of those arrays, and find the relations among them. The report basically displays the attendances of all students in the courses. For a student, it displays her name, surname, city, cgpa and attendance percentage.   
+                City will be a select box. It is not static, and it is built from the cities in the “students” array. The cities in the list are ordered alphabetically, and there is no duplication, and appropriate city is selected for each student. 
+                Attendance is a bar chart. Bar container’s width is 100px, its height is 15px, background color is #DDD, and border color is #AAA.  If the attendance is greater than 60, the bar in the bar container will be green otherwise, it will be red. The bar chart’s width is given in “attendances” array for each student. 
+                Each course is a separate table with a width of 500px. It has a collapsed borders, and its border color is #AAA. It uses a strip pattern (alternating background colors, #F0F0F0 and #FFF) for student rows. The first row contains course code and name. It is bold and centered, and its background color is #CCC. The second row shows the titles of each column. They are bold and italic, and they have a bottom border which is “4px double black”. Each cell has a 5px padding.
+            </p>
+            <div class="figure">
+                <img src="./img/q14.png" alt="">
+                <p><span>Fig : </span>Automatically generated report.</p>
+            </div>
+        </div>
+
+
+
+
+
+
+    </body>
+</html>

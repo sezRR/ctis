@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .canvas {
+                height: 500px;
+                width: 500px;
+                border: 1px solid #999;
+                position: relative;
+            }
+
+            .circle {
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="canvas">
+                <script>
+                    const DIAMETER_MAX = 100;
+                    const DIAMETER_MIN = 10;
+                    const CANVAS_SIZE = 500;
+
+                    const getRadius = (diameter) => diameter / 2;
+                    const getCenter = (x, y, r) => [x + r, y + r];
+
+                    // returns d^2
+                    const distanceTwoPoints = (cx1, cx2, cy1, cy2) =>
+                        (cx1 - cx2) ** 2 + (cy1 - cy2) ** 2;
+
+                    const isOverlapping = (
+                        x1,
+                        x2,
+                        y1,
+                        y2,
+                        diameter1,
+                        diameter2
+                    ) => {
+                        const r1 = getRadius(diameter1);
+                        const r2 = getRadius(diameter2);
+                        const [cx1, cy1] = getCenter(x1, y1, r1);
+                        const [cx2, cy2] = getCenter(x2, y2, r2);
+
+                        return (
+                            distanceTwoPoints(cx1, cx2, cy1, cy2) <
+                            (r1 + r2) ** 2
+                        );
+                    };
+
+                    const rand = (lower, upper) =>
+                        Math.floor(Math.random() * (upper - lower + 1) + lower);
+
+                    let circles = [];
+                    for (let i = 0; i < 100; i++) {
+                        let diameter, x, y, isValid;
+                        do {
+                            isValid = true;
+                            diameter = rand(DIAMETER_MIN, DIAMETER_MAX);
+                            x = rand(0, CANVAS_SIZE - diameter);
+                            y = rand(0, CANVAS_SIZE - diameter);
+                            console.log(x, y);
+
+                            for (let circle of circles) {
+                                if (
+                                    isOverlapping(
+                                        x,
+                                        circle.x,
+                                        y,
+                                        circle.y,
+                                        diameter,
+                                        circle.diameter
+                                    )
+                                ) {
+                                    isValid = false;
+                                    break;
+                                }
+                            }
+                        } while (!isValid);
+
+                        const bgR = Math.floor(Math.random() * 256);
+                        const bgG = Math.floor(Math.random() * 256);
+                        const bgB = Math.floor(Math.random() * 256);
+
+                        document.write(
+                            `<div class="circle" style="top:${y}px; left:${x}px; background-color:rgb(${bgR}, ${bgG}, ${bgB}); width:${diameter}px; height:${diameter}px; border-radius:100%"></div>`
+                        );
+
+                        circles.push({ x, y, diameter });
+                    }
+                </script>
+            </div>
+        </div>
+    </body>
+</html>

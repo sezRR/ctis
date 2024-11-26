@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+            body { font-family: arial; }
+            h1 { text-align: center; }
+            td { padding: 5px;}
+            table { margin: 20px auto; width: 500px; border-collapse: collapse; border:1px solid #AAA;}
+            .title td { font-style:italic; font-weight: bold; border-bottom: 4px double black;}
+            .heading { text-align: center; background: #CCC; font-weight: bold;}
+            .barContainer { height: 15px; background: #DDD;  border:1px solid #AAA; width: 100px; }
+            .barContainer  div { height: 100%; background: #3f3; }
+        </style>
+        <script src="q14_db.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h1>Attendance Report</h1>
+        <script>
+            function cityOrder() {
+                var city = [] ;
+                for ( var i=0; i<students.length; i++) {
+                    if (city.indexOf(students[i].city) === -1) {
+                        city.push(students[i].city);
+                    }
+                }
+                city.sort();
+                return city ;
+            }
+            
+            // sorted cities where the same city doesn't repeat.
+            var city = cityOrder();
+            
+            for ( var i=0; i< courses.length; i++) {
+                var course = courses[i] ;
+                document.write("<table>");
+                document.write("<tr class='heading'>");
+                document.write("<td colspan=5>" + course.course_id + " : " + course.name + "</td></tr>" ) ;
+                document.write("<tr class='title'><td>Name</td><td>Surname</td><td>City</td><td>CGPA</td><td>Attendance</td>") ;
+                var c = 0 ;
+                for ( var j = 0 ; j< attendances.length; j++) {
+                    var attendance = attendances[j] ;
+                    var std = findStudent(attendance.id) ; 
+                    var std_course = findCourse(attendance.course_id);
+                    if ( std_course.course_id === course.course_id ) {
+                        var bg = c % 2 === 0 ? "#F0F0F0" : "#FFF" ;
+                        c++;
+                        document.write("<tr style='background:" + bg + "'>");
+                        document.write("<td>" + std.name + "</td>") ;
+                        document.write("<td>" + std.surname + "</td>") ;
+                        document.write("<td>");
+                        document.write("<select>");
+                        for ( var k=0; k < city.length; k++) {
+                            if ( city[k] === std.city) {
+                                document.write("<option selected='selected'>" + city[k] + "</option>");
+                            } else {
+                                 document.write("<option>" + city[k] + "</option>");
+                            }
+                        }
+                        document.write("</select>");
+                        document.write("</td>") ;
+                        document.write("<td>" + std.cgpa + "</td>") ;
+                        document.write("<td><div class='barContainer'>") ;
+                        if ( attendance.percentage < 60) {
+                           document.write("<div style='background: #F33;width:" + attendance.percentage + "px'></div></div>"); 
+                        } else {
+                        document.write("<div style='background: #3F3;width:" + attendance.percentage + "px'></div></div>"); 
+                        }
+                        document.write("</tr>");
+                  }
+                }
+                document.write("</table>");
+            }
+
+            function findStudent(id) {
+                for ( let s of students) {
+                    if ( s.id == id) return s ;
+                }
+                return false ;
+            }
+
+            function findCourse(id) {
+                for (let c of courses) {
+                    if ( c.course_id == id) return c ;
+                }
+                return false ;
+            }
+            
+        </script>
+    </body>
+</html>

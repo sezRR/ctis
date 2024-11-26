@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            ul {
+                margin: 0 auto;
+                width: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            let out = "";
+
+            let n1 = parseInt(prompt("Enter the first number: "));
+            let n2 = parseInt(prompt("Enter the second number: "));
+
+            let sum = 0;
+            if (n1 >= n2 || n1 < 0 || n1 > 20 || n2 > 20 || n2 < 0)
+                out = "Lower or upper limit is not correct";
+            else {
+                out += "<ul>";
+                for (let i = n1; i <= n2; i++) {
+                    out += `
+                        <li>
+                            <span>${i}</span>
+                        </li>
+                    `;
+
+                    sum += i;
+                }
+                out += "</ul>";
+                out += `<br><br><span>Sum: ${sum}</span>`;
+            }
+            document.write(out);
+        </script>
+    </body>
+</html>

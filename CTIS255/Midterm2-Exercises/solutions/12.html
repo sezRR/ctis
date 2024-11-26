@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Question #2</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style type="text/css">
+           body { font-family: arial;}
+           table { margin: 30px auto; border-collapse: collapse;}
+           td { border:1px solid #ccc; padding: 10px;}
+           textarea { width: 400px; height: 200px; }
+           [colspan='2'] { width: 600px; height: 125px; background: url(q12_title.jpg) no-repeat;
+            background-size: cover;
+           }
+           select { font-family: arial; font-size: 16px;}
+           .center { text-align: center;}
+        </style>
+    </head>
+    <body>
+        <form name="pizzaForm">
+            <table>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="size" value="0" checked>Small 
+                        <input type="radio" name="size" value="1">Medium 
+                        <input type="radio" name="size" value="2">Large 
+                    </td>
+                    <td rowspan="4">
+                        <textarea cols="30" rows="10" name="display"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="type">
+                            <option value="0">Margarita</option>
+                            <option value="1">Garden Veggie</option>
+                            <option value="2">Tropical Hawaiian</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="bevarage"> Bevarage</td>
+                </tr>
+                <tr>
+                    <td class='center'><input type="button" value="Order" onclick="calculate()"></td>
+                </tr>
+            </table>
+            <script>
+                function calculate() {
+                    let base_price = [ [12, 17, 22], [10, 15, 19], [15, 21, 25]] ;
+                    let label_size = ["Small", "Medium", "Large"] ;
+                    let label_type = ["Margarita", "Garden Veggie", "Tropical Hawaiian"] ;
+                    let size = pizzaForm.size.value ;
+                    let type = pizzaForm.type.value ;
+                    let price = base_price[type][size] ;
+                    
+                    let out = " ORDER\n " + label_size[size] + " " + label_type[type] ;
+                    if ( pizzaForm.bevarage.checked) {
+                        price += 5 ;
+                        out += " with Bevarage" ;
+                    }
+                    out += "\n Price : " + price + " TL" ;
+                    pizzaForm.display.value = out ;
+                 }
+            </script>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2</title>
+    <style>
+        form { text-align: center;}
+        .counterPanel input { width: 30px; margin:10px auto; font-size: 20px; text-align: center;}
+        .out { margin: 20px auto;}
+        .counterPanel { margin: 20px auto;}
+    </style>
+</head>
+<body>
+    <form name="myForm">
+        <div class="counterPanel">
+            <button type="button" onclick="addOne()">+</button><br>
+            <input type="text" name="counter" id="counter" value="0" readonly/><br>
+            <button type="button" onclick="subOne()">-</button>
+        </div> 
+        <div>
+            <label for="odd">Odd Numbers: </label>
+            <input type="checkbox" name="odd" id="odd"/>
+        </div>
+        <div class="out">
+            <textarea name="out" id="out" cols="50" rows="5"></textarea>
+        </div>
+    </form>
+    <script>
+        let arr = [] ;
+        function addOne() {
+            myForm.counter.value = parseInt(myForm.counter.value) + 1 ; // update textbox
+            let N = Math.floor(Math.random()*50)  ; // random number [0, 50)
+            let rnd = 2 * N ; // even = 2*N
+            if ( myForm.odd.checked ) rnd++; // odd = 2*N + 1
+            arr.push(rnd) ;  // append to array
+            myForm.out.value = arr.join(" ") ; // display array
+        }
+        function subOne( amount ) {
+            if ( myForm.counter.value == "0") return ; // if it is already 0, return
+            myForm.counter.value = parseInt(myForm.counter.value) - 1 ; // update textbox
+            arr.pop();  // remove last item
+            myForm.out.value = arr.join(" ") ;  // display array
+        }
+    </script>
+</body>
+</html>

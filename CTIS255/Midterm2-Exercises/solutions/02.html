@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            p { text-align: center; }
+            .error { color: red; font-style: italic; }
+            .average { color: #33F; font-size: 1.2em ;}
+        </style>
+    </head>
+    <body>
+        <script>
+            /*
+             * Take three values and find their averages
+             */
+            let n1 = prompt("Enter the first number") ;
+            let n2 = prompt("Enter the second number") ;
+            let n3 = prompt("Enter the third number") ;
+            
+            let num1 = parseInt(n1) ;
+            let num2 = parseInt(n2) ;
+            let num3 = parseInt(n3) ;
+            
+            if ( isNaN(num1) || isNaN(num2) || isNaN(num3)) {
+                document.write("<p class='error'> At least one of your numbers is not correct</div> ") ;
+            } else {
+                let average = ( num1 + num2 + num3 ) / 3 ;
+                document.write("<p class='average'>Average of " + num1 + " and " + num2 + " and " + num3 + " is " + average + "</div>");
+            }
+        </script>
+        <div>Press F5 to refresh</div>
+    </body>
+</html>

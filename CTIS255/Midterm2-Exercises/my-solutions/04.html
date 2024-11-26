@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            span {
+                margin-left: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            const MIN = 10;
+            const MAX = 30;
+
+            let out = "";
+
+            for (let i = 0; i < 10; i++) {
+                const randomNumb = Math.floor(
+                    Math.random() * (MAX - MIN + 1) + MIN
+                );
+                out += `<span style="font-size: ${randomNumb}px">${randomNumb}</span>`;
+            }
+            document.write(out);
+        </script>
+    </body>
+</html>

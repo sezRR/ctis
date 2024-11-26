@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q1</title>
+    <style>
+        h1 { text-align: center; }
+        .container {
+            display: flex;
+            justify-content: space-around;
+        }
+        .container div { border:1px solid black; background: #DDD; display:flex;
+        justify-content: center; align-items: center;
+        }
+        p { text-align: center}
+
+    </style>
+</head>
+<body>
+    <h1>Squares with random size</h1>
+    <div class="container">
+    <script>
+        var num = prompt("Number of boxes : [3,7]", "3")
+        if ( num >= 3 && num <= 7) {
+            for ( var i=0 ; i< num; i++) {
+             var sz = (Math.floor(Math.random() * 6) * 10 + 30 ) ;
+             document.write(`<div style="width:${sz}px; height:${sz}px">${sz}</div>`)
+            }
+        } else {
+            document.write("<p>Invalid Input</p>")
+        }
+    </script>
+    </div>
+</body>
+</html>

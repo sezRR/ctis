@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            p { text-align: center; font-size: 20px;}
+            ul { width: 200px; margin: 30px auto;}
+        </style>
+    </head>
+    <body>
+        <script>
+            /*
+             * Input: get two values for lower and upper limits within [0,20]
+             * Display all numbers between them in an unordered list and show the sum
+             */
+            
+            let lower = parseInt( prompt("Enter the lower limit") ) ;
+            let upper = parseInt( prompt("Enter the upper limit") ) ;
+            let sum = 0 ;
+            
+            if ( lower < upper && lower >=0 && upper <= 20) {
+                document.write("<ul>");
+                for ( let i=lower; i<=upper; i++) {
+                    document.write("<li>" + i + "</li>");
+                    sum += i ;
+                }
+                document.write("</ul>");
+                document.write("<div>Sum : " + sum + "</div>") ;
+            } else {
+                document.write("<div>Lower or upper limit is not correct</div>") ;
+            }
+            
+            
+        </script>
+    </body>
+</html>
