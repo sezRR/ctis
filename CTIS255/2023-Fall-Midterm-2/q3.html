@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="./q3-db.js"></script>
+        <style>
+            html {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                justify-content: center;
+                align-items: stretch;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+
+            img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .price {
+                color: orange;
+            }
+
+            .products-container {
+                display: flex;
+                gap: 1rem;
+            }
+
+            .product-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                border: 1px #999 solid;
+                padding: 1rem;
+                border-radius: 8px;
+            }
+
+            .product-info {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .filter-container {
+                display: flex;
+                gap: 2rem;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            label {
+                font-size: 20px;
+            }
+
+            select {
+                padding: 0.25rem;
+                font-size: 16px;
+            }
+
+            input[type="checkbox"] {
+                margin-left: 1rem;
+                transform: scale(1.5);
+            }
+
+            textarea {
+                width: 100%;
+                height: 20rem;
+            }
+
+            button {
+                padding: 0.5rem;
+                font-size: 18px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>e-Commerce System</h1>
+        <div class="products-container">
+            <script>
+                for (const product of products.slice(0, 3)) {
+                    document.write(`
+            <div class="product-container">
+                <img src="./images/${product.image}" />
+                <div class="product-info">
+                    <h3>${product.name}</h3>
+                    <span class="price">${product.price} TL</span>
+                </div>
+            </div>
+    `);
+                }
+            </script>
+        </div>
+
+        <form name="filterForm">
+            <div class="filter-container">
+                <div>
+                    <label for="user">User: </label>
+                    <select name="user" id="user">
+                        <script>
+                            for (const user of users) {
+                                document.write(`
+                            <option value="${user.userId}">${user.name}</option>
+                            `);
+                            }
+                        </script>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="show-total">Subtotal</label>
+                    <input type="checkbox" name="show-total" id="show-total" />
+                </div>
+
+                <button type="button" onclick="filter()">Show Orders</button>
+            </div>
+
+            <div>
+                <textarea name="result" readonly></textarea>
+            </div>
+            <script>
+                function filter() {
+                    let out = "Ordered Item:\n";
+
+                    const userId = parseInt(filterForm.user.value);
+                    const userOrderedItems = orderItems.filter(
+                        (oi) => oi.userId === userId
+                    );
+                    const userOrderedItemsProductDetails = userOrderedItems.map(
+                        (oi) => {
+                            return {
+                                ...products.find(
+                                    (p) => p.productId === oi.productId
+                                ),
+                                quantity: oi.quantity,
+                            };
+                        }
+                    );
+
+                    let grandTotal = 0;
+                    for (const details of userOrderedItemsProductDetails) {
+                        out += `\t${details.quantity} x ${details.name}`;
+
+                        const subTotal = details.quantity * details.price;
+                        grandTotal += subTotal;
+                        out += filterForm["show-total"].checked
+                            ? ` (Subtotal: ${details.quantity} x ${details.price} = ${subTotal} TL)`
+                            : "";
+                        out += "\n";
+                    }
+
+                    out += `\nGrand Total: ${grandTotal} TL`;
+
+                    filterForm.result.value = out;
+                }
+            </script>
+        </form>
+    </body>
+</html>

@@ -33,8 +33,10 @@
             document.write(
                 `Median: ${
                     arr.length % 2 === 0
-                        ? (arr[arr.length / 2] + arr[arr.length / 2 - 1]) / 2
-                        : arr[Math.floor(arr.length / 2)]
+                        ? (arrSorted[arrSorted.length / 2] +
+                              arrSorted[arrSorted.length / 2 - 1]) /
+                          2
+                        : arrSorted[Math.floor(arrSorted.length / 2)]
                 }`
             );
         </script>
