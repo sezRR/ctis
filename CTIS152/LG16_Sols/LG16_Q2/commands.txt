@@ -1,0 +1,24 @@
+Push AYSE 32
+Push AHMET 12
+Push SULE 33
+Pop
+Pop
+Push AYLA 60
+Display
+Push ELIF 71
+Push CAN 44
+Pop
+Pop
+Pop
+Pop
+Pop
+Push BERK 23
+Push BORA 32
+Pop
+Push BURCU 15
+Push KAAN 28
+Pop
+Push ZEYNEP 51
+Push HASAN 52
+Push MERT 91
+Display
