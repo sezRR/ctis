@@ -1,0 +1,11 @@
+C 5 H
+E 3 F
+S 2 Q
+S 7 L
+S 3 W
+C -2 E
+S 11 L
+E 5 G
+S 3 T
+C -1 A
+E 0 O
