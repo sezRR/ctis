@@ -1,0 +1,15 @@
+Rational Number : Easy
+Inequality : Medium
+Absolute Value : Medium
+Exponential Numbers : Hard
+Equations : Hard
+Functions : Medium
+Combination : Hard
+Possibility : Hard
+Statistics : Medium
+Permutation : Medium
+Rate Proportion : Easy
+Clusters : Easy
+Parabola : Hard
+Problems : Easy
+Numbers : Easy

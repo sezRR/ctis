@@ -1,0 +1,10 @@
+Ajay Devgan:2 4
+Ranveer Singh:4 2
+Ranbir Kapoor:10 1 
+Akshay Kumar:16 6
+Rani Mukherjee:25 2
+Hrithik Roshan:30 2
+Amitabh Bachchan:37 1
+Madhuri Dixit:41 7
+Salman Khan:48 5
+Shahrukh Khan:65 2
