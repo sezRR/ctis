@@ -39,7 +39,6 @@ runner_t findGoldMedalWinner(node_t* head) {
 	{
 		if (max->data.score < p->data.score)
 			max = p;
-
 		p = p->next;
 	}
 	return max->data;

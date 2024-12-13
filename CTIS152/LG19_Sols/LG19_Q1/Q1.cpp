@@ -34,9 +34,8 @@ int main(void) {
 
 		displayList(headP);
 	}
-	else {
+	else
 		printf("No numbers were entered.\n");
-	}
 
 	return 0;
 }
