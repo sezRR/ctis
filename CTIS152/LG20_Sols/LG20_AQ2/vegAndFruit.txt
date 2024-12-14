@@ -1,0 +1,7 @@
+118 Tomato 3.00
+111 Potato 2.50
+123 Spinach 2.25
+712 Aubergine 3.50
+455 Cucumber 1.50
+955 Apple 4.25
+166 Bean 5.00
