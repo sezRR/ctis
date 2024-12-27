@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>q3: Shopping Cart</title>
+    <link rel="stylesheet" href="./css/q3.css">
+    <script src="./jquery.min.js"></script>
+
+    <script src="./q3.js"></script>
+</head>
+<body>
+    <section>
+        <!-- Checkout -->
+        <header>
+            <h2>Selected Products (<span>-cnt-</span>)</h2>
+            <h1><span>-sum-</span> TL</h1>
+        </header>
+
+
+        <!-- Product #1 -->
+        <article>
+            <div class="checkbox"><input id="0" type="checkbox" checked/></div>
+            <div class="image"><img src="./img/northbayou.jpg"></div>
+            <div class="title">
+              <h3>Northbayou North Bayou Nb H100 22"-35" Amortisörlü 2-12 kg Monitör Tutucu Kol Stand Siyah</h3>
+              <h3 class="price"><span>839</span> TL</h3>
+            </div>
+            <div class="amountPanel">
+                 <div class="incBtn button">+</div>
+                 <div class="amount">1</div>
+                 <div class="decBtn button">-</div>
+            </div>
+        </article>
+
+        <!-- Product #2 -->
+        <article>
+            <div class="checkbox"><input id="1" type="checkbox" checked/></div>
+            <div class="image"><img src="./img/royal.jpg"></div>
+            <div class="title">
+              <h3>Royal Canin British Shorthair Yavru Kedi Maması 2 Kg</h3>
+              <h3 class="price"><span>191</span> TL</h3>
+            </div>
+            <div class="amountPanel">
+                 <div class="incBtn button">+</div>
+                 <div class="amount">1</div>
+                 <div class="decBtn button">-</div>
+            </div>
+        </article>
+
+        <!-- Product #3 -->
+        <article>
+            <div class="checkbox"><input id="2" type="checkbox" checked/></div>
+            <div class="image"><img src="./img/burberry.jpg"></div>
+            <div class="title">
+              <h3>Burberry Classic Edp 100 Ml Kadın Parfümü</h3>
+              <h3 class="price"><span>283</span> TL</h3>
+            </div>
+            <div class="amountPanel">
+                 <div class="incBtn button">+</div>
+                 <div class="amount">1</div>
+                 <div class="decBtn button">-</div>
+            </div>
+        </article>
+
+    </section>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="jquery-3.4.1.min.js"></script>
+    <style>
+      body { font-family: arial ;}
+      .rating img { padding: 0 2px;}
+      tr:first-of-type { background: #EEE; }
+      table { border-collapse: collapse; margin: 30px auto;}
+      td, th { padding: 10px; text-align: left; border:1px solid #DDD;}
+      .driver { text-align: center; cursor: pointer}
+    
+    </style>
+    <title>Document</title>
+    <script>
+     $(function() {
+        $("button").click(function(){
+            var str = "<table>" ;
+            str += "<tr><th>Name</th><th>Progress</th><th>Location</th><th>Rating</th><th>Date of Birth</th><th>Driver</th></tr>" ;
+            $(".employee").each(function(emp){
+               var emp = $(this);
+               var name = $(".name", emp).text() ;
+               var progress = $(".progress", emp).text() ;
+               var location = $(".location", emp).text() ;
+               var rating = $(".rating", emp).text() ;
+               var dob = $(".dob", emp).text() ;
+               var driver = $(".driver", emp).text() ;
+               var progressDiv = `<div style='width:${progress}px; height:20px; background: green'></div>` ;
+               var ratingDiv = "";
+               for ( var i=0; i<rating; i++) ratingDiv += "<img src='full.png' />" ;
+               for ( var i=0; i<5-rating; i++) ratingDiv += "<img src='empty.png' />" ;
+               var driverDiv = driver == "1" ? "<img src='yes.png'>" : "<img src='no.png'>" ;
+               str += `
+                  <tr>
+                    <td>${name}</td>
+                    <td>${progressDiv}</td>
+                    <td>${location}</td>
+                    <td class='rating'>${ratingDiv}</td>
+                    <td>${dob}</td>
+                    <td class="driver">${driverDiv}</td>
+                  </tr>
+               ` ;
+            });
+            str += "</table>" ;
+            $(".container").html(str) ;
+        });
+
+        $(".container").on("click", ".driver img", function(e){
+            var img = $(this).attr("src");
+            if ( img.indexOf("yes") === -1) {
+                $(this).attr("src", "yes.png") ;
+            } else {
+                $(this).attr("src", "no.png") ;
+            }
+        }) ;
+     });
+    
+    </script>
+</head>
+
+<body>
+    <div class="button">
+        <button>Transform</button>
+    </div>
+
+    <div class='container'>
+        <div class='employee'>
+            <span class='name'>Oli Bob</span>
+            <span class='progress'>12</span>
+            <span class='location'>United Kingdom</span>
+            <span class='rating'>1</span>
+            <span class='dob'>14/04/1984</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Mary May</span>
+            <span class='progress'>1</span>
+            <span class='location'>Germany</span>
+            <span class='rating'>2</span>
+            <span class='dob'>14/05/1982</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Christine Lobowski</span>
+            <span class='progress'>42</span>
+            <span class='location'>France</span>
+            <span class='rating'>0</span>
+            <span class='dob'>22/05/1982</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Brendon Philips</span>
+            <span class='progress'>100</span>
+            <span class='location'>USA</span>
+            <span class='rating'>1</span>
+            <span class='dob'>01/08/1980</span>
+            <span class='driver'>0</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Margret Marmajuke</span>
+            <span class='progress'>16</span>
+            <span class='location'>Canada</span>
+            <span class='rating'>5</span>
+            <span class='dob'>31/01/1999</span>
+            <span class='driver'>0</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Frank Harbours</span>
+            <span class='progress'>38</span>
+            <span class='location'>Russia</span>
+            <span class='rating'>4</span>
+            <span class='dob'>12/05/1966</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Jamie Newhart</span>
+            <span class='progress'>23</span>
+            <span class='location'>India</span>
+            <span class='rating'>3</span>
+            <span class='dob'>14/05/1985</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Gemma Jane</span>
+            <span class='progress'>60</span>
+            <span class='location'>China</span>
+            <span class='rating'>0</span>
+            <span class='dob'>22/05/1982</span>
+            <span class='driver'>1</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>Emily Sykes</span>
+            <span class='progress'>42</span>
+            <span class='location'>South Korea</span>
+            <span class='rating'>1</span>
+            <span class='dob'>11/11/1970</span>
+            <span class='driver'>0</span>
+        </div>
+        <div class='employee'>
+            <span class='name'>James Newman</span>
+            <span class='progress'>73</span>
+            <span class='location'>Japan</span>
+            <span class='rating'>5</span>
+            <span class='dob'>22/03/1998</span>
+            <span class='driver'>0</span>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>q2: Black Tile</title>
+        <script src="./asset/jquery.min.js"></script>
+        <style>
+            table {
+                margin: 80px auto;
+                border-collapse: collapse;
+            }
+
+            td {
+                border: 1px solid #aaa;
+                width: 60px;
+                height: 60px;
+            }
+            .black {
+                background: black;
+                cursor: pointer;
+            }
+            .click {
+                color: blue;
+                position: absolute;
+                font-size: 14px;
+                user-select: none;
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td id="0"></td>
+                <td id="1"></td>
+                <td id="2"></td>
+            </tr>
+            <tr>
+                <td id="3"></td>
+                <td id="4"></td>
+                <td id="5"></td>
+            </tr>
+            <tr>
+                <td id="6"></td>
+                <td id="7"></td>
+                <td id="8"></td>
+            </tr>
+        </table>
+        <script>
+            let rnd = Math.floor(Math.random() * 9);
+            $("#" + rnd).addClass("black");
+            $("td").click(function (e) {
+                if (!$(this).hasClass("black")) return;
+                do {
+                    rnd = Math.floor(Math.random() * 9);
+                } while ($("#" + rnd).hasClass("black"));
+                $(this).removeClass("black");
+                $("#" + rnd).addClass("black");
+                // Animation
+                $("body")
+                    .append("<div class='click'>+10 Pts</div>")
+                    .children()
+                    .last()
+                    .offset({ top: e.pageY - 25, left: e.pageX })
+                    .animate(
+                        { fontSize: "+=10px", top: "-=100px" },
+                        1000,
+                        function () {
+                            $(this).remove();
+                        }
+                    );
+            });
+        </script>
+    </body>
+</html>

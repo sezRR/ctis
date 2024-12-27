@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 500px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+.todo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: cornflowerblue;
+    border: 1px solid blue;
+    padding: 1rem 2rem;
+    gap: 1rem;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.todo:hover {
+    background-color: #4f7cd0;
+    cursor: pointer;
+}
+
+.description {
+    font-style: italic;
+}
+
+.btn-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: scale 0.25s;
+}
+
+.btn-delete svg {
+    height: 24px;
+    margin: auto 0;
+}
+
+.btn-delete:hover {
+    scale: 1.5;
+}
+
+.completed {
+    text-decoration: line-through;
+    text-decoration-thickness: 0.1rem;
+}

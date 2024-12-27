@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q1</title>
+    <script src="./jquery-3.7.1.min.js" ></script>
+    <style>
+       * { text-align: center;}
+       div { margin: 10px}
+       p { font-size: 10px; color: green ;}
+    </style>
+</head>
+<body>
+    <h1>Font Size</h1>
+     <div>
+        <button id="inc">+5px</button>
+     </div>
+     <div id="current">10px</div>
+    <p>Sample Text Here</p>
+    <script>
+        let size = 10 ;
+        $("#inc").on("click", function(){ 
+            size += 5 ;
+            $("p").css("fontSize" , size + "px")
+            $("#current").text(size + "px")
+        })
+    </script>
+</body>
+</html>

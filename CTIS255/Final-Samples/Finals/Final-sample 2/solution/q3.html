@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.4.1.min.js"></script>
+    <style>
+      .container {
+          background: url(bg.png);
+          width: 430px;
+          height: 260px;
+          position: relative;
+          overflow: hidden;
+          margin:30px auto ;
+      }
+      #bird {
+          position: absolute;
+          top: 80px;
+          left: 100px;
+          cursor: pointer ; 
+          user-select: none;
+      }
+
+      #status { text-align: center;}
+     
+    </style>
+    <script>
+      var timer ;
+      var dir = 2 ;
+      $(function() {
+        $(".container").mousedown(function(e){
+            if ( e.which !== 1) return ;
+            $("#status").text("Mouse Left: DOWN")
+            timer = setInterval(function(){
+            var pos = $("#bird").offset() ;
+            var containerPos = $(".container").offset() ;
+            var boundary = containerPos.left + 430 - 80 ;
+            pos.left += dir ;
+            if ( pos.left >= boundary) pos.left = boundary ;
+            if ( pos.left < containerPos.left) pos.left = containerPos.left ;
+            if ( pos.left === boundary || pos.left === containerPos.left) {
+                dir *= -1 ;
+                $("#bird").css("transform", "scaleX(" + (dir/Math.abs(dir)) + ")");
+            }
+            $("#bird").offset(pos) ;
+        }, 16) ;
+        })
+        .mouseup(function(e){
+          $("#status").text("Mouse Left: UP")
+           clearInterval(timer);
+        })
+      });
+    </script>
+</head>
+<body>
+      <div id="status">Mouse Left: UP</div>
+      <div class="container">
+        <img src="bird.png" id="bird"/>
+      </div>
+</body>
+</html>

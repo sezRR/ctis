@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- 
+  time : 40 mins.
+-->
+<html>
+    <head>
+        <title>Q2</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.1.1.js" type="text/javascript"></script>
+        <style>
+            #barContainer {
+                border:1px solid #AAA ;
+                border-radius: 4px;
+                width: 400px;
+                height: 40px;
+                background: #DDD;
+                margin: 30px auto;
+                position: relative;
+            }
+            #bar {
+                height: 38px;
+                background: #9F9 ;
+                width: 0px;
+            }
+            #counter {
+                position: absolute;
+                top: 10px;
+                left: 180px;
+            }
+            h1 { text-align: center;}
+        </style>
+        <script>
+            $(function(){
+                $("h1").click(function() {
+                   $(this).html("Loading") ; 
+                   var count = 0 ;
+                   var timer = setInterval(function() {
+                    var percent = count / 4 ;
+                    $("#bar").width(count);
+                    $("#counter").html( percent + " %") ;
+                    count+=4;
+                    if ( count > 400) {
+                        $("h1").html("Completed") ;
+                        clearInterval(timer);
+                    }
+                }, 50) ;
+                });
+            }) ;
+        </script>
+    </head>
+    <body>
+        <h1>Start</h1>
+        <div id="barContainer">
+            <div id="bar"></div>
+            <div id="counter">0 %</div>
+        </div>
+    </body>
+</html>

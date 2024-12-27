@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="jquery-3.4.1.min.js"></script>
+    <style>
+      body { font-family: arial ;}
+      .card {
+          width: 300px;
+          height: 400px;
+          background-image: url(./green-bg.jpg) ;
+          position: relative ;
+          margin: 0 auto;
+      }
+      .card .score {
+         color: #fff;
+         text-align: center;
+         font: 50px arial ;
+         position: absolute;
+         bottom: 30px;
+         left: 100px;
+      }
+      button { 
+          padding: 5px 10px;
+          font-size: 16px;
+      }
+      .history {
+          font-size: 14px;  font-style: italic;
+          text-align: right;
+          padding-right: 10px;
+      }
+    </style>
+    <script>
+      $(function(){
+          var score = (Math.floor(Math.random() * 41) + 10) * 10 ;
+          $(".score span").text(score) ; 
+          $("button").click(function(e){
+            var current = $(".score span").text() ;
+            $(".history").append(`<div>${current}</div>`) ;
+            var score = (Math.floor(Math.random() * 41) + 10) * 10 ;
+            $(".score span").text(score);
+          });
+      }) ;
+    
+    </script>
+</head>
+<body>
+    <div class="card">
+        <div class="history">history</div>
+        <div class="score">
+            <span></span>
+            <br>
+            <button type="button">Next</button>
+        </div>
+    </div>
+</body>
+</html>

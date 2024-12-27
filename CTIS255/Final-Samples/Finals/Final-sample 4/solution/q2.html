@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q2</title>
+    <script src="./jquery-3.7.1.min.js" ></script>
+    <style>
+        #area {
+            width: 970px;
+            height: 465px;
+            border:1px solid #999;
+            background-image: url(bg.png);
+            margin:20px auto;
+            font-size: 60px ;
+            position: relative ;
+           
+        }
+        .capsule {
+            font-size: 30px ;
+            border-radius: 20px;
+            background-color: #6F6;
+            border:2px solid #090 ;
+            position: absolute ;
+            width: 120px ;
+            height: 40px ;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            user-select: none;
+            box-sizing: border-box;
+            color: #060 ;
+        }
+
+        .capsule:hover { background: #4D4 ;}
+
+        #score {
+            text-align: center;
+            font-size: 40px ;
+        }
+
+        #status {
+            display: none ;
+            text-align: center;
+            color: #AAA ;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="area"></div>
+    <div id="score">Score : <span>000</span></div>
+    <script>
+        let count = 0 , score = 0 ;
+        let timer = setInterval(function(){
+           count++;
+            if ( count > 5) {
+                clearInterval(timer) ;
+                $("#area").on("click", ".capsule", function(){
+                    $(this).fadeOut(400) ;
+                    score += parseInt($(this).text()) ;
+                    $("#score span").fadeOut(500, function(){ $(this).text(score)}).fadeIn(500)
+                })
+            } else {
+                let top = Math.floor(Math.random() * 425 )  ;
+                let left = Math.floor(Math.random() * 850) ;
+                let rnd = (Math.floor(Math.random() * 4) + 1 ) * 100 ;
+                $("#area").append(`<div class='capsule' style="top:${top}px; left:${left}px">${rnd}</div>`)
+            }
+        }, 1000)
+    </script>
+</body>
+</html>

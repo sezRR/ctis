@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>q1: I'm counting</title>
+    <script src="./jquery.min.js"></script>
+    <style>
+        body {
+            display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+            box-sizing: content-box;
+            margin:0;
+        }
+        p {
+            font-size: 50px;
+        }
+        p span {
+            cursor: pointer ;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+   <p><span>ONE</span></p> 
+   <script>
+       let c = 0 ;
+       let text = ["ONE", "TWO", "THREE"] ;
+       $("span").click(function(){
+          c = (c+1) % 3 ;
+          $(this).text(text[c])
+       })
+   </script>
+</body>
+</html>

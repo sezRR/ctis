@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            .sample-text {
+                color: green;
+                font-size: 10px;
+            }
+        </style>
+        <script src="./assets/jquery-3.7.1.min.js"></script>
+    </head>
+    <body>
+        <h1>Font Size</h1>
+        <button>+5px</button>
+        <p>10px</p>
+        <span class="sample-text">Sample Text Here</span>
+        <script>
+            $(document).ready(() => {
+                $("button").on("click", function () {
+                    const $sampleText = $(".sample-text");
+
+                    const currentFontSize = parseInt(
+                        $sampleText.css("font-size")
+                    );
+                    const newFontSize = `${currentFontSize + 5}px`;
+
+                    $sampleText.css("font-size", newFontSize);
+                    $("p").text(newFontSize);
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!--
+ time: 60 mins
+-->
+<html>
+    <head>
+        <title>Q3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="jquery-3.1.1.js" type="text/javascript"></script>
+        <style>
+            .cell { border-bottom: 1px solid #AAA; border-top: 1px solid #AAA; padding: 5px; width: 100px; text-align: center;}
+            table { border-collapse: collapse; }
+            select { margin-bottom: 20px;}
+            .grade { color: blue;}
+        </style>
+        <script>
+            $(function() {
+                var rowsize = $("tr").length ;
+                var page = Math.ceil(rowsize / 5) ;
+                var list = [] ;
+                $("tr").each(function(i) {
+                            var row = {} ;
+                            row.no = (i+1);
+                            row.lastname = $(this).children().eq(0).text() ;
+                            row.name = $(this).children().eq(1).text() ;
+                            row.grade = $(this).children().eq(2).text() ;
+                            list.push(row) ;
+                });
+
+               function showPage(currentPage){
+                    var rows = "" ;
+                    var start = (currentPage-1) * 5 ;
+                    var end = start + 5 > rowsize ? rowsize : start + 5 ;
+                    for ( var i=start; i<end; i++) {
+                        rows += "<tr>" ; 
+                        rows += "<td>" + list[i].no + "</td>" ;
+                        rows += "<td>" + list[i].lastname + "</td>" ;
+                        rows += "<td>" + list[i].name + "</td>" ;
+                        rows += "<td class='grade cell'>" + list[i].grade + "</td>" ;
+                        rows += "</tr>";
+                    }
+                    $("table tr:gt(0)").remove() ;
+                    $("table tr:first").after(rows);
+                    $("td, th").addClass("cell");
+                }
+                
+                $("#btnFormat").click(function() {
+                       $("table").remove() ;
+                       var table = "Page : <select>" ;
+                       for ( var i=0; i<page; i++) {
+                           table += "<option>" + (i+1) + "</option>" ;
+                       }
+                       table += "</select>";
+                       table += "<table><tr><th>No</th><th>Lastname</th><th>Name</th><th>Letter</th></tr></table>" ;
+                       $("body").html(table) ;
+                       showPage(1) ;
+                       $("select").change(function(){
+                             showPage($(this).val()) ;
+                       });
+                });
+            });
+            
+        </script>
+    </head>
+    <body>
+        <input type="button" value="Format" id="btnFormat">
+        <table>
+            <tbody>
+                <tr>
+                    <td>Atmaca</td>
+                    <td>Murat</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Aydın</td>
+                    <td>Yasemen</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Bahadırlı</td>
+                    <td>Murat</td>
+                    <td>C</td>
+                </tr>
+                <tr>
+                    <td>Biçe</td>
+                    <td>Sencer</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Büyükişcan</td>
+                    <td>Mustafa</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Çelebi</td>
+                    <td>Utkan</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Çelen</td>
+                    <td>Nergis</td>
+                    <td>C</td>
+                </tr>
+                <tr>
+                    <td>Ercan</td>
+                    <td>Öznur</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Erdem</td>
+                    <td>Emir</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Erdoğan</td>
+                    <td>Seyda</td>
+                    <td>D</td>
+                </tr>
+                <tr>
+                    <td>Eroğlu</td>
+                    <td>Mert</td>
+                    <td>C+</td>
+                </tr>
+                <tr>
+                    <td>Ertuğ</td>
+                    <td>Cem</td>
+                    <td>B+</td>
+                </tr>
+                <tr>
+                    <td>Kale</td>
+                    <td>Özenç</td>
+                    <td>D</td>
+                </tr>
+                <tr>
+                    <td>Kalkancı</td>
+                    <td>Abdullah</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Kavcı</td>
+                    <td>Berna</td>
+                    <td>D</td>
+                </tr>
+                <tr>
+                    <td>Kayma</td>
+                    <td>Sevil</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Koçak</td>
+                    <td>Tahsin</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Kösem</td>
+                    <td>Emrah</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Muğulkoç</td>
+                    <td>Ozan</td>
+                    <td>D</td>
+                </tr>
+                <tr>
+                    <td>Odabaşı</td>
+                    <td>Onur</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Orsan</td>
+                    <td>Kaya</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <td>Özcivelek</td>
+                    <td>Can</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Özkayalar</td>
+                    <td>Deniz</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Parsak</td>
+                    <td>Emre</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Selçukhan</td>
+                    <td>Anıl</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Serdar</td>
+                    <td>Göktuğ</td>
+                    <td>F</td>
+                </tr>
+                <tr>
+                    <td>Sevim</td>
+                    <td>Alican</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Sokullu</td>
+                    <td>Mehmet</td>
+                    <td>C</td>
+                </tr>
+                <tr>
+                    <td>Şahin</td>
+                    <td>İsmail</td>
+                    <td>B+</td>
+                </tr>
+                <tr>
+                    <td>Vuranok</td>
+                    <td>Arif</td>
+                    <td>C-</td>
+                </tr>
+                <tr>
+                    <td>Yavuz</td>
+                    <td>Hikmet</td>
+                    <td>D</td>
+                </tr>
+                <tr>
+                    <td>Yılmaz</td>
+                    <td>Suzan</td>
+                    <td>C-</td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

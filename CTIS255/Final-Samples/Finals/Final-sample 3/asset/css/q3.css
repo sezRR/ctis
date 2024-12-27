@@ -1,0 +1,84 @@
+* { margin:0; padding:0; box-sizing: border-box;}
+
+section {
+    margin: 40px auto ;
+    width: 800px;
+    font-family: "Trebuchet MS" ;
+}
+article { 
+    display: flex ; 
+    align-items: center; 
+    justify-content: space-between;
+    border-bottom: 1px solid #AAA;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.checkbox input { 
+    width: 24px; height:24px; 
+    background: #6c84fa; 
+    color:white;
+    border:2px solid transparent;
+    border-radius: 15px;
+    margin-right: 20px;
+}
+
+.image { padding: 4px; border:1px solid #DDD; border-radius: 10px;}
+.image img { width:96px; height:96px;  }
+
+h3 { font-size: 16px; color: #333; font-weight: normal;}
+.price { margin-top: 20px; font-weight: bold; color: blue}
+
+.title { width: 600px; padding: 0 20px;}
+
+.amountPanel {
+    display: flex ;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+}
+
+.button {
+    font-size: 30px;
+    width:40px;
+    height:40px;
+    line-height: 40px;
+    border:1px solid #DDD;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    color: #F60;
+    cursor: pointer; 
+    user-select: none;
+    transition: all ease 0.5s ;
+}
+
+.button:hover { background: #F60; color: #FFF;}
+
+.amount {
+    margin-bottom: 10px; font-weight: bold;
+}
+
+header {
+    width: 300px;
+    margin: 20px auto 0 auto ;
+    text-align: center;
+    border:1px solid #AAA;
+    border-radius: 20px 20px 0 0 ;
+    border-bottom: none;
+    padding-bottom: 15px;
+    background: #DDD;
+}
+
+article:first-of-type {
+    border-top: 1px solid #AAA;
+}
+
+header h2 { 
+    text-transform: uppercase; 
+    font-size: 16px;
+    margin: 10px auto ;
+    color: #F60 ;
+}
+
+header h2 span { color: blue;}
+

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+            }
+
+            #game-area {
+                width: 970px;
+                height: 465px;
+                border: 1px solid #ddd;
+                background: url("./assets/bg.png");
+                position: relative;
+            }
+
+            .score {
+                margin-top: 1rem;
+                font-size: 2.5rem;
+            }
+
+            .capsule {
+                width: 64px;
+                height: 32px;
+                background-color: #65ea65;
+                border: 1px solid darkgreen;
+                color: darkgreen;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 20px;
+                position: absolute;
+            }
+
+            .capsule:hover {
+                background-color: #00d200;
+                cursor: pointer;
+            }
+        </style>
+        <script src="./assets/jquery-3.7.1.min.js"></script>
+    </head>
+    <body>
+        <div id="game-area"></div>
+        <div class="score">
+            <span>Score:</span>
+            <span id="score">000</span>
+        </div>
+        <script>
+            $(document).ready(() => {
+                let capsules = 0;
+
+                const intervalId = setInterval(() => {
+                    capsules++;
+                    if (capsules === 5) {
+                        clearInterval(intervalId);
+                        $("#game-area").on("click", ".capsule", function () {
+                            const $score = $("#score");
+                            const currentScore = parseInt($score.text());
+
+                            const newScore =
+                                currentScore +
+                                parseInt($(this).children("span").text());
+
+                            $score.fadeOut(750, function () {
+                                $score.text(newScore);
+                                $score.fadeIn(750);
+                            });
+                            $(this).fadeOut();
+                        });
+                    }
+
+                    const randomNumb = generateRandomNumber(1, 5, 100);
+                    const randomX = generateRandomNumber(0, 970 - 64, 1);
+                    const randomY = generateRandomNumber(0, 465 - 32, 1);
+                    $("#game-area").append(`
+                        <div class="capsule" style="top: ${randomY}px; left: ${randomX}px">
+                            <span>${randomNumb}</span>
+                        </div>
+                    `);
+                }, 1);
+            });
+
+            function generateRandomNumber(min, max, multiplier) {
+                return (
+                    Math.floor(Math.random() * (max - min + 1) + min) *
+                    multiplier
+                );
+            }
+        </script>
+    </body>
+</html>

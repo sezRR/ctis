@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                height: 100dvh;
+                font-size: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            span:hover {
+                cursor: pointer;
+            }
+        </style>
+        <script src="./asset/jquery.min.js"></script>
+    </head>
+    <body>
+        <span>ONE</span>
+        <script>
+            $(document).ready(function () {
+                const texts = ["ONE", "TWO", "THREE"];
+                let i = 0;
+
+                $("span").on("click", function () {
+                    i++;
+                    if (i === 3) i = 0;
+                    $(this).text(texts[i]);
+                });
+            });
+        </script>
+    </body>
+</html>
