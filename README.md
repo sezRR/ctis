@@ -4,6 +4,7 @@ This repository contains coursework and solutions for various Computer Technolog
 
 - **CTIS151**: Introduction to Programming
 - **CTIS152**: Data Structures and Algorithms
+- **CTIS164**: Technical Mathematics with Programming
 - **CTIS165**: Fundamentals of Information Systems
 - **CTIS221**: Object Oriented Programming
 - **CTIS255**: Frontend Development
@@ -15,6 +16,7 @@ The repository is organized into directories corresponding to each course:
 
 - `CTIS151/`
 - `CTIS152/`
+- `CTIS164/`
 - `CTIS165/`
 - `CTIS221/`
 - `CTIS255/`
