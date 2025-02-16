@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "01_Basic_GLUT_Example", "01_Basic_GLUT_Example\01_Basic_GLUT_Example.vcxproj", "{280D212F-4682-4C1F-AC69-AC4895C66704}"
 EndProject
@@ -12,6 +12,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_Inside_Outside_Mouse_Move", "04_Inside_Outside_Mouse_Move\04_Inside_Outside_Mouse_Move.vcxproj", "{D7A5C769-D165-40BE-9356-143B8D054BB7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_Keyboard_Mouse_Events", "05_Keyboard_Mouse_Events\05_Keyboard_Mouse_Events.vcxproj", "{0C674D63-9CBD-411D-A085-6B124D4F8681}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06_Keyboard_Timer_Events", "06_Keyboard_Timer_Events\06_Keyboard_Timer_Events.vcxproj", "{E96C3C60-86E6-4078-9017-8A021EBB5C69}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07_Mouse_Keyboard_Timer_Events", "07_Mouse_Keyboard_Timer_Events\07_Mouse_Keyboard_Timer_Events.vcxproj", "{2962C155-51C7-4D4F-9B61-5B213CFFECCA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "08_Functions_As_Parameters", "08_Functions_As_Parameters\08_Functions_As_Parameters.vcxproj", "{11EFE0EE-D254-49A7-871A-3BABFB6846D5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09_Counting_Mouse_Clicks", "09_Counting_Mouse_Clicks\09_Counting_Mouse_Clicks.vcxproj", "{D2C4239F-18DE-45E1-95AD-E10404A01DAC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_First_OpenGL_Program", "10_First_OpenGL_Program\10_First_OpenGL_Program.vcxproj", "{B0451CBB-0E57-432F-9D1F-52019F378F04}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +71,46 @@ Global
 		{0C674D63-9CBD-411D-A085-6B124D4F8681}.Release|x64.Build.0 = Release|x64
 		{0C674D63-9CBD-411D-A085-6B124D4F8681}.Release|x86.ActiveCfg = Release|Win32
 		{0C674D63-9CBD-411D-A085-6B124D4F8681}.Release|x86.Build.0 = Release|Win32
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Debug|x64.ActiveCfg = Debug|x64
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Debug|x64.Build.0 = Debug|x64
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Debug|x86.ActiveCfg = Debug|Win32
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Debug|x86.Build.0 = Debug|Win32
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Release|x64.ActiveCfg = Release|x64
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Release|x64.Build.0 = Release|x64
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Release|x86.ActiveCfg = Release|Win32
+		{E96C3C60-86E6-4078-9017-8A021EBB5C69}.Release|x86.Build.0 = Release|Win32
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Debug|x64.ActiveCfg = Debug|x64
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Debug|x64.Build.0 = Debug|x64
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Debug|x86.ActiveCfg = Debug|Win32
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Debug|x86.Build.0 = Debug|Win32
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Release|x64.ActiveCfg = Release|x64
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Release|x64.Build.0 = Release|x64
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Release|x86.ActiveCfg = Release|Win32
+		{2962C155-51C7-4D4F-9B61-5B213CFFECCA}.Release|x86.Build.0 = Release|Win32
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Debug|x64.ActiveCfg = Debug|x64
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Debug|x64.Build.0 = Debug|x64
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Debug|x86.ActiveCfg = Debug|Win32
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Debug|x86.Build.0 = Debug|Win32
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Release|x64.ActiveCfg = Release|x64
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Release|x64.Build.0 = Release|x64
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Release|x86.ActiveCfg = Release|Win32
+		{11EFE0EE-D254-49A7-871A-3BABFB6846D5}.Release|x86.Build.0 = Release|Win32
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Debug|x64.ActiveCfg = Debug|x64
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Debug|x64.Build.0 = Debug|x64
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Debug|x86.ActiveCfg = Debug|Win32
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Debug|x86.Build.0 = Debug|Win32
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Release|x64.ActiveCfg = Release|x64
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Release|x64.Build.0 = Release|x64
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Release|x86.ActiveCfg = Release|Win32
+		{D2C4239F-18DE-45E1-95AD-E10404A01DAC}.Release|x86.Build.0 = Release|Win32
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Debug|x64.ActiveCfg = Debug|x64
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Debug|x64.Build.0 = Debug|x64
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Debug|x86.ActiveCfg = Debug|Win32
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Debug|x86.Build.0 = Debug|Win32
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Release|x64.ActiveCfg = Release|x64
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Release|x64.Build.0 = Release|x64
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Release|x86.ActiveCfg = Release|Win32
+		{B0451CBB-0E57-432F-9D1F-52019F378F04}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
