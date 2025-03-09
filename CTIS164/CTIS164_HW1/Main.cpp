@@ -244,15 +244,19 @@ void drawAirplane(float x, float y) {
     glEnd();
 }
 
-void drawWallAndSwitch() {
-    double w = 2 / 5.0;
-    double h = 1 / 3.0;
-    float left = -WINDOW_WIDTH * w;
-    float right = WINDOW_WIDTH * w;
-    float top = WINDOW_HEIGHT * h;
-    float bottom = -WINDOW_HEIGHT * h;
-    float wallThickness = 25;
+double w = 2 / 5.0;
+double h = 1 / 3.0;
+float left = -WINDOW_WIDTH * w;
+float right = WINDOW_WIDTH * w;
+float top = WINDOW_HEIGHT * h;
+float bottom = -WINDOW_HEIGHT * h;
+float wallThickness = 25;
+float patternLeft = left - wallThickness - 200;
+float patternRight = right + wallThickness + 200;
+float patternTop = top + wallThickness + 150;
+float patternBottom = bottom - wallThickness - 150;
 
+void drawWallAndSwitch() {
     // Save window dimensions for later use
     windowLeft = left;
     windowRight = right;
@@ -266,11 +270,6 @@ void drawWallAndSwitch() {
     innerBottom = bottom + frameThickness;
 
     setRoomLightAdjustedColor(0.9, 0.9, 0.95);
-
-    float patternLeft = left - wallThickness - 200;
-    float patternRight = right + wallThickness + 200;
-    float patternTop = top + wallThickness + 150;
-    float patternBottom = bottom - wallThickness - 150;
 
     // Main wall background
     glBegin(GL_POLYGON);
@@ -290,46 +289,6 @@ void drawWallAndSwitch() {
         glVertex2f(x + stripeWidth, patternBottom);
         glVertex2f(x, patternBottom);
         glEnd();
-    }
-
-    switchX = right + wallThickness + 50;
-    switchY = (top + bottom) / 2;
-
-    // Draw Switch
-    setRoomLightAdjustedColor(0.95, 0.95, 0.95);
-    glBegin(GL_POLYGON);
-    glVertex2f(switchX - 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY - 30);
-    glVertex2f(switchX - 20, switchY - 30);
-    glEnd();
-
-    setRoomLightAdjustedColor(0.7, 0.7, 0.7);
-    glLineWidth(2);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(switchX - 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY - 30);
-    glVertex2f(switchX - 20, switchY - 30);
-    glEnd();
-
-    if (lightOn) {
-        setLightAdjustedColor(0.2, 0.6, 0.2);
-    }
-    else {
-        setLightAdjustedColor(0.7, 0.2, 0.2);
-    }
-    circle(switchX, switchY, switchRadius);
-
-    setLightAdjustedColor(0.9, 0.9, 0.9);
-    circle(switchX - 3, switchY + 3, 4);
-
-    setRoomLightAdjustedColor(0.3, 0.3, 0.3);
-    if (lightOn) {
-        vprint(switchX - 15, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
-    }
-    else {
-        vprint(switchX - 18, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: OFF");
     }
 }
 
@@ -448,49 +407,56 @@ void drawMasks() {
 
 // Draw the window borders on top of everything
 void drawWindowBorders() {
-    glLineWidth(2);
+    double w = 2 / 5.0;
+    double h = 1 / 3.0;
+    float left = -WINDOW_WIDTH * w;
+    float right = WINDOW_WIDTH * w;
+    float top = WINDOW_HEIGHT * h;
+    float bottom = -WINDOW_HEIGHT * h;
+    float borderThickness = 15;
 
-    // Top border
-    setRoomLightAdjustedColor(0.9, 0.9, 0.95);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(windowLeft + 2, windowTop - 2);
-    glVertex2f(windowRight - 2, windowTop - 2);
-    glVertex2f(windowRight - 2, windowTop - 4);
-    glVertex2f(windowLeft + 2, windowTop - 4);
-    glEnd();
-
-    // Left border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(windowLeft + 2, windowTop - 2);
-    glVertex2f(windowLeft + 2, windowBottom + 2);
-    glVertex2f(windowLeft + 4, windowBottom + 2);
-    glVertex2f(windowLeft + 4, windowTop - 2);
-    glEnd();
-
-    // Bottom border 
-    setRoomLightAdjustedColor(0.5, 0.5, 0.55);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(windowLeft + 2, windowBottom + 2);
-    glVertex2f(windowRight - 2, windowBottom + 2);
-    glVertex2f(windowRight - 2, windowBottom + 4);
-    glVertex2f(windowLeft + 2, windowBottom + 4);
-    glEnd();
-
-    // Right border
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(windowRight - 2, windowTop - 2);
-    glVertex2f(windowRight - 2, windowBottom + 2);
-    glVertex2f(windowRight - 4, windowBottom + 2);
-    glVertex2f(windowRight - 4, windowTop - 2);
-    glEnd();
-
-    // Inner frame border
+    // Top border (lighter color)
     setRoomLightAdjustedColor(0.8, 0.8, 0.85);
-    glBegin(GL_LINE_LOOP);
-    glVertex2f(innerLeft + 2, innerTop - 2);
-    glVertex2f(innerRight - 2, innerTop - 2);
-    glVertex2f(innerRight - 2, innerTop - 4);
-    glVertex2f(innerLeft + 2, innerTop - 4);
+    glBegin(GL_POLYGON);
+    glVertex2f(left, top);
+    glVertex2f(right, top);
+    glVertex2f(right, top - borderThickness);
+    glVertex2f(left, top - borderThickness);
+    glEnd();
+
+    // Left border (lighter color)
+    glBegin(GL_POLYGON);
+    glVertex2f(left, top);
+    glVertex2f(left + borderThickness, top);
+    glVertex2f(left + borderThickness, bottom);
+    glVertex2f(left, bottom);
+    glEnd();
+
+    // Bottom border (darker color)
+    setRoomLightAdjustedColor(0.7, 0.7, 0.75);
+    glBegin(GL_POLYGON);
+    glVertex2f(left, bottom);
+    glVertex2f(right, bottom);
+    glVertex2f(right, bottom + borderThickness);
+    glVertex2f(left, bottom + borderThickness);
+    glEnd();
+
+    // Right border (darker color)
+    glBegin(GL_POLYGON);
+    glVertex2f(right - borderThickness, top);
+    glVertex2f(right, top);
+    glVertex2f(right, bottom);
+    glVertex2f(right - borderThickness, bottom);
+    glEnd();
+
+    // Inner frame border (highlight)
+    setRoomLightAdjustedColor(0.8, 0.8, 0.85);
+    float innerOffset = frameThickness + 2;
+    glBegin(GL_POLYGON);
+    glVertex2f(left + innerOffset, top - innerOffset);
+    glVertex2f(right - innerOffset, top - innerOffset);
+    glVertex2f(right - innerOffset, top - innerOffset - 2);
+    glVertex2f(left + innerOffset, top - innerOffset - 2);
     glEnd();
 }
 
@@ -564,6 +530,48 @@ void drawBlinds() {
     circle(innerRight - 13, innerBottom + 27, 3);
 }
 
+void drawSwitch() {
+    switchX = right + wallThickness + 50;
+    switchY = (top + bottom) / 2;
+
+    // Draw Switch
+    setRoomLightAdjustedColor(0.95, 0.95, 0.95);
+    glBegin(GL_POLYGON);
+    glVertex2f(switchX - 20, switchY + 30);
+    glVertex2f(switchX + 20, switchY + 30);
+    glVertex2f(switchX + 20, switchY - 30);
+    glVertex2f(switchX - 20, switchY - 30);
+    glEnd();
+
+    setRoomLightAdjustedColor(0.7, 0.7, 0.7);
+    glLineWidth(2);
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(switchX - 20, switchY + 30);
+    glVertex2f(switchX + 20, switchY + 30);
+    glVertex2f(switchX + 20, switchY - 30);
+    glVertex2f(switchX - 20, switchY - 30);
+    glEnd();
+
+    if (lightOn) {
+        setLightAdjustedColor(0.2, 0.6, 0.2);
+    }
+    else {
+        setLightAdjustedColor(0.7, 0.2, 0.2);
+    }
+    circle(switchX, switchY, switchRadius);
+
+    setLightAdjustedColor(0.9, 0.9, 0.9);
+    circle(switchX - 3, switchY + 3, 4);
+
+    setRoomLightAdjustedColor(0.3, 0.3, 0.3);
+    if (lightOn) {
+        vprint(switchX - 15, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
+    }
+    else {
+        vprint(switchX - 18, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: OFF");
+    }
+}
+
 // Combines all window drawing elements in proper order
 void drawWindow() {
     glPointSize(10);
@@ -583,6 +591,8 @@ void drawWindow() {
 
     // Draw blinds on top of everything
     drawBlinds();
+
+	drawSwitch();
 }
 
 void onBlindsTimer(int v) {
