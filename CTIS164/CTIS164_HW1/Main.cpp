@@ -372,7 +372,7 @@ void drawWindow() {
 
     // Draw window borders with line loops instead of lines
     glLineWidth(2);
-    g
+
     // Top border
     setRoomLightAdjustedColor(0.9, 0.9, 0.95);
     glBegin(GL_LINE_LOOP);
