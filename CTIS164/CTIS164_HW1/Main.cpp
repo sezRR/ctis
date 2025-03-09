@@ -1,13 +1,12 @@
 /*********************************************
-   CTIS164 - Lab02
-   OpenGL: Drawing different primitive shapes
+   CTIS164 - Homework 1
+   Owner: Sezer Tetik, 22303222
 *********************************************/
+
 #include <GL/glut.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include <string.h>
-#include <stdarg.h>
 
 #define WINDOW_WIDTH  1200
 #define WINDOW_HEIGHT 800
@@ -17,22 +16,33 @@
 // Global variables for blind state
 bool blindsOpen = false;           // blinds start closed
 float blindAnimationProgress = 0.0; // 0.0 is fully closed, 1.0 is fully open
-const float ANIMATION_SPEED = 0.05; // How quickly blinds open/close
+const float ANIMATION_SPEED = 0.05;  // How quickly blinds open/close
 float adjusterX, adjusterY;
 float adjusterRadius;
-float frameThickness = 15;         // Global frame thickness
+float frameThickness = 15;           // Global frame thickness
 
 // Global variables for light state
 bool lightOn = true;   // Start with light on
-float lightLevel = 1.0; // Full brightness
+float lightLevel = 1.0; // Full brightness when on, set to 0.4 when off
 float switchX, switchY;
 float switchRadius = 12;
 
-// -------------------------------------------------
 // Utility function to set color adjusted for light level
-// -------------------------------------------------
+// (For objects that are meant to reflect the pure light state)
 void setLightAdjustedColor(float r, float g, float b) {
     glColor3f(r * lightLevel, g * lightLevel, b * lightLevel);
+}
+
+// When light is off, a boost based on blind openness is added.
+float getEffectiveRoomLight() {
+    const float ROOM_BOOST = 0.3; // Maximum boost when blinds are fully open
+    return lightOn ? lightLevel : (lightLevel + ROOM_BOOST * blindAnimationProgress);
+}
+
+// Set color for environment objects using effective room light.
+void setRoomLightAdjustedColor(float r, float g, float b) {
+    float effectiveLight = getEffectiveRoomLight();
+    glColor3f(r * effectiveLight, g * effectiveLight, b * effectiveLight);
 }
 
 // Function to check if a point is inside a circle
@@ -80,8 +90,8 @@ void drawWallAndSwitch() {
     float bottom = -WINDOW_HEIGHT * h;
     float wallThickness = 25;
 
-    // Draw wall pattern with light adjustment
-    setLightAdjustedColor(0.9, 0.9, 0.95); // Base wall color
+    // Draw wall background using environment light adjustment
+    setRoomLightAdjustedColor(0.9, 0.9, 0.95);
 
     // Calculate pattern area dimensions
     float patternLeft = left - wallThickness - 200;
@@ -89,7 +99,6 @@ void drawWallAndSwitch() {
     float patternTop = top + wallThickness + 150;
     float patternBottom = bottom - wallThickness - 150;
 
-    // Draw wall background first
     glBegin(GL_POLYGON);
     glVertex2f(patternLeft, patternTop);
     glVertex2f(patternRight, patternTop);
@@ -98,7 +107,7 @@ void drawWallAndSwitch() {
     glEnd();
 
     // Draw vertical stripes on wall
-    setLightAdjustedColor(0.85, 0.85, 0.9); // Slightly darker for pattern
+    setRoomLightAdjustedColor(0.85, 0.85, 0.9);
     float stripeWidth = 50;
     for (float x = patternLeft; x <= patternRight; x += stripeWidth * 2) {
         glBegin(GL_POLYGON);
@@ -115,7 +124,7 @@ void drawWallAndSwitch() {
     switchY = (top + bottom) / 2;
 
     // Switch background plate
-    setLightAdjustedColor(0.95, 0.95, 0.95);
+    setRoomLightAdjustedColor(0.95, 0.95, 0.95);
     glBegin(GL_POLYGON);
     glVertex2f(switchX - 20, switchY + 30);
     glVertex2f(switchX + 20, switchY + 30);
@@ -124,7 +133,7 @@ void drawWallAndSwitch() {
     glEnd();
 
     // Switch border
-    setLightAdjustedColor(0.7, 0.7, 0.7);
+    setRoomLightAdjustedColor(0.7, 0.7, 0.7);
     glLineWidth(2);
     glBegin(GL_LINE_LOOP);
     glVertex2f(switchX - 20, switchY + 30);
@@ -133,13 +142,11 @@ void drawWallAndSwitch() {
     glVertex2f(switchX - 20, switchY - 30);
     glEnd();
 
-    // Switch button
+    // Switch button (color still reflects the switch state)
     if (lightOn) {
-        // Green when on
         setLightAdjustedColor(0.2, 0.6, 0.2);
     }
     else {
-        // Red when off
         setLightAdjustedColor(0.7, 0.2, 0.2);
     }
     circle(switchX, switchY, switchRadius);
@@ -149,7 +156,7 @@ void drawWallAndSwitch() {
     circle(switchX - 3, switchY + 3, 4);
 
     // Draw switch label
-    setLightAdjustedColor(0.3, 0.3, 0.3);
+    setRoomLightAdjustedColor(0.3, 0.3, 0.3);
     if (lightOn) {
         vprint(switchX - 15, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
     }
@@ -173,88 +180,81 @@ void drawWindow() {
     adjusterY = bottom + frameThickness + 25;
     adjusterRadius = 8;
 
-    // Outer window frame (wall)
-    setLightAdjustedColor(0.85, 0.85, 0.9);  // Light blue-gray
+    // Outer window frame (wall) drawn using room light adjustment
+    setRoomLightAdjustedColor(0.85, 0.85, 0.9);
     float wallThickness = 25;
     glRectf(left - wallThickness, bottom - wallThickness,
         right + wallThickness, top + wallThickness);
 
-    // Window frame
-    setLightAdjustedColor(0.7, 0.7, 0.75);  // Medium gray for frame
+    // Window frame (structure around the glass)
+    setRoomLightAdjustedColor(0.7, 0.7, 0.75);
     glRectf(left, bottom, right, top);
 
     // Inner window area (glass)
-    setLightAdjustedColor(0.8, 0.9, 1.0);  // Light blue for glass
+    // If light is off but blinds are open, simulate external light entering.
+    if (!lightOn && blindAnimationProgress > 0) {
+        float effectiveWindowLight = lightLevel + (1.0 - lightLevel) * blindAnimationProgress;
+        glColor3f(0.8 * effectiveWindowLight, 0.9 * effectiveWindowLight, 1.0 * effectiveWindowLight);
+    }
+    else {
+        // Use default lightLevel for glass
+        setLightAdjustedColor(0.8, 0.9, 1.0);
+    }
     glRectf(left + frameThickness, bottom + frameThickness,
         right - frameThickness, top - frameThickness);
 
-    // Window frame shadow/highlight effects
+    // Window frame shadow/highlight effects (using room light adjustment)
     glLineWidth(2);
-    // Top highlight
-    setLightAdjustedColor(0.9, 0.9, 0.95);
+    setRoomLightAdjustedColor(0.9, 0.9, 0.95);
     glBegin(GL_LINES);
     glVertex2f(left + 2, top - 2);
     glVertex2f(right - 2, top - 2);
     glEnd();
 
-    // Left highlight
     glBegin(GL_LINES);
     glVertex2f(left + 2, top - 2);
     glVertex2f(left + 2, bottom + 2);
     glEnd();
 
-    // Bottom shadow
-    setLightAdjustedColor(0.5, 0.5, 0.55);
+    setRoomLightAdjustedColor(0.5, 0.5, 0.55);
     glBegin(GL_LINES);
     glVertex2f(left + 2, bottom + 2);
     glVertex2f(right - 2, bottom + 2);
     glEnd();
 
-    // Right shadow
     glBegin(GL_LINES);
     glVertex2f(right - 2, top - 2);
     glVertex2f(right - 2, bottom + 2);
     glEnd();
 
     // Inner frame highlight/shadow
-    // Top inner highlight
-    setLightAdjustedColor(0.8, 0.8, 0.85);
+    setRoomLightAdjustedColor(0.8, 0.8, 0.85);
     glBegin(GL_LINES);
     glVertex2f(left + frameThickness + 2, top - frameThickness - 2);
     glVertex2f(right - frameThickness - 2, top - frameThickness - 2);
     glEnd();
 
     // Roller blinds
-    int numBlinds = 12;  // More blinds for a sleeker look
+    int numBlinds = 12;
     float blindHeight = (top - bottom - 2 * frameThickness) / numBlinds;
     float windowHeight = top - bottom - 2 * frameThickness;
-
-    // Calculate how much of the blinds to show based on animation progress
     float visibleHeight = windowHeight * (1.0 - blindAnimationProgress);
     int visibleBlinds = ceil(visibleHeight / blindHeight);
 
-    // Draw each blind slat (only if it should be visible)
     for (int i = 0; i < numBlinds && i < visibleBlinds; i++) {
         float y = top - frameThickness - (i + 0.5) * blindHeight;
-
-        // Special case for the last partially visible blind
         if (i == visibleBlinds - 1 && blindAnimationProgress > 0) {
             float partialVisibility = visibleHeight - (i * blindHeight);
             if (partialVisibility < blindHeight) {
-                // Only show part of this blind
                 y = top - frameThickness - i * blindHeight - partialVisibility / 2;
             }
         }
-
-        // Modern gradient effect for blinds
         if (i % 2 == 0) {
-            setLightAdjustedColor(0.93, 0.93, 0.93);
+            setRoomLightAdjustedColor(0.93, 0.93, 0.93);
         }
         else {
-            setLightAdjustedColor(0.9, 0.9, 0.9);
+            setRoomLightAdjustedColor(0.9, 0.9, 0.9);
         }
-
-        // Draw the blind slat
         glBegin(GL_POLYGON);
         glVertex2f(left + frameThickness + 5, y + blindHeight / 2 - 3);
         glVertex2f(right - frameThickness - 5, y + blindHeight / 2 - 3);
@@ -262,8 +262,7 @@ void drawWindow() {
         glVertex2f(left + frameThickness + 5, y - blindHeight / 2 + 3);
         glEnd();
 
-        // Add some 3D effect with slightly darker lines
-        setLightAdjustedColor(0.7, 0.7, 0.7);
+        setRoomLightAdjustedColor(0.7, 0.7, 0.7);
         glLineWidth(1);
         glBegin(GL_LINES);
         glVertex2f(left + frameThickness + 5, y - blindHeight / 2 + 3);
@@ -271,34 +270,32 @@ void drawWindow() {
         glEnd();
     }
 
-    // Draw rolled up blinds at the top when partially or fully open
+    // Draw rolled up blinds at the top when partially/fully open
     if (blindAnimationProgress > 0) {
-        setLightAdjustedColor(0.85, 0.85, 0.85);
+        setRoomLightAdjustedColor(0.85, 0.85, 0.85);
         glRectf(left + frameThickness, top - frameThickness - 10,
             right - frameThickness, top - frameThickness);
     }
 
     // Modern blind control mechanism
-    setLightAdjustedColor(0.75, 0.75, 0.8);
+    setRoomLightAdjustedColor(0.75, 0.75, 0.8);
     glLineWidth(2);
     glBegin(GL_LINES);
     glVertex2f(right - frameThickness - 15, top - frameThickness);
     glVertex2f(right - frameThickness - 15, bottom + frameThickness);
     glEnd();
 
-    // Blind adjuster (modern cylindrical knob)
-    // Change color when blinds are open
+    // Blind adjuster (cylindrical knob)
     if (blindsOpen) {
-        setLightAdjustedColor(0.5, 0.7, 0.5);
+        setRoomLightAdjustedColor(0.5, 0.7, 0.5);
     }
     else {
-        setLightAdjustedColor(0.6, 0.6, 0.65);
+        setRoomLightAdjustedColor(0.6, 0.6, 0.65);
     }
     circle(right - frameThickness - 15, bottom + frameThickness + 25, 8);
-    setLightAdjustedColor(0.8, 0.8, 0.85);  // Highlight
+    setRoomLightAdjustedColor(0.8, 0.8, 0.85);
     circle(right - frameThickness - 13, bottom + frameThickness + 27, 3);
 
-    // Reset line width
     glLineWidth(5);
 }
 
@@ -314,12 +311,10 @@ void onTimer(int v) {
         if (blindAnimationProgress < 0.0)
             blindAnimationProgress = 0.0;
     }
-
     if ((blindsOpen && blindAnimationProgress < 1.0) ||
         (!blindsOpen && blindAnimationProgress > 0.0)) {
-        glutTimerFunc(16, onTimer, 0);  // ~60fps
+        glutTimerFunc(16, onTimer, 0);
     }
-
     glutPostRedisplay();
 }
 
@@ -327,7 +322,6 @@ void onTimer(int v) {
 void onClick(int button, int state, int x, int y) {
     int wx = x - WINDOW_WIDTH / 2;
     int wy = WINDOW_HEIGHT / 2 - y;
-
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         if (isInsideCircle(wx, wy, adjusterX, adjusterY, adjusterRadius)) {
             blindsOpen = !blindsOpen;
@@ -335,17 +329,18 @@ void onClick(int button, int state, int x, int y) {
         }
         else if (isInsideCircle(wx, wy, switchX, switchY, switchRadius)) {
             lightOn = !lightOn;
-            lightLevel = lightOn ? 1.0 : 0.4; // Full brightness or dim lighting
+            lightLevel = lightOn ? 1.0 : 0.4;
             glutPostRedisplay();
         }
     }
-
     glutPostRedisplay();
 }
 
 // Display function
 void display() {
-    glClearColor(0.8 * lightLevel, 0.8 * lightLevel, 0.8 * lightLevel, 1.0);
+    // Use effective room light for the overall background
+    float effectiveRoomLight = getEffectiveRoomLight();
+    glClearColor(0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
     drawWallAndSwitch();
@@ -357,9 +352,8 @@ void display() {
 
 // Keyboard event for ASCII characters
 void onKeyDown(unsigned char key, int x, int y) {
-    if (key == 27) // ESC key
+    if (key == 27)
         exit(0);
-
     glutPostRedisplay();
 }
 
