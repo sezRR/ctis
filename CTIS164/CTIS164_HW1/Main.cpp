@@ -1,7 +1,6 @@
 /*********************************************
    CTIS164 - Homework
    Owner: Sezer Tetik, 22303222
-   Modified with Airplane Animation and Clipping Fix
 *********************************************/
 
 #include <GL/glut.h>
@@ -325,7 +324,7 @@ void drawMasks() {
     float maskBottom = innerBottom;
     float maskTop = innerTop;
 
-    // Step 1: Fill masked areas with the base wall color
+    // Fill masked areas with the base wall color
     setRoomLightAdjustedColor(0.9, 0.9, 0.95);
 
     // Left mask
@@ -673,10 +672,10 @@ void display() {
     glClearColor(0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Step 1: Draw the wall and switch
+    // Draw the wall and switch
     drawWallAndSwitch();
 
-    // Step 2-4: Draw window, airplane, masks and borders
+    // Draw window, airplane, masks and borders
     drawWindow();
 
     createNameSurnameLabel();
