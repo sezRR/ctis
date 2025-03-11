@@ -1,6 +1,9 @@
 /*********************************************
    CTIS164 - Homework
-   Owner: Sezer Tetik, 22303222
+   Owner: Sezer Tetik, 22303222 | Section: CTIS164-03
+
+   DOCUMENTATIONS
+   This project 
 *********************************************/
 
 #include <GL/glut.h>
@@ -17,7 +20,7 @@
 #define PI  3.14159265358
 
 // Global variables for blind state
-bool blindsOpen = false;           // blinds start closed
+bool blindsOpen = true;           // blinds start closed TODO: Change to false
 float blindAnimationProgress = 0.0; // 0.0 is fully closed, 1.0 is fully open
 const float ANIMATION_SPEED = 0.05;  // How quickly blinds open/close
 float adjusterX, adjusterY;
@@ -31,8 +34,8 @@ float switchX, switchY;
 float switchRadius = 12;
 
 // Global variables for airplane animation
-bool planeAnimationActive = false;  // Animation starts off
-float planeXStart = -2000;          // Initial position
+bool planeAnimationActive = true;  // Animation starts off TODO: off
+float planeXStart = -200;          // Initial position, -2000 TODO:
 float planeX = planeXStart;         // Current position
 float planeY = 100;                 // Fixed height
 float planeSpeed = 5.0;             // Movement speed
@@ -42,6 +45,19 @@ bool movingRight = true;            // Direction of movement
 float windowLeft, windowRight, windowTop, windowBottom;
 float innerLeft, innerRight, innerTop, innerBottom;
 
+// Global variables to draw wall pattern
+double w = 2 / 5.0;
+double h = 1 / 3.0;
+float left = -WINDOW_WIDTH * w;
+float right = WINDOW_WIDTH * w;
+float top = WINDOW_HEIGHT * h;
+float bottom = -WINDOW_HEIGHT * h;
+float wallThickness = 25;
+float patternLeft = left - wallThickness - 200;
+float patternRight = right + wallThickness + 200;
+float patternTop = top + wallThickness + 150;
+float patternBottom = bottom - wallThickness - 150;
+
 // Utility function to set color adjusted for light level
 void setLightAdjustedColor(float r, float g, float b) {
     glColor3f(r * lightLevel, g * lightLevel, b * lightLevel);
@@ -49,7 +65,7 @@ void setLightAdjustedColor(float r, float g, float b) {
 
 float getEffectiveRoomLight(bool isObjectOutside = false) {
     if (isObjectOutside)
-        return 1.1; // Always use full brightness for outside objects
+        return 1; // Always use full brightness for outside objects
 
     const float ROOM_BOOST = 0.3;
     return lightOn ? lightLevel : (lightLevel + ROOM_BOOST * blindAnimationProgress);
@@ -94,8 +110,16 @@ void vprint(int x, int y, void* font, const char* string, ...) {
 }
 
 void createNameSurnameLabel() {
-    glColor3f(1, 0, 0);
-    vprint(0, WINDOW_HEIGHT / 2 - 50, GLUT_BITMAP_HELVETICA_18, "Sezer Tetik");
+    const int padding = 20;
+
+    setRoomLightAdjustedColor(0.5, 0.5, 0.5);
+    glRectf(-150 - 1.25 * padding, WINDOW_HEIGHT / 2 - 105 - 0.75 * padding, 180 + 1.25 * padding, WINDOW_HEIGHT / 2 - 80 + 0.75 * padding);
+
+    setRoomLightAdjustedColor(1, 1, 1);
+    glRectf(-150 - padding, WINDOW_HEIGHT / 2 - 105 - padding/2.0, 180 + padding, WINDOW_HEIGHT / 2 - 80 + padding/2.0);
+
+    glColor3f(0.25, 0.25, 0.25);
+    vprint(-150, WINDOW_HEIGHT / 2 - 100, GLUT_BITMAP_HELVETICA_18, "View Through a Window by Sezer Tetik");
 }
 
 void drawAirplane(float x, float y) {
@@ -107,30 +131,71 @@ void drawAirplane(float x, float y) {
     y = (innerTop + innerBottom) / 2 - 30;
 
     // 1. Main fuselage
-    setRoomLightAdjustedColorOutside(0.8, 0.8, 0.9);
+    setRoomLightAdjustedColorOutside(1, 1, 1);
     glBegin(GL_POLYGON);
     glVertex2f(x - 120, y);
     glVertex2f(x + 80, y);
-    glVertex2f(x + 100, y - 15);
-    glVertex2f(x - 100, y - 15);
+    glVertex2f(x + 80, y - 20);
+    glVertex2f(x - 80, y - 20);
+    glVertex2f(x - 120, y - 10);
     glEnd();
+
+    // 7. Engine 1
+    //setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
+    //glBegin(GL_TRIANGLES);
+    //glVertex2f(x - 50, y - 32.5);
+    //glVertex2f(x, y - 25);
+    //glVertex2f(x, y - 40);
+    //glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2f(x - 10, y - 25);
+    glVertex2f(x + 20, y - 25);
+    glVertex2f(x + 20, y - 35);
+    glVertex2f(x - 10, y - 35);
+    glEnd();
+
+    setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
+    glBegin(GL_POLYGON);
+    glVertex2f(x + 15, y - 25);
+    glVertex2f(x + 20, y - 25);
+    glVertex2f(x + 20, y - 35);
+    glVertex2f(x + 15, y - 35);
+    glEnd();
+
+    // 8. Engine 2
+    //setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
+    //glBegin(GL_POLYGON);
+    //glVertex2f(x - 80, y - 25);
+    //glVertex2f(x - 40, y - 25);
+    //glVertex2f(x - 40, y - 40);
+    //glVertex2f(x - 80, y - 40);
+    //glEnd();
+
+    //setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
+    //glBegin(GL_POLYGON);
+    //glVertex2f(x - 85, y - 27);
+    //glVertex2f(x - 80, y - 27);
+    //glVertex2f(x - 80, y - 38);
+    //glVertex2f(x - 85, y - 38);
+    //glEnd();
 
     // 2. Cockpit
-    setRoomLightAdjustedColorOutside(0.7, 0.85, 1.0);
-    glBegin(GL_POLYGON);
-    glVertex2f(x + 80, y);
-    glVertex2f(x + 110, y);
-    glVertex2f(x + 90, y - 15);
-    glVertex2f(x + 70, y - 15);
-    glEnd();
+    //setRoomLightAdjustedColorOutside(0.7, 0.85, 1.0);
+    //glBegin(GL_POLYGON);
+    //glVertex2f(x + 80, y);
+    //glVertex2f(x + 110, y);
+    //glVertex2f(x + 90, y - 15);
+    //glVertex2f(x + 70, y - 15);
+    //glEnd();
 
     // 3. Nose cone
-    setRoomLightAdjustedColorOutside(0.7, 0.7, 0.8);
-    glBegin(GL_POLYGON);
-    glVertex2f(x + 110, y);
-    glVertex2f(x + 130, y - 7.5);
-    glVertex2f(x + 110, y - 15);
-    glEnd();
+    //setRoomLightAdjustedColorOutside(0.7, 0.7, 0.8);
+    //glBegin(GL_POLYGON);
+    //glVertex2f(x + 110, y);
+    //glVertex2f(x + 130, y - 7.5);
+    //glVertex2f(x + 110, y - 15);
+    //glEnd();
 
     // 4. Tail fin
     setRoomLightAdjustedColorOutside(0.6, 0.6, 0.9);
@@ -150,49 +215,6 @@ void drawAirplane(float x, float y) {
     glVertex2f(x - 120, y - 5);
     glEnd();
 
-    // 6. Main wings
-    setRoomLightAdjustedColorOutside(0.7, 0.7, 0.9);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 20, y - 5);
-    glVertex2f(x + 30, y - 5);
-    glVertex2f(x + 50, y - 45);
-    glVertex2f(x - 40, y - 45);
-    glEnd();
-
-    // 7. Engine 1
-    setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 10, y - 25);
-    glVertex2f(x + 30, y - 25);
-    glVertex2f(x + 30, y - 40);
-    glVertex2f(x - 10, y - 40);
-    glEnd();
-
-    setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 15, y - 27);
-    glVertex2f(x - 10, y - 27);
-    glVertex2f(x - 10, y - 38);
-    glVertex2f(x - 15, y - 38);
-    glEnd();
-
-    // 8. Engine 2
-    setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 80, y - 25);
-    glVertex2f(x - 40, y - 25);
-    glVertex2f(x - 40, y - 40);
-    glVertex2f(x - 80, y - 40);
-    glEnd();
-
-    setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 85, y - 27);
-    glVertex2f(x - 80, y - 27);
-    glVertex2f(x - 80, y - 38);
-    glVertex2f(x - 85, y - 38);
-    glEnd();
-
     // 9. Windows
     setRoomLightAdjustedColorOutside(0.7, 0.85, 1.0);
     for (int i = 0; i < 8; i++) {
@@ -205,57 +227,65 @@ void drawAirplane(float x, float y) {
         glEnd();
     }
 
-    // 10. Front wheel
-    setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
-    circle(x + 90, y - 25, 7);
-
-    setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
-    glLineWidth(2.0);
-    glBegin(GL_LINES);
-    glVertex2f(x + 90, y - 15);
-    glVertex2f(x + 90, y - 25);
+    // 6. Main wings
+    setRoomLightAdjustedColorOutside(0.7, 0.7, 0.9);
+    glBegin(GL_POLYGON);
+    glVertex2f(x - 20, y - 15);
+    glVertex2f(x + 30, y - 15);
+    glVertex2f(x - 40, y - 45);
     glEnd();
+
+    // Emergency Exit Near the Main Wing
+    setRoomLightAdjustedColorOutside(0.35, 0.35, 0.35);
+    glBegin(GL_POLYGON);
+    glVertex2f(x - 8, y - 2);
+    glVertex2f(x - 2, y - 2);
+    glVertex2f(x - 2, y - 12);
+    glVertex2f(x - 8, y - 12);
+    glEnd();
+
+    setRoomLightAdjustedColorOutside(0.7, 0.7, 0.7);
+    glRectf(x - 4, y - 6, x - 6, y - 8);
+
+    // 10. Front wheel
+    //setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
+    //circle(x + 90, y - 25, 7);
+
+    //setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
+    //glLineWidth(2.0);
+    //glBegin(GL_LINES);
+    //glVertex2f(x + 90, y - 15);
+    //glVertex2f(x + 90, y - 25);
+    //glEnd();
 
     // 11. Rear wheels
-    setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
-    circle(x, y - 55, 10);
-    circle(x - 50, y - 55, 10);
+    //setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
+    //circle(x, y - 55, 10);
+    //circle(x - 50, y - 55, 10);
 
-    setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
-    glBegin(GL_LINES);
-    glVertex2f(x, y - 45);
-    glVertex2f(x, y - 55);
-    glVertex2f(x - 50, y - 45);
-    glVertex2f(x - 50, y - 55);
-    glEnd();
+    //setRoomLightAdjustedColorOutside(0.5, 0.5, 0.5);
+    //glBegin(GL_LINES);
+    //glVertex2f(x, y - 45);
+    //glVertex2f(x, y - 55);
+    //glVertex2f(x - 50, y - 45);
+    //glVertex2f(x - 50, y - 55);
+    //glEnd();
 
-    // 12. Tail logo
-    setRoomLightAdjustedColorOutside(1.0, 0.0, 0.0);
-    circle(x - 105, y + 20, 10);
+    // 12. Tail logo (Draws circle and T)
+    setRoomLightAdjustedColorOutside(0, 0.0, 1);
+    circle(x - 111, y + 20, 9);
 
     setRoomLightAdjustedColorOutside(1.0, 1.0, 1.0);
     glLineWidth(2.0);
     glBegin(GL_LINES);
+    glVertex2f(x - 115, y + 23.5);
+    glVertex2f(x - 105, y + 23.5);
+    glVertex2f(x - 110, y + 23.5);
     glVertex2f(x - 110, y + 15);
-    glVertex2f(x - 100, y + 25);
-    glVertex2f(x - 110, y + 25);
-    glVertex2f(x - 100, y + 15);
     glEnd();
 }
 
-double w = 2 / 5.0;
-double h = 1 / 3.0;
-float left = -WINDOW_WIDTH * w;
-float right = WINDOW_WIDTH * w;
-float top = WINDOW_HEIGHT * h;
-float bottom = -WINDOW_HEIGHT * h;
-float wallThickness = 25;
-float patternLeft = left - wallThickness - 200;
-float patternRight = right + wallThickness + 200;
-float patternTop = top + wallThickness + 150;
-float patternBottom = bottom - wallThickness - 150;
-
-void drawWallAndSwitch() {
+void initializeWindowDimensions() {
     // Save window dimensions for later use
     windowLeft = left;
     windowRight = right;
@@ -267,28 +297,6 @@ void drawWallAndSwitch() {
     innerRight = right - frameThickness;
     innerTop = top - frameThickness;
     innerBottom = bottom + frameThickness;
-
-    setRoomLightAdjustedColor(0.9, 0.9, 0.95);
-
-    // Main wall background
-    glBegin(GL_POLYGON);
-    glVertex2f(patternLeft, patternTop);
-    glVertex2f(patternRight, patternTop);
-    glVertex2f(patternRight, patternBottom);
-    glVertex2f(patternLeft, patternBottom);
-    glEnd();
-
-    // Wall pattern with rectangles
-    setRoomLightAdjustedColor(0.85, 0.85, 0.9);
-    float stripeWidth = 50;
-    for (float x = patternLeft; x <= patternRight; x += stripeWidth * 2) {
-        glBegin(GL_POLYGON);
-        glVertex2f(x, patternTop);
-        glVertex2f(x + stripeWidth, patternTop);
-        glVertex2f(x + stripeWidth, patternBottom);
-        glVertex2f(x, patternBottom);
-        glEnd();
-    }
 }
 
 // Draw the window frame and interior
@@ -316,8 +324,8 @@ void drawWindowFrame() {
     glEnd();
 }
 
-// Draw masks to prevent airplane from showing outside the window area
-void drawMasks() {
+// Draw wall pattern to prevent airplane from showing outside the window area
+void drawWallPattern() {
     // Compute mask dimensions
     float maskLeft = innerLeft;
     float maskRight = innerRight;
@@ -530,25 +538,27 @@ void drawBlinds() {
 }
 
 void drawSwitch() {
+    const int paddingX = 20;
+    const int paddingY = 30;
     switchX = right + wallThickness + 50;
     switchY = (top + bottom) / 2;
 
     // Draw Switch
     setRoomLightAdjustedColor(0.95, 0.95, 0.95);
     glBegin(GL_POLYGON);
-    glVertex2f(switchX - 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY - 30);
-    glVertex2f(switchX - 20, switchY - 30);
+    glVertex2f(switchX - paddingX, switchY + paddingY);
+    glVertex2f(switchX + paddingX, switchY + paddingY);
+    glVertex2f(switchX + paddingX, switchY - paddingY);
+    glVertex2f(switchX - paddingX, switchY - paddingY);
     glEnd();
 
     setRoomLightAdjustedColor(0.7, 0.7, 0.7);
     glLineWidth(2);
     glBegin(GL_LINE_LOOP);
-    glVertex2f(switchX - 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY + 30);
-    glVertex2f(switchX + 20, switchY - 30);
-    glVertex2f(switchX - 20, switchY - 30);
+    glVertex2f(switchX - paddingX, switchY + paddingY);
+    glVertex2f(switchX + paddingX, switchY + paddingY);
+    glVertex2f(switchX + paddingX, switchY - paddingY);
+    glVertex2f(switchX - paddingX, switchY - paddingY);
     glEnd();
 
     if (lightOn) {
@@ -564,10 +574,10 @@ void drawSwitch() {
 
     setRoomLightAdjustedColor(0.3, 0.3, 0.3);
     if (lightOn) {
-        vprint(switchX - 15, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
+        vprint(switchX - 25, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
     }
     else {
-        vprint(switchX - 18, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: OFF");
+        vprint(switchX - 25, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: OFF");
     }
 }
 
@@ -583,7 +593,7 @@ void drawWindow() {
     drawAirplane(planeX, planeY);
 
     // Draw masks to hide parts of the airplane outside the window
-    drawMasks();
+    drawWallPattern();
 
     // Draw window borders on top
     drawWindowBorders();
@@ -667,25 +677,31 @@ void onKeyDown(unsigned char key, int x, int y) {
     glutPostRedisplay();
 }
 
-void display() {
-    float effectiveRoomLight = getEffectiveRoomLight();
-    glClearColor(0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // Draw the wall and switch
-    drawWallAndSwitch();
-
-    // Draw window, airplane, masks and borders
-    drawWindow();
-
-    createNameSurnameLabel();
-
+void printDebugPrint() {
     glColor3f(0, 0, 0);
     vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 20, GLUT_BITMAP_HELVETICA_12,
         "F1: Start Animation, SPACEBAR: Pause/Resume, ESC: Exit");
     vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 40, GLUT_BITMAP_HELVETICA_12,
         "Click on the blind knob to open/close blinds. Animation Active: %s",
         planeAnimationActive ? "Yes" : "No");
+}
+
+void display() {
+    float effectiveRoomLight = getEffectiveRoomLight();
+    glClearColor(0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 0.8 * effectiveRoomLight, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+	// Initialize window dimensions before drawing
+    initializeWindowDimensions();
+
+    // Draw window, airplane, masks and borders
+    drawWindow();
+
+	// Draw name and surname label
+    createNameSurnameLabel();
+
+	// Draw debug printing statements
+    printDebugPrint();
 
     glutSwapBuffers();
 }
