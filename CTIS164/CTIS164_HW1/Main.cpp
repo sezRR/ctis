@@ -792,10 +792,11 @@ void onResize(int w, int h) {
 }
 
 void Init() {
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
     glutCreateWindow("CTIS164 HW1 - Sezer Tetik - 22303222");
 }
 
