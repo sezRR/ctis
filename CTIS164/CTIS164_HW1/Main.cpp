@@ -388,13 +388,13 @@ void drawWindowFrame() {
 
 // Draw wall pattern to prevent airplane from showing outside the window area
 void drawWallPattern() {
-    // Compute mask dimensions
+    // Compute dimensions
     float maskLeft = innerLeft;
     float maskRight = innerRight;
     float maskBottom = innerBottom;
     float maskTop = innerTop;
 
-    // Fill masked areas with the base wall color
+    // Fill areas with the base wall color
     setRoomLightAdjustedColor(0.9, 0.9, 0.95);
 
     // Left mask
@@ -429,7 +429,7 @@ void drawWallPattern() {
     glVertex2f(maskLeft, maskBottom);
     glEnd();
 
-    // Step 2: Reapply the striped pattern in the masked areas
+    // Reapply the pattern
     setRoomLightAdjustedColor(0.85, 0.85, 0.9);
     float stripeWidth = 50;
 
@@ -647,9 +647,6 @@ void drawSwitch() {
 
 // Combines all window drawing elements in proper order
 void drawWindow() {
-    glPointSize(10);
-    glLineWidth(5);
-
     // First draw the window frame and background
     drawWindowFrame();
 
@@ -671,6 +668,7 @@ void drawWindow() {
     // Draw blinds on top of everything
     drawBlinds();
 
+	// Draw the light switch
 	drawSwitch();
 }
 
