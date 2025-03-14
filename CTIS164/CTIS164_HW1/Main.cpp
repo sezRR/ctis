@@ -6,9 +6,9 @@
    The program is a simulation of a window view with an airplane flying by.
 
    ## Features
-   - The window has blinds that can be opened and closed. (Dynamic Lightning)
+   - The window has blinds that can be opened and closed. (Additional: Dynamic Lightning)
        - The blinds can be opened and closed by clicking on the knob.
-   - The room light can be turned on and off. (Dynamic Lightning)
+   - The room light can be turned on and off. (Additional: Dynamic Lightning)
        - The light can be turned on and off by clicking on the switch.
    - The airplane animation can be started with the F1 key. (Animation)
    - The airplane animation can be paused/resumed with the SPACEBAR key. (Animation)
@@ -46,26 +46,26 @@
 #define PI  3.14159265358
 
 // Global variables for blind state
-bool blindsOpen = false;           // blinds start closed
-float blindAnimationProgress = 0.0; // 0.0 is fully closed, 1.0 is fully open
-const float ANIMATION_SPEED = 0.05;  // How quickly blinds open/close
+bool blindsOpen = false;                // blinds start closed
+float blindAnimationProgress = 0.0;     // 0.0 is fully closed, 1.0 is fully open
+const float ANIMATION_SPEED = 0.05;     // How quickly blinds open/close
 float adjusterX, adjusterY;
 float adjusterRadius;
-float frameThickness = 15;           // Global frame thickness
+float frameThickness = 15;              // Global frame thickness
 
 // Global variables for light state
-bool lightOn = true;   // Start with light on
-float lightLevel = 1.0; // Full brightness when on, set to 0.4 when off
+bool lightOn = true;                    // Start with light on
+float lightLevel = 1.0;                 // Full brightness when on
 float switchX, switchY;
 float switchRadius = 12;
 
 // Global variables for airplane animation
-bool planeAnimationActive = false;  // Animation starts off
-float planeXStart = -2000;          // Initial position
-float planeX = planeXStart;         // Current position
-float planeY = 100;                 // Fixed height
-float planeSpeed = 5.0;             // Movement speed
-bool movingRight = true;            // Direction of movement
+bool planeAnimationActive = false;      // Animation starts off
+float planeXStart = -2000;              // Initial position
+float planeX = planeXStart;             // Current position
+float planeY = 100;                     // Fixed height
+float planeSpeed = 5.0;                 // Movement speed
+bool movingRight = true;                // Direction of movement
 
 // Window dimensions
 float windowLeft, windowRight, windowTop, windowBottom;
@@ -156,12 +156,7 @@ void createNameSurnameLabel() {
 // Draws emergency door on the airplane
 void drawAirplaneEmergencyDoor(float x, float y) {
     setRoomLightAdjustedColorOutside(0.65, 0.65, 0.65);
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 8, y - 2);
-    glVertex2f(x - 2, y - 2);
-    glVertex2f(x - 2, y - 12);
-    glVertex2f(x - 8, y - 12);
-    glEnd();
+	glRectf(x - 8, y - 2, x - 2, y -12);
 
     setRoomLightAdjustedColorOutside(0.4, 0.4, 0.4);
     glRectf(x - 4, y - 6, x - 6, y - 8);
@@ -198,21 +193,11 @@ void drawAirplane(float x, float y) {
     glEnd();
 
     // 2. Engine
-    glBegin(GL_POLYGON);
-    glVertex2f(x - 10, y - 25);
-    glVertex2f(x + 20, y - 25);
-    glVertex2f(x + 20, y - 35);
-    glVertex2f(x - 10, y - 35);
-    glEnd();
+	glRectf(x - 10, y - 25, x + 20, y - 35);
 
     // 3. Engine Back Part
     setRoomLightAdjustedColorOutside(0.3, 0.3, 0.3);
-    glBegin(GL_POLYGON);
-    glVertex2f(x + 15, y - 25);
-    glVertex2f(x + 20, y - 25);
-    glVertex2f(x + 20, y - 35);
-    glVertex2f(x + 15, y - 35);
-    glEnd();
+	glRectf(x + 15, y - 25, x + 20, y - 35);
 
     // 4. Cockpit
     setRoomLightAdjustedColorOutside(1, 1, 1);
@@ -362,24 +347,14 @@ void drawMountain() {
 void drawSky() {
 	// Draw Sky
 	setRoomLightAdjustedColorOutside(0.8, 0.9, 1.0);
-	glBegin(GL_POLYGON);
-	glVertex2f(innerLeft, innerBottom);
-	glVertex2f(innerRight, innerBottom);
-	glVertex2f(innerRight, innerTop);
-	glVertex2f(innerLeft, innerTop);
-	glEnd();
+	glRectf(innerLeft, innerBottom, innerRight, innerTop);
 }
 
 // Draw the window frame and interior
 void drawWindowFrame() {
     // Window frame
     setRoomLightAdjustedColor(0.7, 0.7, 0.75);
-    glBegin(GL_POLYGON);
-    glVertex2f(windowLeft, windowBottom);
-    glVertex2f(windowRight, windowBottom);
-    glVertex2f(windowRight, windowTop);
-    glVertex2f(windowLeft, windowTop);
-    glEnd();
+	glRectf(windowLeft, windowBottom, windowRight, windowTop);
 
     adjusterX = windowRight - frameThickness - 15;
     adjusterY = windowBottom + frameThickness + 25;
@@ -398,36 +373,16 @@ void drawWallPattern() {
     setRoomLightAdjustedColor(0.9, 0.9, 0.95);
 
     // Left mask
-    glBegin(GL_QUADS);
-    glVertex2f(-WINDOW_WIDTH / 2, -WINDOW_HEIGHT / 2);
-    glVertex2f(maskLeft, -WINDOW_HEIGHT / 2);
-    glVertex2f(maskLeft, WINDOW_HEIGHT / 2);
-    glVertex2f(-WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-    glEnd();
+	glRectf(-WINDOW_WIDTH / 2, -WINDOW_HEIGHT / 2, maskLeft, WINDOW_HEIGHT / 2);
 
     // Right mask
-    glBegin(GL_QUADS);
-    glVertex2f(maskRight, -WINDOW_HEIGHT / 2);
-    glVertex2f(WINDOW_WIDTH / 2, -WINDOW_HEIGHT / 2);
-    glVertex2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-    glVertex2f(maskRight, WINDOW_HEIGHT / 2);
-    glEnd();
+	glRectf(maskRight, -WINDOW_HEIGHT / 2, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 
     // Top mask
-    glBegin(GL_QUADS);
-    glVertex2f(maskLeft, maskTop);
-    glVertex2f(maskRight, maskTop);
-    glVertex2f(maskRight, WINDOW_HEIGHT / 2);
-    glVertex2f(maskLeft, WINDOW_HEIGHT / 2);
-    glEnd();
+	glRectf(maskLeft, maskTop, maskRight, WINDOW_HEIGHT / 2);
 
     // Bottom mask
-    glBegin(GL_QUADS);
-    glVertex2f(maskLeft, -WINDOW_HEIGHT / 2);
-    glVertex2f(maskRight, -WINDOW_HEIGHT / 2);
-    glVertex2f(maskRight, maskBottom);
-    glVertex2f(maskLeft, maskBottom);
-    glEnd();
+	glRectf(maskLeft, -WINDOW_HEIGHT / 2, maskRight, maskBottom);
 
     // Reapply the pattern
     setRoomLightAdjustedColor(0.85, 0.85, 0.9);
@@ -538,20 +493,28 @@ void drawBlinds() {
     float visibleHeight = windowHeight * (1.0 - blindAnimationProgress);
     int visibleBlinds = ceil(visibleHeight / blindHeight);
 
+    // Top blind holder
+    setRoomLightAdjustedColor(0.85, 0.85, 0.85);
+    glBegin(GL_POLYGON);
+    glVertex2f(innerLeft, innerTop - 10);
+    glVertex2f(innerRight, innerTop - 10);
+    glVertex2f(innerRight, innerTop);
+    glVertex2f(innerLeft, innerTop);
+    glEnd();
+
     for (int i = 0; i < numBlinds && i < visibleBlinds; i++) {
         float y = windowTop - frameThickness - (i + 0.5) * blindHeight;
         if (i == visibleBlinds - 1 && blindAnimationProgress > 0) {
             float partialVisibility = visibleHeight - (i * blindHeight);
-            if (partialVisibility < blindHeight) {
+            if (partialVisibility < blindHeight)
                 y = windowTop - frameThickness - i * blindHeight - partialVisibility / 2;
-            }
         }
-        if (i % 2 == 0) {
+
+        if (i % 2 == 0)
             setRoomLightAdjustedColor(0.93, 0.93, 0.93);
-        }
-        else {
+        else
             setRoomLightAdjustedColor(0.9, 0.9, 0.9);
-        }
+
         glBegin(GL_POLYGON);
         glVertex2f(innerLeft + 5, y + blindHeight / 2 - 3);
         glVertex2f(innerRight - 5, y + blindHeight / 2 - 3);
@@ -569,17 +532,6 @@ void drawBlinds() {
         glEnd();
     }
 
-    // Top blind holder
-    if (blindAnimationProgress > 0) {
-        setRoomLightAdjustedColor(0.85, 0.85, 0.85);
-        glBegin(GL_POLYGON);
-        glVertex2f(innerLeft, innerTop - 10);
-        glVertex2f(innerRight, innerTop - 10);
-        glVertex2f(innerRight, innerTop);
-        glVertex2f(innerLeft, innerTop);
-        glEnd();
-    }
-
     // Blind mechanism
     setRoomLightAdjustedColor(0.75, 0.75, 0.8);
     glLineWidth(2);
@@ -589,12 +541,11 @@ void drawBlinds() {
     glEnd();
 
     // Blind adjuster
-    if (blindsOpen) {
+    if (blindsOpen)
         setRoomLightAdjustedColor(0.5, 0.7, 0.5);
-    }
-    else {
+    else
         setRoomLightAdjustedColor(0.6, 0.6, 0.65);
-    }
+
     circle(innerRight - 15, innerBottom + 25, 8);
     setRoomLightAdjustedColor(0.8, 0.8, 0.85);
     circle(innerRight - 13, innerBottom + 27, 3);
@@ -609,12 +560,7 @@ void drawSwitch() {
 
     // Draw Switch
     setRoomLightAdjustedColor(0.95, 0.95, 0.95);
-    glBegin(GL_POLYGON);
-    glVertex2f(switchX - paddingX, switchY + paddingY);
-    glVertex2f(switchX + paddingX, switchY + paddingY);
-    glVertex2f(switchX + paddingX, switchY - paddingY);
-    glVertex2f(switchX - paddingX, switchY - paddingY);
-    glEnd();
+	glRectf(switchX - paddingX, switchY - paddingY, switchX + paddingX, switchY + paddingY);
 
     setRoomLightAdjustedColor(0.7, 0.7, 0.7);
     glLineWidth(2);
@@ -625,24 +571,21 @@ void drawSwitch() {
     glVertex2f(switchX - paddingX, switchY - paddingY);
     glEnd();
 
-    if (lightOn) {
+    if (lightOn)
         setLightAdjustedColor(0.2, 0.6, 0.2);
-    }
-    else {
+    else
         setLightAdjustedColor(0.7, 0.2, 0.2);
-    }
+
     circle(switchX, switchY, switchRadius);
 
     setLightAdjustedColor(0.9, 0.9, 0.9);
     circle(switchX - 3, switchY + 3, 4);
 
     setRoomLightAdjustedColor(0.3, 0.3, 0.3);
-    if (lightOn) {
+    if (lightOn)
         vprint(switchX - 25, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: ON");
-    }
-    else {
+    else
         vprint(switchX - 25, switchY - 45, GLUT_BITMAP_HELVETICA_10, "LIGHT: OFF");
-    }
 }
 
 // Combines all window drawing elements in proper order
@@ -698,15 +641,13 @@ void onPlaneTimer(int v) {
     if (planeAnimationActive) {
         if (movingRight) {
             planeX += planeSpeed;
-            if (planeX > WINDOW_WIDTH + 1000) {
+            if (planeX > WINDOW_WIDTH + 1000)
                 planeX = -WINDOW_WIDTH - 1000;
-            }
         }
         else {
             planeX -= planeSpeed;
-            if (planeX < -WINDOW_WIDTH - 1000) {
+            if (planeX < -WINDOW_WIDTH - 1000)
                 planeX = WINDOW_WIDTH + 1000;
-            }
         }
     }
 
@@ -753,11 +694,8 @@ void onKeyDown(unsigned char key, int x, int y) {
 // Print debug information on the screen
 void printDebugPrint() {
     glColor3f(0, 0, 0);
-    vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 20, GLUT_BITMAP_HELVETICA_12,
-        "F1: Start Animation, SPACEBAR: Pause/Resume, ESC: Exit");
-    vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 40, GLUT_BITMAP_HELVETICA_12,
-        "Click on the blind knob to open/close blinds. Animation Active: %s",
-        planeAnimationActive ? "Yes" : "No");
+    vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 20, GLUT_BITMAP_HELVETICA_12, "F1: Start Animation, SPACEBAR: Pause/Resume, ESC: Exit");
+    vprint(-WINDOW_WIDTH / 2 + 10, -WINDOW_HEIGHT / 2 + 40, GLUT_BITMAP_HELVETICA_12, "Click on the blind knob to open/close blinds. Animation Active: %s", planeAnimationActive ? "Yes" : "No");
 }
 
 void display() {
