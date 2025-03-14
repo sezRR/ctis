@@ -46,7 +46,7 @@
 #define PI  3.14159265358
 
 // Global variables for blind state
-bool blindsOpen = false;                // blinds start closed
+bool blindsOpen = true;                // blinds start opened
 float blindAnimationProgress = 0.0;     // 0.0 is fully closed, 1.0 is fully open
 const float ANIMATION_SPEED = 0.05;     // How quickly blinds open/close
 float adjusterX, adjusterY;
@@ -61,7 +61,7 @@ float switchRadius = 12;
 
 // Global variables for airplane animation
 bool planeAnimationActive = false;      // Animation starts off
-float planeXStart = -2000;              // Initial position
+float planeXStart = 150;                // Initial position
 float planeX = planeXStart;             // Current position
 float planeY = 100;                     // Fixed height
 float planeSpeed = 5.0;                 // Movement speed
