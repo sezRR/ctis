@@ -1,6 +1,46 @@
 ﻿/********************
    CTIS164 - HOMEWORK 2 | Hit the Target Game
    OWNER: Sezer Tetik - 22303222 - Section 04
+
+   Hit the Target Game
+   - The player can control the bow with the up and down arrow keys.
+   - The player can fire the arrow with the space bar.
+   - The player can pause/resume the game with the F1 key.
+   - The player can restart the game with the F1 key.
+   - The player can exit the game with the ESC key.
+   - The player can see the score, time left, and number of popped balloons on the screen.
+   - The player can see the game over message when the time is up.
+   - The player can see the game paused message when the game is paused.
+   - The player can see the game miss message when the player misses the balloons.
+   - The player can see the game miss combo multiplier when the player misses the balloons.
+   - The player can see the game hit bonus message when the player hits the golden/balloons.
+
+   EXTRA FUNCTIONALITIES:
+   - Added a bonus and penalty system for hitting and missing balloons.
+   If a balloon is hit, the player gets a score and time bonus, and also if 
+   a golden balloon is hit, the player gets a higher score and time bonus. However,
+   the golden balloon is faster than the normal balloon. Penalty system is also
+   implemented for missing all of the balloons that generated randomly on the screen. 
+   If a balloon is missed, the player gets a score and time penalty. The player can also
+   get a combo multiplier for missing balloons. However, there is no effect of multiplier 
+   on the score and time penalty.
+
+   - Added a feedback system for the player. When a balloon is hit, a floating text
+   appears on the screen, showing the gained score and time bonus. The text fades out after 2
+   seconds. The text is also colored based on the type of balloon hit (golden or normal).
+
+   - Added a pause panel to the game. When the game is paused, a semi-transparent
+   container is drawn on the screen, and a message is displayed to inform the player
+   that the game is paused. The player can resume the game by pressing F1 again.
+
+   - Added a game over panel to the game. When the game is over, a semi-transparent
+   container is drawn on the screen, and a message is displayed to inform the player
+   that the game is over. The player can restart the game by pressing F1 again.
+
+   - Added a miss info panel to the game. When a balloon is missed, a semi-transparent
+   container is drawn on the screen, and a message is displayed to inform the player
+   that the balloon is missed. The player can also get a combo multiplier, which is just shown
+   on the screen.
 ********************/
 
 #include <GL/glut.h>
