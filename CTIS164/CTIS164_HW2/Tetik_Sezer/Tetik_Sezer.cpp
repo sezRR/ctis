@@ -64,11 +64,12 @@ typedef struct {
 	float x, y;     // screen position
 	float t;        // elapsed time (0→1)
 	bool active;
-	bool isGolden; 
+	bool isGolden;
 } Feedback;
 
 Feedback feedbacks[MAX_FEEDBACKS];
 
+static int missInfoTimeAccumulator = 0;
 
 // Global variables for Template File
 int  winWidth, winHeight;     // Current Window width and height
@@ -76,10 +77,8 @@ int  winWidth, winHeight;     // Current Window width and height
 float Cx = -350, Cy = 0;      // Coordinates of the platform
 float Bx = -350, By = 35; // x and y coordinate of the cannonball
 float c, h, k;                // Parameters of the quadratic equation
-float timeVar = 0;
 
 int   Vx = 900;                // Horizontal firing speed
-int   steps;
 
 bool isPaused = false;
 bool  animation = false;      // Flag to show if the cannonball is fired/active
@@ -87,15 +86,18 @@ bool  gameover = false;       // Flag for game status
 
 int remainingTime = GAME_TIME;
 int poppedBalloons = 0;
-int poppedGoldenBalloons = 0; 
+int poppedGoldenBalloons = 0;
 
 bool ballonHit = false; // Flag to show if a balloon is hit
 int score = 0;
 bool showMissInfo = false;
 
+int missComboCount = 0;
+
 void restartGame();
 void giveHitBonus();
 void penalizeMiss();
+void initFeedbacks();
 
 // To draw a filled circle, centered at (x,y) with radius r
 void circle(int x, int y, int r) {
@@ -312,7 +314,6 @@ void resetArrow() {
 	animation = false;
 	Bx = Cx;
 	By = Cy + Y_MARGIN;
-	timeVar = 0;
 
 	if (!ballonHit)
 		penalizeMiss();
@@ -333,20 +334,8 @@ void resetTimer() {
 	remainingTime = GAME_TIME;
 }
 
-void resetFeedbacks() {
-	for (int i = 0; i < MAX_FEEDBACKS; ++i)
-		feedbacks[i].active = false;
-}
-
 void initBalloons() {
 	srand((unsigned)time(NULL));
-	for (int i = 0; i < MAX_BALLOONS; ++i) {
-		balloons[i].active = false;
-		balloons[i].isGolden = false;
-	}
-}
-
-void resetBalloons() {
 	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		balloons[i].active = false;
 		balloons[i].isGolden = false;
@@ -357,6 +346,7 @@ void resetScore() {
 	score = 0;
 	poppedBalloons = 0;
 	poppedGoldenBalloons = 0;
+	missComboCount = 0;
 	ballonHit = false;
 	showMissInfo = false;
 }
@@ -366,8 +356,8 @@ void restartGame() {
 	resetArrow();
 	resetBow();
 	resetTimer();
-	resetFeedbacks();
-	resetBalloons();
+	initFeedbacks();
+	initBalloons();
 	resetScore();
 }
 
@@ -395,21 +385,20 @@ void drawTopPanel() {
 	glRectf(-400, 250, 400, 300);
 
 	glColor3f(1.0f, 0.85f, 0.4f);
-    vprint(-380, topY,   GLUT_BITMAP_9_BY_15, "Score: %d", score);
-    vprint(-260, topY,   GLUT_BITMAP_9_BY_15, "Popped Balloons: %d", poppedBalloons);
-    vprint(-50, topY,   GLUT_BITMAP_9_BY_15, "Popped Golden Ballons: %d", poppedGoldenBalloons);
+	vprint(-380, topY, GLUT_BITMAP_9_BY_15, "Score: %d", score);
+	vprint(-260, topY, GLUT_BITMAP_9_BY_15, "Popped Balloons: %d", poppedBalloons);
+	vprint(-50, topY, GLUT_BITMAP_9_BY_15, "Popped Golden Ballons: %d", poppedGoldenBalloons);
 
 	if (remainingTime < 0)
-		remainingTime = 0; // to show proper time
+		remainingTime = 0;
 
-    vprint(210, topY,   GLUT_BITMAP_9_BY_15, "Time Left: %d sec", remainingTime);
+	vprint(210, topY, GLUT_BITMAP_9_BY_15, "Time Left: %d sec", remainingTime);
 
 	glColor3f(0, 0, 0);
 	vprint(-380, topY - 50, GLUT_BITMAP_9_BY_15, "SEZER TETIK");
 }
 
 void drawBottomPanel() {
-	// Bottom info panel
 	glColor3f(0.15f, 0.15f, 0.4f);
 	glRectf(-400, -280, 400, -300);
 
@@ -426,7 +415,6 @@ void drawPanels() {
 }
 
 void drawTransparentContainer(int x1, int x2, int y1, int y2, float t) {
-	//glColor4f(0, 0, 0, t);
 	glColor4f(0.15f, 0.15f, 0.4f, t);
 	glRectf(x1, y1, x2, y2);
 }
@@ -524,7 +512,15 @@ float fx(float x) {
 }
 
 void penalizeMiss() {
-	showMissInfo = true;
+	missInfoTimeAccumulator = 0;
+	if (showMissInfo) {
+		missComboCount++;
+	}
+	else {
+		showMissInfo = true;
+		missComboCount = 1;
+	}
+
 	score -= MISS_SCORE_PENALIZE;
 	remainingTime -= MISS_TIME_PENALIZE;
 	glutPostRedisplay();
@@ -538,10 +534,19 @@ void giveHitBonus() {
 
 void drawMissInfoPanel() {
 	drawTransparentContainer(-400, 400, -280, -240, 0.8);
+
 	glColor3f(1.0f, 0.3f, 0.3f);
-	vprint(-380, -270, GLUT_BITMAP_TIMES_ROMAN_24, "You missed the ballons!");
-	vprint(-100, -267, GLUT_BITMAP_9_BY_15, "You have penalized %d score, and %d seconds of time!", MISS_SCORE_PENALIZE, MISS_TIME_PENALIZE);
+	vprint(-380, -270, GLUT_BITMAP_TIMES_ROMAN_24,
+		"You missed the balloons!");
+	vprint(-100, -267, GLUT_BITMAP_9_BY_15,
+		"Penalized %d score, %d sec!", MISS_SCORE_PENALIZE, MISS_TIME_PENALIZE);
+
+	if (missComboCount > 1) {
+		// Draw combo multiplier to the right of the penalty text
+		vprint(300, -267, GLUT_BITMAP_9_BY_15, "(x%d)", missComboCount);
+	}
 }
+
 
 void drawFeedbacks() {
 	for (int i = 0; i < MAX_FEEDBACKS; ++i) {
@@ -592,7 +597,7 @@ void display() {
 	drawPanels();
 
 	drawFeedbacks();
-	
+
 	if (showMissInfo && !ballonHit)
 		drawMissInfoPanel();
 
@@ -662,7 +667,6 @@ void onTimer(int v) {
 	float dt = TIMER_PERIOD / 1000.0f;
 
 	static int timeAccumulator = 0;
-	static int missInfoTimeAccumulator = 0;
 	if (!gameover && !isPaused) {
 		timeAccumulator += TIMER_PERIOD;
 
@@ -671,16 +675,15 @@ void onTimer(int v) {
 			timeAccumulator = 0;
 		}
 
-		if (remainingTime <= 0) {
+		if (remainingTime <= 0)
 			gameover = true;
-			remainingTime = 0; // to show proper time
-		}
 
 		if (showMissInfo && !ballonHit) {
 			missInfoTimeAccumulator += TIMER_PERIOD;
 			if (missInfoTimeAccumulator >= INFO_MISS_CONTAINER_TIME) {
 				showMissInfo = false;
 				missInfoTimeAccumulator = 0;
+				missComboCount = 0;
 			}
 		}
 		else
@@ -691,7 +694,6 @@ void onTimer(int v) {
 			Bx += Vx * TIMER_PERIOD / 1000.0;
 			By = fx(Bx);
 
-			// check for balloon hits:
 			checkBalloonHits();
 
 			// reset arrow if it goes off screen
@@ -717,7 +719,7 @@ void onResize(int w, int h) {
 	glLoadIdentity();
 	glOrtho(-w / 2, w / 2, -h / 2, h / 2, -1, 1);
 	glMatrixMode(GL_MODELVIEW);
-	display(); // Refresh window
+	display();
 }
 
 void initFeedbacks() {
