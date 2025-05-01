@@ -12,7 +12,7 @@
 #include <time.h>
 #include "Tetik_Sezer.h"
 
-#define GAME_TIME 3
+#define GAME_TIME 30
 
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
@@ -41,11 +41,20 @@
 #define HIT_SCORE_BONUS 3
 #define HIT_TIME_BONUS 1
 
+// at the top, with your other #define’s:
+#define GOLDEN_SPAWN_CHANCE   5    // percent chance per spawn frame
+#define GOLDEN_SPEED         6.0f // faster than normal
+#define GOLDEN_SCORE_BONUS   10
+#define GOLDEN_TIME_BONUS    5
+
+// extend Balloon:
 typedef struct {
 	float x, y;
 	float speed;
 	bool active;
+	bool isGolden;
 } Balloon;
+
 
 Balloon balloons[MAX_BALLOONS];
 
@@ -53,8 +62,9 @@ Balloon balloons[MAX_BALLOONS];
 
 typedef struct {
 	float x, y;     // screen position
-	float t;        // elapsed time (in seconds)
+	float t;        // elapsed time (0→1)
 	bool active;
+	bool isGolden; 
 } Feedback;
 
 Feedback feedbacks[MAX_FEEDBACKS];
@@ -77,6 +87,7 @@ bool  gameover = false;       // Flag for game status
 
 int remainingTime = GAME_TIME;
 int poppedBalloons = 0;
+int poppedGoldenBalloons = 0; 
 
 bool ballonHit = false; // Flag to show if a balloon is hit
 int score = 0;
@@ -136,16 +147,23 @@ void drawGradient(int x1, int y1, int w, int h, float r, float g, float b) {
 	glEnd();
 }
 
-void addFeedback(float x, float y) {
+void addFeedback(float x, float y, bool isGolden) {
 	for (int i = 0; i < MAX_FEEDBACKS; ++i) {
 		if (!feedbacks[i].active) {
 			feedbacks[i].active = true;
 			feedbacks[i].x = x;
 			feedbacks[i].y = y;
 			feedbacks[i].t = 0.0f;
+			feedbacks[i].isGolden = isGolden;
 			break;
 		}
 	}
+}
+
+void giveGoldenBonus() {
+	score += GOLDEN_SCORE_BONUS;
+	remainingTime += GOLDEN_TIME_BONUS;
+	glutPostRedisplay();
 }
 
 void checkBalloonHits() {
@@ -172,21 +190,21 @@ void checkBalloonHits() {
 		float ddx = px - projX;
 		float ddy = py - projY;
 		if (ddx * ddx + ddy * ddy <= BALLOON_RADIUS * BALLOON_RADIUS) {
-			poppedBalloons++; // Pop!
+			poppedBalloons++;
 			balloons[i].active = false;
+			showMissInfo = false;
 			ballonHit = true;
-			showMissInfo = false; // Reset miss info if it was shown
-			giveHitBonus();
-			addFeedback(px, py); 
+			if (balloons[i].isGolden) {
+				poppedGoldenBalloons++;
+				giveGoldenBonus();
+			}
+			else {
+				giveHitBonus();
+			}
+			addFeedback(px, py, balloons[i].isGolden);
 			glutPostRedisplay();
 		}
 	}
-}
-
-void initBalloons() {
-	srand(time(NULL));
-	for (int i = 0; i < MAX_BALLOONS; ++i)
-		balloons[i].active = false;
 }
 
 void spawnBalloon() {
@@ -237,8 +255,16 @@ void spawnBalloon() {
 			balloons[i].active = true;
 			balloons[i].x = candidateX;
 			balloons[i].y = -winHeight / 2.0f - BALLOON_RADIUS;
-			//balloons[i].speed = 0.5f + (rand() / (float)RAND_MAX);
-			balloons[i].speed = 3;
+
+			// decide if golden
+			if ((rand() % 100) < GOLDEN_SPAWN_CHANCE) {
+				balloons[i].isGolden = true;
+				balloons[i].speed = GOLDEN_SPEED;
+			}
+			else {
+				balloons[i].isGolden = false;
+				balloons[i].speed = 3.0f;  // or whatever your normal speed is
+			}
 			break;
 		}
 	}
@@ -257,13 +283,16 @@ void updateBalloons() {
 	spawnBalloon();
 }
 
-void drawSingleBalloon(float x, float y) {
-	// balloon circle
-	glColor3f(1, 0, 0);
-	glBegin(GL_POLYGON);
+void drawSingleBalloon(float x, float y, bool isGolden) {
+	if (isGolden) {
+		glColor3f(1.0f, 0.84f, 0.0f); // gold
+	}
+	else {
+		glColor3f(1.0f, 0.0f, 0.0f);  // red
+	}
 	circle(x, y, BALLOON_RADIUS);
-	glEnd();
-	// string
+
+	// draw the string
 	glColor3f(0, 0, 0);
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
@@ -273,9 +302,10 @@ void drawSingleBalloon(float x, float y) {
 }
 
 void drawBalloons() {
-	for (int i = 0; i < MAX_BALLOONS; ++i)
+	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		if (balloons[i].active)
-			drawSingleBalloon(balloons[i].x, balloons[i].y);
+			drawSingleBalloon(balloons[i].x, balloons[i].y, balloons[i].isGolden);
+	}
 }
 
 void resetArrow() {
@@ -308,17 +338,29 @@ void resetFeedbacks() {
 		feedbacks[i].active = false;
 }
 
-void resetBalloons() {
-	for (int i = 0; i < MAX_BALLOONS; ++i)
+void initBalloons() {
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		balloons[i].active = false;
+		balloons[i].isGolden = false;
+	}
+}
+
+void resetBalloons() {
+	for (int i = 0; i < MAX_BALLOONS; ++i) {
+		balloons[i].active = false;
+		balloons[i].isGolden = false;
+	}
 }
 
 void resetScore() {
 	score = 0;
 	poppedBalloons = 0;
+	poppedGoldenBalloons = 0;
 	ballonHit = false;
 	showMissInfo = false;
 }
+
 
 void restartGame() {
 	resetArrow();
@@ -346,23 +388,24 @@ void drawBackground() {
 }
 
 void drawTopPanel() {
-	const int topPanelYCenter = 270;
+	const int topY = 270;
 
 	// Top info panel
 	glColor3f(0.15f, 0.15f, 0.4f);
 	glRectf(-400, 250, 400, 300);
 
 	glColor3f(1.0f, 0.85f, 0.4f);
-	vprint(-380, topPanelYCenter, GLUT_BITMAP_9_BY_15, "Score: %d", score);
-	vprint(-140, topPanelYCenter, GLUT_BITMAP_9_BY_15, "Popped Ballons: %d", poppedBalloons);
+    vprint(-380, topY,   GLUT_BITMAP_9_BY_15, "Score: %d", score);
+    vprint(-260, topY,   GLUT_BITMAP_9_BY_15, "Popped Balloons: %d", poppedBalloons);
+    vprint(-50, topY,   GLUT_BITMAP_9_BY_15, "Popped Golden Ballons: %d", poppedGoldenBalloons);
 
-	if (remainingTime < 0) 
+	if (remainingTime < 0)
 		remainingTime = 0; // to show proper time
 
-	vprint(180, topPanelYCenter, GLUT_BITMAP_9_BY_15, "Remaining Time: %d sec", remainingTime);
+    vprint(210, topY,   GLUT_BITMAP_9_BY_15, "Time Left: %d sec", remainingTime);
 
 	glColor3f(0, 0, 0);
-	vprint(-380, topPanelYCenter - 50, GLUT_BITMAP_9_BY_15, "SEZER TETIK");
+	vprint(-380, topY - 50, GLUT_BITMAP_9_BY_15, "SEZER TETIK");
 }
 
 void drawBottomPanel() {
@@ -503,31 +546,40 @@ void drawMissInfoPanel() {
 void drawFeedbacks() {
 	for (int i = 0; i < MAX_FEEDBACKS; ++i) {
 		if (!feedbacks[i].active) continue;
-		float progress = feedbacks[i].t;
-		float rise = 50.0f * progress;       // pixels to move up
-		float alpha = 1.0f - progress;        // animation
+		float prog = feedbacks[i].t;
+		float rise = 50.0f * prog;
+		float alpha = 1.0f - prog;
+
+		// choose color: gold for golden, green otherwise
+		if (feedbacks[i].isGolden)
+			glColor4f(1.0f, 0.84f, 0.0f, alpha);
+		else
+			glColor4f(0.0f, 1.0f, 0.0f, alpha);
+
+		// choose bonuses based on type
+		int timeBonus = feedbacks[i].isGolden ? GOLDEN_TIME_BONUS : HIT_TIME_BONUS;
+		int scoreBonus = feedbacks[i].isGolden ? GOLDEN_SCORE_BONUS : HIT_SCORE_BONUS;
 
 		if (feedbacks[i].x + 550 >= WINDOW_WIDTH)
 			feedbacks[i].x = WINDOW_WIDTH - 550;
 
-		glColor4f(0, 1, 0, alpha);    // green
+		// draw floating texts
 		vprint(
 			(int)feedbacks[i].x,
 			(int)(feedbacks[i].y + 2 * rise),
 			GLUT_BITMAP_HELVETICA_18,
-			"+%d seconds",
-			HIT_TIME_BONUS
+			"+%d sec", timeBonus
 		);
 
 		vprint(
-			(int)feedbacks[i].x + 50,
+			(int)feedbacks[i].x + 60,
 			(int)(feedbacks[i].y + 2 * rise + 18),
 			GLUT_BITMAP_HELVETICA_18,
-			"+%d score",
-			HIT_SCORE_BONUS
+			"+%d pts", scoreBonus
 		);
 	}
 }
+
 
 void display() {
 	glClearColor(0.8, 0.8, 0.8, 0.8);
