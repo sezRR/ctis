@@ -26,8 +26,8 @@
 #define BALLOON_RADIUS  35
 #define SPAWN_ATTEMPTS  25
 
-#define ARROW_TAIL_OFFSET  -30.0f  // x-offset from Cx to the back end
-#define ARROW_TIP_OFFSET    70.0f  // x-offset from Cx to the front tip (20 + xPadding)
+#define ARROW_TAIL_OFFSET  -30.0f
+#define ARROW_TIP_OFFSET    70.0f
 
 #define BOW_START_X -350
 #define BOW_START_Y 35
@@ -41,13 +41,12 @@
 #define HIT_SCORE_BONUS 3
 #define HIT_TIME_BONUS 1
 
-// at the top, with your other #define’s:
-#define GOLDEN_SPAWN_CHANCE   5    // percent chance per spawn frame
-#define GOLDEN_SPEED         6.0f // faster than normal
+#define BALLON_SPEED 3.0f
+#define GOLDEN_SPAWN_CHANCE   5 // percent chance per spawn frame
+#define GOLDEN_SPEED         6.0
 #define GOLDEN_SCORE_BONUS   10
 #define GOLDEN_TIME_BONUS    5
 
-// extend Balloon:
 typedef struct {
 	float x, y;
 	float speed;
@@ -55,14 +54,13 @@ typedef struct {
 	bool isGolden;
 } Balloon;
 
-
 Balloon balloons[MAX_BALLOONS];
 
 #define MAX_FEEDBACKS 20
 
 typedef struct {
 	float x, y;     // screen position
-	float t;        // elapsed time (0→1)
+	float t;        // elapsed time
 	bool active;
 	bool isGolden;
 } Feedback;
@@ -71,17 +69,16 @@ Feedback feedbacks[MAX_FEEDBACKS];
 
 static int missInfoTimeAccumulator = 0;
 
-// Global variables for Template File
 int  winWidth, winHeight;     // Current Window width and height
 
-float Cx = -350, Cy = 0;      // Coordinates of the platform
-float Bx = -350, By = 35; // x and y coordinate of the cannonball
+float Cx = -350, Cy = 0;      // Coordinates of the cloud
+float Bx = -350, By = 35;	// x and y coordinate of the bow
 float c, h, k;                // Parameters of the quadratic equation
 
-int   Vx = 900;                // Horizontal firing speed
+int Vx = 900;                // Horizontal firing speed
 
 bool isPaused = false;
-bool  animation = false;      // Flag to show if the cannonball is fired/active
+bool  animation = false;      // Flag to show if the bow is fired
 bool  gameover = false;       // Flag for game status
 
 int remainingTime = GAME_TIME;
@@ -99,7 +96,6 @@ void giveHitBonus();
 void penalizeMiss();
 void initFeedbacks();
 
-// To draw a filled circle, centered at (x,y) with radius r
 void circle(int x, int y, int r) {
 	float angle;
 	glBegin(GL_POLYGON);
@@ -119,7 +115,6 @@ void print(int x, int y, const char* string, void* font) {
 		glutBitmapCharacter(font, string[i]);
 }
 
-// To display text with variables
 void vprint(int x, int y, void* font, const char* string, ...) {
 	va_list ap;
 	va_start(ap, string);
@@ -173,7 +168,7 @@ void checkBalloonHits() {
 	float x1 = Bx + ARROW_TAIL_OFFSET, y1 = By;
 	float x2 = Bx + ARROW_TIP_OFFSET, y2 = By;
 	float dx = x2 - x1, dy = y2 - y1;
-	float segLen2 = dx * dx + dy * dy;  // squared length
+	float segLen2 = dx * dx + dy * dy;
 
 	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		if (!balloons[i].active) continue;
@@ -196,13 +191,14 @@ void checkBalloonHits() {
 			balloons[i].active = false;
 			showMissInfo = false;
 			ballonHit = true;
+
 			if (balloons[i].isGolden) {
 				poppedGoldenBalloons++;
 				giveGoldenBonus();
 			}
-			else {
+			else
 				giveHitBonus();
-			}
+
 			addFeedback(px, py, balloons[i].isGolden);
 			glutPostRedisplay();
 		}
@@ -219,10 +215,8 @@ void spawnBalloon() {
 	// random chance to spawn ballon for each frame (%6)
 	if (rand() % 100 > 6) return;
 
-	// find a free slot
 	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		if (!balloons[i].active) {
-			// compute horizontal bounds on right half
 			float margin = BALLOON_RADIUS;
 			float xMin = 0;
 			float xMax = (winWidth / 2.0f) - margin;
@@ -265,7 +259,7 @@ void spawnBalloon() {
 			}
 			else {
 				balloons[i].isGolden = false;
-				balloons[i].speed = 3.0f;  // or whatever your normal speed is
+				balloons[i].speed = BALLON_SPEED;
 			}
 			break;
 		}
@@ -276,7 +270,7 @@ void updateBalloons() {
 	float off = 10.0f;  // balloon radius + small buffer
 	for (int i = 0; i < MAX_BALLOONS; ++i) {
 		if (!balloons[i].active) continue;
-		// move up
+		// move up animation
 		balloons[i].y += balloons[i].speed;
 		// if passed top edge, deactivate
 		if (balloons[i].y > WINDOW_HEIGHT / 2.0f + off)
@@ -286,15 +280,14 @@ void updateBalloons() {
 }
 
 void drawSingleBalloon(float x, float y, bool isGolden) {
-	if (isGolden) {
+	if (isGolden)
 		glColor3f(1.0f, 0.84f, 0.0f); // gold
-	}
-	else {
+	else
 		glColor3f(1.0f, 0.0f, 0.0f);  // red
-	}
+
 	circle(x, y, BALLOON_RADIUS);
 
-	// draw the string
+	// draw ballon's string
 	glColor3f(0, 0, 0);
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
@@ -304,10 +297,9 @@ void drawSingleBalloon(float x, float y, bool isGolden) {
 }
 
 void drawBalloons() {
-	for (int i = 0; i < MAX_BALLOONS; ++i) {
+	for (int i = 0; i < MAX_BALLOONS; ++i)
 		if (balloons[i].active)
 			drawSingleBalloon(balloons[i].x, balloons[i].y, balloons[i].isGolden);
-	}
 }
 
 void resetArrow() {
@@ -584,7 +576,6 @@ void drawFeedbacks() {
 		);
 	}
 }
-
 
 void display() {
 	glClearColor(0.8, 0.8, 0.8, 0.8);
