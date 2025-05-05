@@ -84,7 +84,6 @@
 #define GOLDEN_SPAWN_CHANCE   5 // percent chance per spawn frame
 #define GOLDEN_SPEED         6.0
 #define GOLDEN_SCORE_BONUS   10
-#define GOLDEN_TIME_BONUS    5
 
 #define MAX_FEEDBACKS 20
 
