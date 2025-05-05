@@ -2,31 +2,36 @@
    CTIS164 - HOMEWORK 2 | Hit the Target Game
    OWNER: Sezer Tetik - 22303222 - Section 04
 
-   Hit the Target Game
-   - The player can control the bow with the up and down arrow keys.
-   - The player can fire the arrow with the space bar.
-   - The player can pause/resume the game with the F1 key.
-   - The player can restart the game with the F1 key.
-   - The player can exit the game with the ESC key.
-   - The player can see the score, time left, and number of popped balloons on the screen.
-   - The player can see the game over message when the time is up.
-   - The player can see the game paused message when the game is paused.
-   - The player can see the game miss message when the player misses the balloons.
-   - The player can see the game miss combo multiplier when the player misses the balloons.
-   - The player can see the game hit bonus message when the player hits the golden/balloons.
+   Hit the Target Game Features:
+   - The player can:
+		- Control the bow with the up and down arrow keys.
+		- Fire the arrow with the space bar.
+		- Pause/resume the game with the F1 key.
+		- Restart the game with the F1 key (after game over screen).
+		- Exit the game with the ESC key.
+		- See the score, time left, and number of popped balloons on the screen.
+		- See the game over message when the time is up.
+		- See the game paused message when the game is paused.
+		- See the game miss message when the player misses the balloons.
+		- See the game miss combo multiplier when the player misses the balloons.
+		- See the game hit bonus feedback when the player hits the golden/balloons.
 
    EXTRA FUNCTIONALITIES:
-   - Added a bonus and penalty system for hitting and missing balloons.
-   If a balloon is hit, the player gets a score and time bonus, and also if 
-   a golden balloon is hit, the player gets a higher score and time bonus. However,
-   the golden balloon is faster than the normal balloon. Penalty system is also
-   implemented for missing all of the balloons that generated randomly on the screen. 
-   If a balloon is missed, the player gets a score and time penalty. The player can also
-   get a combo multiplier for missing balloons. However, there is no effect of multiplier 
-   on the score and time penalty.
+   - Added golden balloon feature. The player can hit the golden balloon to get a higher score.
+   The golden ballon has spawn chance of 5% and it is faster than the normal (red) balloon.
+
+   - Added a bonus and penalty system for hitting and missing balloons. If a balloon is hit, 
+   the player gets a score with its visual feedback (+X pts), and also if a golden balloon is hit,
+   the player gets a higher score. However, the golden balloon is faster than the normal (red) 
+   balloon. Penalty system is also implemented for missing all of the balloons that generated 
+   randomly on the screen. If all the balloons on the screen is missed, the player gets a score
+   penalty. The player can also get a combo multiplier for missing balloons. If the player misses
+   consecutively, the penalty score is multiplied by the combo multiplier. The combo multiplier
+   is shown on the screen when the player misses a balloon. The combo multiplier is reset when
+   the player hits a balloon or after 2 seconds.
 
    - Added a feedback system for the player. When a balloon is hit, a floating text
-   appears on the screen, showing the gained score and time bonus. The text fades out after 2
+   appears on the screen, showing the gained score. The text fades out after 2
    seconds. The text is also colored based on the type of balloon hit (golden or normal).
 
    - Added a pause panel to the game. When the game is paused, a semi-transparent
@@ -50,25 +55,19 @@
 #include <string.h>
 #include <stdarg.h>
 #include <time.h>
-#include "Tetik_Sezer.h"
 
 #define GAME_TIME 30
 
 #define WINDOW_WIDTH  800
 #define WINDOW_HEIGHT 600
-#define TIMER_PERIOD   15     // Period for the timer
+#define TIMER_PERIOD   16     // Period for the timer
 #define PI  3.14159265358
 
 #define Y_MARGIN 35           // Height of bow
 #define HG      5.0f          // Half Gravity
 
-#define MAX_BALLOONS 5
-#define BALLOON_RADIUS  35
-#define SPAWN_ATTEMPTS  25
-
 #define ARROW_TAIL_OFFSET  -30.0f
 #define ARROW_TIP_OFFSET    70.0f
-
 #define BOW_START_X -350
 #define BOW_START_Y 35
 #define CLOUD_START_X -350
@@ -76,16 +75,18 @@
 
 #define INFO_MISS_CONTAINER_TIME 2000
 #define MISS_SCORE_PENALIZE 5
-#define MISS_TIME_PENALIZE 3
-
 #define HIT_SCORE_BONUS 3
-#define HIT_TIME_BONUS 1
 
+#define MAX_BALLOONS 5
+#define BALLOON_RADIUS  35
+#define SPAWN_ATTEMPTS  25
 #define BALLON_SPEED 3.0f
 #define GOLDEN_SPAWN_CHANCE   5 // percent chance per spawn frame
 #define GOLDEN_SPEED         6.0
 #define GOLDEN_SCORE_BONUS   10
 #define GOLDEN_TIME_BONUS    5
+
+#define MAX_FEEDBACKS 20
 
 typedef struct {
 	float x, y;
@@ -96,36 +97,36 @@ typedef struct {
 
 Balloon balloons[MAX_BALLOONS];
 
-#define MAX_FEEDBACKS 20
-
 typedef struct {
-	float x, y;     // screen position
-	float t;        // elapsed time
+	float x, y;					// screen position
+	float t;					// elapsed time
 	bool active;
 	bool isGolden;
 } Feedback;
 
 Feedback feedbacks[MAX_FEEDBACKS];
 
-static int missInfoTimeAccumulator = 0;
+int missInfoTimeAccumulator = 0;
+int timeAccumulator = 0;
+float dt = TIMER_PERIOD / 1000.0f;
 
-int  winWidth, winHeight;     // Current Window width and height
+int winWidth, winHeight;		// Current Window width and height
 
-float Cx = -350, Cy = 0;      // Coordinates of the cloud
-float Bx = -350, By = 35;	// x and y coordinate of the bow
-float c, h, k;                // Parameters of the quadratic equation
+float Cx = -350, Cy = 0;		// Coordinates of the cloud
+float Bx = -350, By = 35;		// x and y coordinate of the bow
+float c, h, k;					// Parameters of the quadratic equation
 
-int Vx = 900;                // Horizontal firing speed
+int Vx = 900;					// Horizontal firing speed
 
 bool isPaused = false;
-bool  animation = false;      // Flag to show if the bow is fired
-bool  gameover = false;       // Flag for game status
+bool animation = false;		    // Flag to show if the bow is fired
+bool gameover = false;			// Flag for game status
 
 int remainingTime = GAME_TIME;
 int poppedBalloons = 0;
 int poppedGoldenBalloons = 0;
 
-bool ballonHit = false; // Flag to show if a balloon is hit
+bool ballonHit = false;			// Flag to show if a balloon is hit
 int score = 0;
 bool showMissInfo = false;
 
@@ -199,7 +200,6 @@ void addFeedback(float x, float y, bool isGolden) {
 
 void giveGoldenBonus() {
 	score += GOLDEN_SCORE_BONUS;
-	remainingTime += GOLDEN_TIME_BONUS;
 	glutPostRedisplay();
 }
 
@@ -383,7 +383,6 @@ void resetScore() {
 	showMissInfo = false;
 }
 
-
 void restartGame() {
 	resetArrow();
 	resetBow();
@@ -403,10 +402,6 @@ void drawCloud(int x, int y) {
 
 void drawBackground() {
 	drawGradient(-400, 300, 800, 600, 0.4, 0.4, 0.9); // Sky
-
-	// My name
-	glColor3f(1, 1, 1);
-	print(-100, 275, "Sezer Tetik", GLUT_BITMAP_TIMES_ROMAN_24);
 }
 
 void drawTopPanel() {
@@ -438,7 +433,7 @@ void drawBottomPanel() {
 	if (gameover)
 		print(-380, -295, "Press F1 to restart the game", GLUT_BITMAP_8_BY_13);
 	else
-		print(-380, -295, "SpaceBar: Fire        Up/Down: Bow Location        F1: Pause/Resume", GLUT_BITMAP_8_BY_13);
+		print(-380, -295, "SpaceBar: Fire        Up/Down Arrow: Move Bow        F1: Pause/Resume", GLUT_BITMAP_8_BY_13);
 }
 
 void drawPanels() {
@@ -468,7 +463,7 @@ void drawBow(int y) {
 	const float radius = 40.0f;
 	const int   segments = 50; // for smoothnes
 
-	// 1) The bow limb
+	// The bow limb
 	glColor3f(0.55f, 0.27f, 0.07f);  // dark brown
 	glLineWidth(4.0f);
 	glBegin(GL_LINE_STRIP);
@@ -480,7 +475,7 @@ void drawBow(int y) {
 	}
 	glEnd();
 
-	// 2) Bowstring
+	// Bowstring
 	glColor3f(0.8f, 0.8f, 0.8f);     // light gray
 	glLineWidth(2.0f);
 	glBegin(GL_LINES);
@@ -545,22 +540,19 @@ float fx(float x) {
 
 void penalizeMiss() {
 	missInfoTimeAccumulator = 0;
-	if (showMissInfo) {
+	if (showMissInfo)
 		missComboCount++;
-	}
 	else {
 		showMissInfo = true;
 		missComboCount = 1;
 	}
 
-	score -= MISS_SCORE_PENALIZE;
-	remainingTime -= MISS_TIME_PENALIZE;
+	score -= MISS_SCORE_PENALIZE * missComboCount;
 	glutPostRedisplay();
 }
 
 void giveHitBonus() {
 	score += HIT_SCORE_BONUS;
-	remainingTime += HIT_TIME_BONUS;
 	glutPostRedisplay();
 }
 
@@ -571,14 +563,13 @@ void drawMissInfoPanel() {
 	vprint(-380, -270, GLUT_BITMAP_TIMES_ROMAN_24,
 		"You missed the balloons!");
 	vprint(-100, -267, GLUT_BITMAP_9_BY_15,
-		"Penalized %d score, %d sec!", MISS_SCORE_PENALIZE, MISS_TIME_PENALIZE);
+		"Penalized %d score", MISS_SCORE_PENALIZE * missComboCount);
 
 	if (missComboCount > 1) {
 		// Draw combo multiplier to the right of the penalty text
 		vprint(300, -267, GLUT_BITMAP_9_BY_15, "(x%d)", missComboCount);
 	}
 }
-
 
 void drawFeedbacks() {
 	for (int i = 0; i < MAX_FEEDBACKS; ++i) {
@@ -593,21 +584,12 @@ void drawFeedbacks() {
 		else
 			glColor4f(0.0f, 1.0f, 0.0f, alpha);
 
-		// choose bonuses based on type
-		int timeBonus = feedbacks[i].isGolden ? GOLDEN_TIME_BONUS : HIT_TIME_BONUS;
 		int scoreBonus = feedbacks[i].isGolden ? GOLDEN_SCORE_BONUS : HIT_SCORE_BONUS;
 
 		if (feedbacks[i].x + 550 >= WINDOW_WIDTH)
 			feedbacks[i].x = WINDOW_WIDTH - 550;
 
-		// draw floating texts
-		vprint(
-			(int)feedbacks[i].x,
-			(int)(feedbacks[i].y + 2 * rise),
-			GLUT_BITMAP_HELVETICA_18,
-			"+%d sec", timeBonus
-		);
-
+		// draw floating text
 		vprint(
 			(int)feedbacks[i].x + 60,
 			(int)(feedbacks[i].y + 2 * rise + 18),
@@ -639,7 +621,7 @@ void display() {
 		drawTransparentContainer();
 		glColor3f(1.0f, 0.85f, 0.4f);
 		vprint(-60, 25, GLUT_BITMAP_TIMES_ROMAN_24, "TIME IS UP!!");
-		vprint(-110, 0, GLUT_BITMAP_9_BY_15, "You have scored %d points!", score);
+		vprint(-100, 0, GLUT_BITMAP_9_BY_15, "You have scored %d points!", score);
 	}
 
 	glutSwapBuffers();
@@ -687,6 +669,7 @@ void onSpecialKeyDown(int key, int x, int y) {
 void updateFeedbacks(float dt) {
 	for (int i = 0; i < MAX_FEEDBACKS; ++i) {
 		if (!feedbacks[i].active) continue;
+
 		feedbacks[i].t += dt;
 		if (feedbacks[i].t >= 1.0f)
 			feedbacks[i].active = false;
@@ -695,19 +678,16 @@ void updateFeedbacks(float dt) {
 
 void onTimer(int v) {
 	glutTimerFunc(TIMER_PERIOD, onTimer, 0);
-	float dt = TIMER_PERIOD / 1000.0f;
 
-	static int timeAccumulator = 0;
 	if (!gameover && !isPaused) {
 		timeAccumulator += TIMER_PERIOD;
 
 		if (timeAccumulator >= 1000) {
 			remainingTime--;
 			timeAccumulator = 0;
+			if (remainingTime <= 0)
+				gameover = true;
 		}
-
-		if (remainingTime <= 0)
-			gameover = true;
 
 		if (showMissInfo && !ballonHit) {
 			missInfoTimeAccumulator += TIMER_PERIOD;
@@ -736,9 +716,9 @@ void onTimer(int v) {
 		updateBalloons();
 	}
 
-	if (!gameover && !isPaused) {
+	if (!gameover && !isPaused)
 		updateFeedbacks(dt);
-	}
+
 	glutPostRedisplay();
 }
 
