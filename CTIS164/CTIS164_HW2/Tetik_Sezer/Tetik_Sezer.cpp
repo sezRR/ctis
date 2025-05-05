@@ -107,7 +107,6 @@ typedef struct {
 Feedback feedbacks[MAX_FEEDBACKS];
 
 int missInfoTimeAccumulator = 0;
-int timeAccumulator = 0;
 float dt = TIMER_PERIOD / 1000.0f;
 
 int winWidth, winHeight;		// Current Window width and height
@@ -122,7 +121,7 @@ bool isPaused = false;
 bool animation = false;		    // Flag to show if the bow is fired
 bool gameover = false;			// Flag for game status
 
-int remainingTime = GAME_TIME;
+double remainingTime = GAME_TIME;
 int poppedBalloons = 0;
 int poppedGoldenBalloons = 0;
 
@@ -419,7 +418,7 @@ void drawTopPanel() {
 	if (remainingTime < 0)
 		remainingTime = 0;
 
-	vprint(210, topY, GLUT_BITMAP_9_BY_15, "Time Left: %d sec", remainingTime);
+	vprint(210, topY, GLUT_BITMAP_9_BY_15, "Time Left: %.2f sec", remainingTime);
 
 	glColor3f(0, 0, 0);
 	vprint(-380, topY - 50, GLUT_BITMAP_9_BY_15, "SEZER TETIK");
@@ -680,14 +679,9 @@ void onTimer(int v) {
 	glutTimerFunc(TIMER_PERIOD, onTimer, 0);
 
 	if (!gameover && !isPaused) {
-		timeAccumulator += TIMER_PERIOD;
-
-		if (timeAccumulator >= 1000) {
-			remainingTime--;
-			timeAccumulator = 0;
-			if (remainingTime <= 0)
-				gameover = true;
-		}
+		remainingTime -= dt;
+		if (remainingTime <= 0)
+			gameover = true;
 
 		if (showMissInfo && !ballonHit) {
 			missInfoTimeAccumulator += TIMER_PERIOD;
@@ -702,7 +696,7 @@ void onTimer(int v) {
 
 		if (animation) {
 			// move arrow:
-			Bx += Vx * TIMER_PERIOD / 1000.0;
+			Bx += Vx * dt;
 			By = fx(Bx);
 
 			checkBalloonHits();
