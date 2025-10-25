@@ -20,10 +20,10 @@
    - Added golden balloon feature. The player can hit the golden balloon to get a higher score.
    The golden ballon has spawn chance of 5% and it is faster than the normal (red) balloon.
 
-   - Added a bonus and penalty system for hitting and missing balloons. If a balloon is hit, 
+   - Added a bonus and penalty system for hitting and missing balloons. If a balloon is hit,
    the player gets a score with its visual feedback (+X pts), and also if a golden balloon is hit,
-   the player gets a higher score. However, the golden balloon is faster than the normal (red) 
-   balloon. Penalty system is also implemented for missing all of the balloons that generated 
+   the player gets a higher score. However, the golden balloon is faster than the normal (red)
+   balloon. Penalty system is also implemented for missing all of the balloons that generated
    randomly on the screen. If all the balloons on the screen is missed, the player gets a score
    penalty. The player can also get a combo multiplier for missing balloons. If the player misses
    consecutively, the penalty score is multiplied by the combo multiplier. The combo multiplier
