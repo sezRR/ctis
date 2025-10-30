@@ -34,9 +34,6 @@ $favorites = explode(",", $favorites);
                 </tr>
             </thead>
             <tbody>
-                <?php
-                $implodedFavorites = implode(",", $favorites);
-                ?>
                 <?php foreach ($people as $id => $attr): ?>
                     <?php
                     $qs = http_build_query([
