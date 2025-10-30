@@ -1,0 +1,54 @@
+body {
+    font-family: arial;
+}
+/* Question #1 */
+.selected {
+    background: #ddd;
+}
+a {
+    text-decoration: none;
+}
+.emoji {
+    font-size: 2em;
+}
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+td,
+th {
+    padding: 5px;
+    border: 1px solid #aaa;
+}
+div#fav {
+    font-size: 3em;
+    margin-bottom: 15px;
+}
+div#fav span {
+    vertical-align: middle;
+    margin: 10px;
+    font-size: 16px;
+}
+
+/* Shared by Q1 and Q2 */
+a.btn,
+button {
+    padding: 6px 12px;
+    border: 1px solid #2e6da4;
+    background: #337ab7;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+    width: max-content;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 480px;
+}
