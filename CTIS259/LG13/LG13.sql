@@ -1,0 +1,53 @@
+CREATE TABLE my_employee
+  (id  NUMBER(4) CONSTRAINT my_employee_id_pk PRIMARY Key,
+   last_name VARCHAR2(25),
+   first_name VARCHAR2(25),
+   userid  VARCHAR2(8),
+   salary  NUMBER(9,2));
+
+DESC MY_EMPLOYEE;
+
+INSERT INTO MY_EMPLOYEE (?, ?, ?, ?, ?) VALUES (1, 'Patel', 'Ralph', 'rpatel', 895);
+
+INSERT INTO MY_EMPLOYEE (ID, LAST_NAME, FIRST_NAME, USERID, SALARY) VALUES (2, 'Dancs', 'Betty', 'bdancs', 860);
+
+SELECT * FROM MY_EMPLOYEE;
+
+INSERT INTO MY_EMPLOYEE VALUES (&pid, '&plastname', '&pfirstname', '&puserid', &psal);
+
+INSERT INTO MY_EMPLOYEE (ID, LAST_NAME, FIRST_NAME, USERID, SALARY) VALUES (3, 'Biri', 'Ben', 'bbiri', 1100);
+INSERT INTO MY_EMPLOYEE (ID, LAST_NAME, FIRST_NAME, USERID, SALARY) VALUES (4, 'Newman', 'Chad', 'cnewman', 750);
+
+COMMIT;
+
+UPDATE MY_EMPLOYEE
+SET LAST_NAME = 'Drexler'
+WHERE ID = 3;
+
+UPDATE MY_EMPLOYEE
+SET SALARY = 1000
+WHERE SALARY < 900;
+
+SELECT * FROM MY_EMPLOYEE;
+
+DELETE MY_EMPLOYEE
+WHERE LAST_NAME = 'Dancs';
+
+COMMIT;
+
+SAVEPOINT HOROZ_18;
+
+DELETE MY_EMPLOYEE;
+
+SELECT * FROM MY_EMPLOYEE;
+
+ROLLBACK HOROZ_18;
+
+SELECT * FROM MY_EMPLOYEE;
+
+COMMIT;
+
+UNDEFINE plastname, pfirstname;
+INSERT INTO MY_EMPLOYEE VALUES (&pid, '&&plastname', '&&pfirstname', LOWER(SUBSTR('&pfirstname', 1, 1) || SUBSTR('&plastname', 1, 7)), &psal);
+
+COMMIT;

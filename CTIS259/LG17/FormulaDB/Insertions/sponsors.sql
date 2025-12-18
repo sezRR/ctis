@@ -1,0 +1,24 @@
+INSERT INTO sponsors VALUES (
+	'VESTEL',
+	'T5',
+	500000.250);
+INSERT INTO sponsors VALUES (
+	'VESTEL',
+	'T3',
+	650000.000);
+INSERT INTO sponsors VALUES (
+	'PO',
+	'T1',
+	475000.300);
+INSERT INTO sponsors VALUES (
+	'OYAK',
+	'T2',
+	640000.750);
+INSERT INTO sponsors VALUES (
+	'PO',
+	'T5',
+	800000.000);
+INSERT INTO sponsors VALUES (
+	'PO',
+	'T3',
+	630000.500);
