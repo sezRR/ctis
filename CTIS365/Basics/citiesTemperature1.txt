@@ -1,0 +1,60 @@
+"Alameda" 39.9
+"Alhambra" 42.3
+"Anaheim" 39.4
+"Antioch" 41.1
+"Arcadia" 39.4
+"Bakersfield" 37.9
+"Barstow" 39.8
+"Belmont" 40.9
+"Berkeley" 39.3
+"Beverly Hills" 41.9
+"Brea" 40.8
+"Buena Park" 39.6
+"Burbank" 39.3
+"Calexico" 40.6
+"Calistoga" 38.4
+"Carlsbad" 40.7
+"Carmel" 40.9
+"Chico" 40.6
+"Chula Vista" 41.5
+"Claremont" 42.8
+"Compton" 41.8
+"Concord" 41.1
+"Corona" 39.8
+"Coronado" 40.2
+"Costa Mesa" 40.4
+"Culver City" 41.6
+"Daly City" 41.8
+"Davis" 40.9
+"Downey" 38.8
+"El Centro" 41.7
+"El Cerrito" 41
+"El Monte" 40.6
+"Escondido" 41.7
+"Eureka" 41.5
+"Fairfield" 42.1
+"Fontana" 41.3
+"Fremont" 41
+"Fresno" 44
+"Fullerton" 41.4
+"Garden Grove" 42.7
+"Glendale" 43.1
+"Hayward" 44.6
+"Hollywood" 42
+"Huntington Beach" 42
+"Indio" 40.9
+"Inglewood" 42.6
+"Irvine" 40.2
+"La Habra" 42.6
+"Laguna Beach" 41.6
+"Lancaster" 41.9
+"Livermore" 40.5
+"Lodi" 40.9
+"Lompoc" 41.7
+"Long Beach" 41.4
+"Los Angeles" 41.7
+"Malibu" 40.8
+"Martinez" 41.9
+"Marysville" 41.8
+"Menlo Park" 41.9
+"Merced" 44.6
