@@ -1,0 +1,61 @@
+"cities" "temperature"
+"1" "Alameda" 39.9
+"2" "Alhambra" 42.3
+"3" "Anaheim" 39.4
+"4" "Antioch" 41.1
+"5" "Arcadia" 39.4
+"6" "Bakersfield" 37.9
+"7" "Barstow" 39.8
+"8" "Belmont" 40.9
+"9" "Berkeley" 39.3
+"10" "Beverly Hills" 41.9
+"11" "Brea" 40.8
+"12" "Buena Park" 39.6
+"13" "Burbank" 39.3
+"14" "Calexico" 40.6
+"15" "Calistoga" 38.4
+"16" "Carlsbad" 40.7
+"17" "Carmel" 40.9
+"18" "Chico" 40.6
+"19" "Chula Vista" 41.5
+"20" "Claremont" 42.8
+"21" "Compton" 41.8
+"22" "Concord" 41.1
+"23" "Corona" 39.8
+"24" "Coronado" 40.2
+"25" "Costa Mesa" 40.4
+"26" "Culver City" 41.6
+"27" "Daly City" 41.8
+"28" "Davis" 40.9
+"29" "Downey" 38.8
+"30" "El Centro" 41.7
+"31" "El Cerrito" 41
+"32" "El Monte" 40.6
+"33" "Escondido" 41.7
+"34" "Eureka" 41.5
+"35" "Fairfield" 42.1
+"36" "Fontana" 41.3
+"37" "Fremont" 41
+"38" "Fresno" 44
+"39" "Fullerton" 41.4
+"40" "Garden Grove" 42.7
+"41" "Glendale" 43.1
+"42" "Hayward" 44.6
+"43" "Hollywood" 42
+"44" "Huntington Beach" 42
+"45" "Indio" 40.9
+"46" "Inglewood" 42.6
+"47" "Irvine" 40.2
+"48" "La Habra" 42.6
+"49" "Laguna Beach" 41.6
+"50" "Lancaster" 41.9
+"51" "Livermore" 40.5
+"52" "Lodi" 40.9
+"53" "Lompoc" 41.7
+"54" "Long Beach" 41.4
+"55" "Los Angeles" 41.7
+"56" "Malibu" 40.8
+"57" "Martinez" 41.9
+"58" "Marysville" 41.8
+"59" "Menlo Park" 41.9
+"60" "Merced" 43
