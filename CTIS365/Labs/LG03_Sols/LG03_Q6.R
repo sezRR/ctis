@@ -13,4 +13,5 @@ plot(
   ylab = "Miles Per Gallon",
   xlab = "Car Weight",
   main = "Scatterplot Example",
-  pch = 1)
+  pch = 19)
+
